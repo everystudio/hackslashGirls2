@@ -82,13 +82,17 @@ public class UIController : MonoBehaviour
         initialized = true;
     }
 
-
-    public GameObject AddPanel(string strName, LAYER layer)
+    public GameObject AddPanel(string strName, Transform root)
     {
         GameObject prefab = Resources.Load(strName) as GameObject;
+        if (prefab == null)
+        {
+            Debug.LogError("Not found prefab:" + strName);
+            return null;
+        }
         prefab.SetActive(true);
 
-        GameObject addPanel = Instantiate(prefab, layerRectTransforms[(int)layer]);
+        GameObject addPanel = Instantiate(prefab, root);
 
         if (addPanel.GetComponent<CanvasGroup>() == null)
         {
@@ -115,6 +119,12 @@ public class UIController : MonoBehaviour
         return addPanel;
     }
 
+
+    public GameObject AddPanel(string strName, LAYER layer)
+    {
+        return AddPanel(strName, layerRectTransforms[(int)layer]);
+    }
+
     public GameObject AddPanel(string strName)
     {
         return AddPanel(strName, LAYER.MAIN_CONTENTS);
@@ -128,6 +138,10 @@ public class UIController : MonoBehaviour
             if (kvs.Value == panelGameObject)
             {
                 removePanelName = kvs.Key;
+                if (kvs.Value.TryGetComponent(out UIPanel uiPanel))
+                {
+                    uiPanel?.Shutdown();
+                }
                 Destroy(kvs.Value);
                 break;
             }
@@ -142,6 +156,10 @@ public class UIController : MonoBehaviour
     {
         foreach (var kvs in _panelDictionary)
         {
+            if (kvs.Value.TryGetComponent(out UIPanel uiPanel))
+            {
+                uiPanel?.Shutdown();
+            }
             Destroy(kvs.Value);
         }
         _panelDictionary.Clear();

@@ -10,4 +10,11 @@ public class UIPanel : MonoBehaviour
     }
 
     protected virtual void initialize() { }
+
+    public void Shutdown()
+    {
+        shutdown();
+    }
+
+    protected virtual void shutdown() { }
 }
