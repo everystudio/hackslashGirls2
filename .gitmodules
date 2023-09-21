@@ -1,0 +1,3 @@
+[submodule "Assets/anogamelib"]
+	path = Assets/anogamelib
+	url = git@github.com:everystudio/anogamelib.git
