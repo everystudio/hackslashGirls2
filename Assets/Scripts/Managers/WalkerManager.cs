@@ -50,7 +50,7 @@ public class WalkerManager : StateMachineBase<WalkerManager>
 
         public override void OnEnterState()
         {
-            Debug.Log("Walking");
+            //Debug.Log("Walking");
             foreach (var walker in machine.walkers)
             {
                 walker.OnArrived.RemoveAllListeners();
