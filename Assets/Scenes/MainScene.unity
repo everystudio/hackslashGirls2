@@ -372,6 +372,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416492bfe88a0a64689b19a92e3d06a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &67477238
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,8 +565,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 151254284}
   - {fileID: 1376204667}
+  - {fileID: 151254284}
   m_Father: {fileID: 605418998}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1531,7 +1534,7 @@ RectTransform:
   - {fileID: 945917252}
   - {fileID: 1218130025}
   m_Father: {fileID: 77250634}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -5823,6 +5826,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416492bfe88a0a64689b19a92e3d06a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &605418997
 GameObject:
   m_ObjectHideFlags: 0
@@ -13790,7 +13796,7 @@ RectTransform:
   - {fileID: 610887028}
   - {fileID: 1425910937}
   m_Father: {fileID: 77250634}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14828,39 +14834,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460103418}
   m_CullTransparentMesh: 1
---- !u!1 &1463369249
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1463369250}
-  m_Layer: 0
-  m_Name: Managers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1463369250
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1463369249}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1606678373}
-  - {fileID: 1818811333}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1472829534
 GameObject:
   m_ObjectHideFlags: 3
@@ -15561,6 +15534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d5da3fb992bef4a854fb7340596c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questView: {fileID: 0}
+  collectView: {fileID: 0}
 --- !u!1 &1519726217
 GameObject:
   m_ObjectHideFlags: 0
@@ -16775,13 +16750,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606678372}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1463369250}
-  m_RootOrder: 0
+  m_Father: {fileID: 1752572216}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1606678374
 MonoBehaviour:
@@ -18104,8 +18079,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1515180236}
+  - {fileID: 1606678373}
+  - {fileID: 1818811333}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1753958345
 GameObject:
@@ -18939,13 +18916,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818811332}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1463369250}
-  m_RootOrder: 1
+  m_Father: {fileID: 1752572216}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1818811334
 MonoBehaviour:

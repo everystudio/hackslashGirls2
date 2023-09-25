@@ -9,6 +9,9 @@ public class GameManager : Singleton<GameManager>
     private string currentFooterButton = "Main";
     private GameObject currentPanel;
 
+    [SerializeField] private UIClickHandle questView;
+    [SerializeField] private UIClickHandle collectView;
+
     public override void Initialize()
     {
         base.Initialize();
