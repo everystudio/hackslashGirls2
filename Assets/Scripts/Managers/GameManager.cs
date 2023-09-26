@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using anogame;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : SingletonStateMachineBase<GameManager>
 {
     private string currentFooterButton = "Main";
     private GameObject currentPanel;
@@ -16,6 +16,8 @@ public class GameManager : Singleton<GameManager>
     {
         base.Initialize();
         FooterButtons.OnFooterButtonEvent.AddListener(OnFooterButtonEvent);
+
+        ChangeState(new GameManager.Idle(this));
     }
 
     private void OnFooterButtonEvent(string arg0)
@@ -30,5 +32,58 @@ public class GameManager : Singleton<GameManager>
             UIController.Instance.RemovePanel(currentPanel);
         }
         currentPanel = UIController.Instance.AddPanel("Panel" + arg0 + "Top");
+    }
+
+    private class Idle : StateBase<GameManager>
+    {
+        public Idle(GameManager machine) : base(machine)
+        {
+        }
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+
+            machine.questView.OnClicked.AddListener(() =>
+            {
+                machine.ChangeState(new GameManager.Quest(machine));
+            });
+            machine.collectView.OnClicked.AddListener(() =>
+            {
+                machine.ChangeState(new GameManager.Collect(machine));
+            });
+        }
+        public override void OnExitState()
+        {
+            base.OnExitState();
+            machine.questView.OnClicked.RemoveAllListeners();
+            machine.collectView.OnClicked.RemoveAllListeners();
+        }
+    }
+
+    private class Quest : StateBase<GameManager>
+    {
+        public PanelMainContent panelMainContent;
+        public Quest(GameManager machine) : base(machine)
+        {
+        }
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+            panelMainContent = UIController.Instance.AddPanel("PanelMainContent").GetComponent<PanelMainContent>();
+            panelMainContent.BuildQuest();
+        }
+
+        public override void OnExitState()
+        {
+            base.OnExitState();
+            UIController.Instance.RemovePanel(panelMainContent.gameObject);
+        }
+    }
+
+    private class Collect : StateBase<GameManager>
+    {
+        public Collect(GameManager machine) : base(machine)
+        {
+        }
     }
 }
