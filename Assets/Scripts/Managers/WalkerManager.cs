@@ -6,16 +6,39 @@ using anogame;
 
 public class WalkerManager : StateMachineBase<WalkerManager>
 {
-    public CharacterBase testingChara;
+    [SerializeField] private bool isQuest;
     private List<CharacterBase> walkers = new List<CharacterBase>();
 
     [SerializeField] private FadeScreenImage fadeScreenImage;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private GameObject walkerPrefab;
 
     private void Start()
     {
         fadeScreenImage.Black();
-        walkers.Add(testingChara);
 
+        List<UserChara> partyList = null;
+        if (isQuest)
+        {
+            partyList = ModelManager.Instance.userChara.List.FindAll(x => x.questPartyId > 0);
+        }
+        else
+        {
+            partyList = ModelManager.Instance.userChara.List.FindAll(x => x.collectPartyId > 0);
+        }
+
+
+        foreach (var userChara in partyList)
+        {
+            var walker = Instantiate(walkerPrefab, spawnPoint).GetComponent<CharacterBase>();
+            walker.SetChara(userChara);
+            // walkder.transform以下のLayerをspawnPointと同じにする
+            foreach (Transform t in walker.transform)
+            {
+                t.gameObject.layer = spawnPoint.gameObject.layer;
+            }
+            walkers.Add(walker);
+        }
         ChangeState(new WalkerManager.FadeIn(this));
     }
 
@@ -27,10 +50,12 @@ public class WalkerManager : StateMachineBase<WalkerManager>
         public override void OnEnterState()
         {
             base.OnEnterState();
+            int index = 0;
             foreach (var walker in machine.walkers)
             {
-                walker.transform.localPosition = new Vector3(-6f, walker.transform.localPosition.y, walker.transform.localPosition.z);
-                walker.WalkStart();
+                walker.transform.position = machine.spawnPoint.position;
+                walker.WalkStart(walker.userChara.partyIndex * 0.5f + 0.5f);
+                index += 1;
             }
 
             machine.fadeScreenImage.FadeIn(() =>

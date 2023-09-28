@@ -8,7 +8,7 @@ using anogame;
 public class CharacterBase : StateMachineBase<CharacterBase>
 {
     private bool isDead = false;
-    private const float EDGE_X = 6f;
+    private const float EDGE_X = 13f;
     [SerializeField] private float speed = 2.5f;
     public UnityEvent OnArrived = new UnityEvent();
 
@@ -17,16 +17,42 @@ public class CharacterBase : StateMachineBase<CharacterBase>
     [SerializeField] private CharacterAsset characterAsset;
     [SerializeField] private OverrideSprite overrideSprite;
 
+    public UserChara userChara;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
+    }
+
+    public void SetChara(UserChara userChara)
+    {
+        this.userChara = userChara;
+        characterAsset = ModelManager.Instance.GetCharacterAsset(userChara.id);
         overrideSprite.OverrideTexture = characterAsset.miniTexture;
     }
 
-    public void WalkStart()
+    public void WalkStart(float delay)
     {
-        ChangeState(new CharacterBase.Walking(this));
+        ChangeState(new CharacterBase.WalkDelay(this, delay));
     }
+    private class WalkDelay : StateBase<CharacterBase>
+    {
+        private float delay;
+        public WalkDelay(CharacterBase machine, float delay) : base(machine)
+        {
+            this.delay = delay;
+        }
+        public override void OnUpdateState()
+        {
+            delay -= Time.deltaTime;
+            if (delay <= 0f)
+            {
+                ChangeState(new CharacterBase.Walking(machine));
+            }
+        }
+
+    }
+
 
     private class Walking : StateBase<CharacterBase>
     {
