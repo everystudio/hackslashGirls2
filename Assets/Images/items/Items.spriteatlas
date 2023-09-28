@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Items
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 3a96ff00ba827b849b5870f4c33f0398, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 3fc4fd1095dfa2b49b1e93a3ba813443, type: 3}
+  - {fileID: 21300000, guid: d40af72057d4d3e4fad8f3cb642548c3, type: 3}
+  - {fileID: 21300000, guid: 544d83603bd40d34e95c943e0d55a83f, type: 3}
+  - {fileID: 21300000, guid: b12e1ba0a31e3f744b45b0323bc3b50a, type: 3}
+  - {fileID: 21300000, guid: 13d1fef0e625c4c4b9a606ca3c4f4976, type: 3}
+  - {fileID: 21300000, guid: 8b56ae21a9e89a74188e64d9e68c20ad, type: 3}
+  - {fileID: 21300000, guid: 4d8c4961ba512704fa2bf045f2a33102, type: 3}
+  - {fileID: 21300000, guid: 3cc72271ea9e72145b8c0906ff345203, type: 3}
+  - {fileID: 21300000, guid: 332930915acb8b34ca1f91f0b20c35da, type: 3}
+  - {fileID: 21300000, guid: 67ce4ea17235ed348bdb9bf41d7579ef, type: 3}
+  - {fileID: 21300000, guid: 7cd00cc1d5f81ee4c813ca5d1747f4f1, type: 3}
+  - {fileID: 21300000, guid: 9415c332c0f27e7419bc01236b728d11, type: 3}
+  - {fileID: 21300000, guid: e42c9d92be87d33478e4af83ec73b469, type: 3}
+  - {fileID: 21300000, guid: 278bb5d274a594c49a16922299c549dc, type: 3}
+  - {fileID: 21300000, guid: 93e9d3e28aa90744eae774ba5973bc6f, type: 3}
+  - {fileID: 21300000, guid: ab667543ceb057d49a74e86d58bc3f91, type: 3}
+  - {fileID: 21300000, guid: c97136930551b7c4abaf88c548837318, type: 3}
+  - {fileID: 21300000, guid: 3261e79354c28cd49bee5f0d46c7deb8, type: 3}
+  - {fileID: 21300000, guid: a4690cf3ae35665499c11548f63f9214, type: 3}
+  - {fileID: 21300000, guid: 9fdc2f1482b1ac04f940b36c4d944d9d, type: 3}
+  - {fileID: 21300000, guid: 5153d744d33751249914f070ee5ea236, type: 3}
+  - {fileID: 21300000, guid: a82d1f543abb0da4c978ee70e1b2e567, type: 3}
+  - {fileID: 21300000, guid: fb93e764789a5874daa2efaa7bb50fb5, type: 3}
+  - {fileID: 21300000, guid: 660ba8a4feb9c1f40afe09a883f5b952, type: 3}
+  - {fileID: 21300000, guid: 2b187da436af71446b1704bb8de595a2, type: 3}
+  - {fileID: 21300000, guid: e645e835b00994c4c93a1f45f9c12d0b, type: 3}
+  - {fileID: 21300000, guid: 49f3b0a566f770c49b12e8947248b1cc, type: 3}
+  - {fileID: 21300000, guid: a421b8c56ee1c0e4b88df166384a3553, type: 3}
+  - {fileID: 21300000, guid: f3d6c1e5cb6d09c4fbbfebd47a36c9b8, type: 3}
+  - {fileID: 21300000, guid: c1515316b93a229489f933c4c6a9196f, type: 3}
+  - {fileID: 21300000, guid: fc2fbf568ff2a704cafb1a6335c4708f, type: 3}
+  - {fileID: 21300000, guid: 8a59ec6618ba9574582ea44f9316fbc1, type: 3}
+  - {fileID: 21300000, guid: 834ec9074eddb8c47b9c1456b9c59397, type: 3}
+  - {fileID: 21300000, guid: b72c4e874085fd7438bfb0e7b99eee38, type: 3}
+  - {fileID: 21300000, guid: 62ea93089058d084e8ed043d3687d590, type: 3}
+  - {fileID: 21300000, guid: bb48ed1892c17534193f012e7350a0a5, type: 3}
+  - {fileID: 21300000, guid: 37cd392859de9324a9b3de5194b55da3, type: 3}
+  - {fileID: 21300000, guid: 8badf838c69add641aa319beef0537d8, type: 3}
+  - {fileID: 21300000, guid: c2ceb8580a3ca0e4fac20e456fc693bc, type: 3}
+  - {fileID: 21300000, guid: 31d0d868f13b9eb4dab67fc22afe8187, type: 3}
+  - {fileID: 21300000, guid: 9619277808f8f394a8f5c5f874460ab1, type: 3}
+  - {fileID: 21300000, guid: cb22a3a812d4b774fbdceb565e180f4a, type: 3}
+  - {fileID: 21300000, guid: 6b5fd8b840f58dc498f4cdb90536c57e, type: 3}
+  - {fileID: 21300000, guid: 857cda597f394234fa918b15ec24c5b6, type: 3}
+  - {fileID: 21300000, guid: 61977e59a1ab3ad42a969bd4b2d49cef, type: 3}
+  - {fileID: 21300000, guid: 2bb0af2aec718174fb7906c958684b1b, type: 3}
+  - {fileID: 21300000, guid: 4b41aa6ae2ef2f24a94069c4e3827c2b, type: 3}
+  - {fileID: 21300000, guid: 21d8ae6aadeabb54680224ec63daa92b, type: 3}
+  - {fileID: 21300000, guid: 83bb369ab62e3694f943574ac835ce54, type: 3}
+  - {fileID: 21300000, guid: d15709aad43834c42acaab79ae358125, type: 3}
+  - {fileID: 21300000, guid: d4aef51bc861fcb4b8b623b02d2ea9f7, type: 3}
+  - {fileID: 21300000, guid: 435b3a9b70ae01a46aa64cf13a0f40ec, type: 3}
+  - {fileID: 21300000, guid: 7b9381db3bdc5ea40b6c91309a9ff916, type: 3}
+  - {fileID: 21300000, guid: 200d723c39fd1ad40a6ae1af223d3df6, type: 3}
+  - {fileID: 21300000, guid: 05305ccc71334894d9a13cc3672e25f4, type: 3}
+  - {fileID: 21300000, guid: 2d67b77d02d7ac34ca692fcda77e801f, type: 3}
+  - {fileID: 21300000, guid: 872fe9dda13644e4ea25cd6bcce5a2da, type: 3}
+  - {fileID: 21300000, guid: e3b80a3e67d02704b9a6003700719092, type: 3}
+  - {fileID: 21300000, guid: 5fd8ba4eaf264444ea27c958c0dc2bb6, type: 3}
+  - {fileID: 21300000, guid: f268a58e94ea7f94f8f7d63de4b3053a, type: 3}
+  - {fileID: 21300000, guid: acf3fa9e3f7d42e4e8a1e65c2722fa96, type: 3}
+  - {fileID: 21300000, guid: 595f49aecc34d724fac88be967b95146, type: 3}
+  - {fileID: 21300000, guid: 7958e9dede470434288be548d5b0c854, type: 3}
+  - {fileID: 21300000, guid: fe79931f5fa596140853e568c66dc02b, type: 3}
+  - {fileID: 21300000, guid: 54bd038f1c8c41b4788a08bbe11bef00, type: 3}
+  - {fileID: 21300000, guid: 09d5d98f517978f4faebeb6240517ee5, type: 3}
+  - {fileID: 21300000, guid: cac2b6bf2b555c941b43d50afecb8d93, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - addons_08_t
+  - gm_t_11
+  - in_t_01
+  - g_42
+  - f_27
+  - 109_t
+  - bag_04_t
+  - feather_t_03
+  - artifact_08_t
+  - addons_09_t
+  - 175_t
+  - 155_t
+  - staff_08_t
+  - addons_13_t
+  - t_06_a
+  - orb_05_t
+  - wgg_01_t
+  - ember_t_01
+  - in_t_07
+  - orb_02_t
+  - b_29
+  - g_38
+  - am_t_03
+  - BlueLootBox_52_t
+  - g_40
+  - hb_t_15
+  - 125_t
+  - cs_t_06
+  - BlueLootBox_18_t
+  - rune_04_t
+  - artifact_06_t
+  - cs_t_05
+  - shard_t_01
+  - book_10_t
+  - engeniring_04_t
+  - b_24
+  - f_07
+  - leather_strip_t
+  - staff_12_t
+  - pt_t_17
+  - h_28_t
+  - artifact_04_t
+  - 160_t
+  - runestone_t_02
+  - 56
+  - 173_t
+  - scroll_t_01
+  - cs_t_03
+  - f_28
+  - engeniring_50_t
+  - feather_t_05
+  - BlueLootBox_101_t
+  - bg_t_01
+  - 167_t
+  - BlueLootBox_46_t
+  - pt_t_13
+  - artifact_02_t
+  - 130_t
+  - wd_t_06
+  - staff_06_t
+  - feather_t_06
+  - vng_01_t
+  - pt_t_11
+  - h_36_t
+  - book_13_t
+  - BlueLootBox_15_t
+  - book_15_t
+  m_RenderDataMap: {}
+  m_Tag: Items
+  m_IsVariant: 0
