@@ -18,22 +18,28 @@ public class PanelMainContent : UIPanel
 
     public void BuildQuest()
     {
-        currentContent = Instantiate(areaPrefab, contentRoot);
+        currentContent = UIController.Instance.AddPanel(areaPrefab, contentRoot);
 
         if (tabArea != null)
         {
             tabArea.onClick.AddListener(() =>
             {
-                Destroy(currentContent);
-                currentContent = Instantiate(areaPrefab, contentRoot);
+                UIController.Instance.RemovePanel(currentContent);
+                currentContent = UIController.Instance.AddPanel(areaPrefab, contentRoot);
             });
         }
         if (tabParty != null)
         {
             tabParty.onClick.AddListener(() =>
             {
-                Destroy(currentContent);
-                currentContent = Instantiate(partyPrefab, contentRoot);
+                Debug.Log("Party");
+                UIController.Instance.RemovePanel(currentContent);
+                currentContent = UIController.Instance.AddPanel(partyPrefab, contentRoot);
+                if (currentContent.TryGetComponent(out ListParty listParty))
+                {
+                    listParty.isQuest = true;
+                    listParty.Initialize();
+                }
             });
         }
     }

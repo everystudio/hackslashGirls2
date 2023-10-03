@@ -9,6 +9,7 @@ public class ModelManager : Singleton<ModelManager>
     public CsvModel<UserChara> userChara = new CsvModel<UserChara>();
 
     [SerializeField] private List<CharacterAsset> characterAssets = new List<CharacterAsset>();
+    public List<CharacterAsset> CharacterAssets { get { return characterAssets; } }
 
     public override void Initialize()
     {

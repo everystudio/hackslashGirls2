@@ -10,6 +10,9 @@ public class UserChara : CsvModelParam
     public int questPartyId;
     public int collectPartyId;
 
+    public int level;
+    public int rank;
+
     public int partyIndex
     {
         get
