@@ -17,3 +17,6 @@ MonoBehaviour:
   description: "\u8272\u3063\u307D\u3044"
   icon: {fileID: 21300000, guid: 6d2eac91494958240910b43383ba7a94, type: 3}
   miniTexture: {fileID: 2800000, guid: e550c0a836e45ba4fbd1b6a8a4c295a3, type: 3}
+  attack: 10
+  attackRange: 0.5
+  attackSpeed: 1

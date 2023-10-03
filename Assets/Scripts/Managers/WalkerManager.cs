@@ -9,14 +9,13 @@ public class WalkerManager : StateMachineBase<WalkerManager>
     [SerializeField] private bool isQuest;
     private List<CharacterBase> walkers = new List<CharacterBase>();
 
-    [SerializeField] private FadeScreenImage fadeScreenImage;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject walkerPrefab;
 
-    private void Start()
-    {
-        fadeScreenImage.Black();
+    public UnityEvent OnArrived = new UnityEvent();
 
+    public void StandbyParty()
+    {
         List<UserChara> partyList = null;
         if (isQuest)
         {
@@ -26,8 +25,6 @@ public class WalkerManager : StateMachineBase<WalkerManager>
         {
             partyList = ModelManager.Instance.userChara.List.FindAll(x => x.collectPartyId > 0);
         }
-
-
         foreach (var userChara in partyList)
         {
             var walker = Instantiate(walkerPrefab, spawnPoint).GetComponent<CharacterBase>();
@@ -39,29 +36,34 @@ public class WalkerManager : StateMachineBase<WalkerManager>
             }
             walkers.Add(walker);
         }
-        ChangeState(new WalkerManager.FadeIn(this));
     }
 
-    private class FadeIn : StateBase<WalkerManager>
+    public void WalkStart(FloorManager floorManager)
     {
-        public FadeIn(WalkerManager machine) : base(machine)
+        int index = 0;
+        foreach (var walker in walkers)
+        {
+            walker.transform.position = spawnPoint.position;
+            walker.WalkStart(walker.userChara.partyIndex * 0.5f + 0.5f, floorManager);
+            index += 1;
+        }
+        ChangeState(new WalkerManager.Walking(this));
+    }
+
+
+    private void Start()
+    {
+        ChangeState(new WalkerManager.Waiting(this));
+    }
+
+    private class Waiting : StateBase<WalkerManager>
+    {
+        public Waiting(WalkerManager machine) : base(machine)
         {
         }
         public override void OnEnterState()
         {
             base.OnEnterState();
-            int index = 0;
-            foreach (var walker in machine.walkers)
-            {
-                walker.transform.position = machine.spawnPoint.position;
-                walker.WalkStart(walker.userChara.partyIndex * 0.5f + 0.5f);
-                index += 1;
-            }
-
-            machine.fadeScreenImage.FadeIn(() =>
-            {
-                ChangeState(new WalkerManager.Walking(machine));
-            });
         }
     }
 
@@ -87,39 +89,24 @@ public class WalkerManager : StateMachineBase<WalkerManager>
             arrivedCount++;
             if (machine.walkers.Count <= arrivedCount)
             {
-                ChangeState(new WalkerManager.FadeOut(machine));
+                ChangeState(new WalkerManager.Arrived(machine));
             }
         }
     }
 
-    private class FadeOut : StateBase<WalkerManager>
+    private class Arrived : StateBase<WalkerManager>
     {
-        public FadeOut(WalkerManager machine) : base(machine)
+        public Arrived(WalkerManager machine) : base(machine)
         {
         }
         public override void OnEnterState()
         {
             base.OnEnterState();
-            Debug.Log("FadeOut");
-            machine.fadeScreenImage.FadeOut(() =>
-            {
-                ChangeState(new WalkerManager.End(machine));
-            });
+            machine.OnArrived.Invoke();
         }
     }
 
-    private class End : StateBase<WalkerManager>
-    {
-        public End(WalkerManager machine) : base(machine)
-        {
-        }
 
-        public override void OnEnterState()
-        {
-            base.OnEnterState();
-            Debug.Log("End");
-            // 終了処理とかをする予定
-            ChangeState(new WalkerManager.FadeIn(machine));
-        }
-    }
+
+
 }

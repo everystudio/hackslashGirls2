@@ -11,4 +11,10 @@ public class CharacterAsset : ScriptableObject
     public string description;
     public Sprite icon;
     public Texture2D miniTexture;
+
+    public float attack;
+    public float attackRange = 0.5f;
+
+    public float attackSpeed = 1f;
+
 }
