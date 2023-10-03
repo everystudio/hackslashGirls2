@@ -83,7 +83,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6b5fd8b840f58dc498f4cdb90536c57e, type: 3}
   - {fileID: 21300000, guid: 857cda597f394234fa918b15ec24c5b6, type: 3}
   - {fileID: 21300000, guid: 61977e59a1ab3ad42a969bd4b2d49cef, type: 3}
-  - {fileID: 21300000, guid: 2bb0af2aec718174fb7906c958684b1b, type: 3}
   - {fileID: 21300000, guid: 4b41aa6ae2ef2f24a94069c4e3827c2b, type: 3}
   - {fileID: 21300000, guid: 21d8ae6aadeabb54680224ec63daa92b, type: 3}
   - {fileID: 21300000, guid: 83bb369ab62e3694f943574ac835ce54, type: 3}
@@ -94,7 +93,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 200d723c39fd1ad40a6ae1af223d3df6, type: 3}
   - {fileID: 21300000, guid: 05305ccc71334894d9a13cc3672e25f4, type: 3}
   - {fileID: 21300000, guid: 2d67b77d02d7ac34ca692fcda77e801f, type: 3}
-  - {fileID: 21300000, guid: 872fe9dda13644e4ea25cd6bcce5a2da, type: 3}
   - {fileID: 21300000, guid: e3b80a3e67d02704b9a6003700719092, type: 3}
   - {fileID: 21300000, guid: 5fd8ba4eaf264444ea27c958c0dc2bb6, type: 3}
   - {fileID: 21300000, guid: f268a58e94ea7f94f8f7d63de4b3053a, type: 3}
@@ -151,7 +149,6 @@ SpriteAtlas:
   - 160_t
   - runestone_t_02
   - 56
-  - 173_t
   - scroll_t_01
   - cs_t_03
   - f_28
@@ -162,7 +159,6 @@ SpriteAtlas:
   - 167_t
   - BlueLootBox_46_t
   - pt_t_13
-  - artifact_02_t
   - 130_t
   - wd_t_06
   - staff_06_t
