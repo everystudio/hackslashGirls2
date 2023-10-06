@@ -7306,6 +7306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac7ab1aa5389324d823820432a17e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rankUpButton: {fileID: 1208519416230379595}
   equipmentButtons:
   - {fileID: 8504349628734669388}
   - {fileID: 1937690952072431293}

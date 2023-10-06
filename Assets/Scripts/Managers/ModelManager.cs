@@ -79,4 +79,64 @@ public class ModelManager : Singleton<ModelManager>
         return userItem.List.Find(item => item.item_id == itemId);
     }
 
+    public bool EquipItem(int charaId, int itemId)
+    {
+        UserChara userChara = GetUserChara(charaId);
+        if (userChara == null)
+        {
+            return false;
+        }
+
+        UserItem userItem = GetUserItem(itemId);
+        if (userItem == null)
+        {
+            return false;
+        }
+
+        MasterItem masterItem = GetMasterItem(itemId);
+        if (masterItem == null)
+        {
+            return false;
+        }
+
+        // 既に装備している場合は何もしない
+        if (userChara.IsEquiping(itemId))
+        {
+            return false;
+        }
+
+        // 現在のランクに対応しているアイテムかどうかを確認する
+        MasterEquip masterEquip = this.masterEquip.List.Find(equip => equip.chara_id == charaId && equip.item_id == itemId && equip.rank == userChara.rank);
+        if (masterEquip == null)
+        {
+            return false;
+        }
+
+        // 個数が十分か確認する
+        if (userItem.item_num < masterEquip.require_count)
+        {
+            return false;
+        }
+
+        // ここまで来たら装備を行うtrycatchとか使った方がいいのかね
+        try
+        {
+            userItem.item_num -= masterEquip.require_count;
+            if (userItem.item_num < 0)
+            {
+                throw new System.Exception("装備に失敗しました:アイテム数が足りません");
+            }
+            if (!userChara.AddEquip(itemId))
+            {
+                throw new System.Exception("装備に失敗しました:空きスロットなし");
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+            return false;
+        }
+        return true;
+    }
+
 }

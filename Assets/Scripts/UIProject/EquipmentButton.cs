@@ -28,6 +28,7 @@ public class EquipmentButton : MonoBehaviour
         else
         {
             plusImage.gameObject.SetActive(masterEquip.require_count < userItem.item_num);
+            requireCountText.gameObject.SetActive(true);
             requireCountText.text = $"{userItem.item_num}/{masterEquip.require_count}";
         }
     }

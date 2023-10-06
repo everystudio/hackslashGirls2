@@ -47,6 +47,41 @@ public class UserChara : CsvModelParam
     {
         return equiping_item_id_1 == item_id || equiping_item_id_2 == item_id || equiping_item_id_3 == item_id;
     }
+    public bool AddEquip(int item_id)
+    {
+        if (equiping_item_id_1 == 0)
+        {
+            equiping_item_id_1 = item_id;
+        }
+        else if (equiping_item_id_2 == 0)
+        {
+            equiping_item_id_2 = item_id;
+        }
+        else if (equiping_item_id_3 == 0)
+        {
+            equiping_item_id_3 = item_id;
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool Rankup()
+    {
+        // equiping_item_idが全て埋まっているか確認する
+        if (equiping_item_id_1 == 0 || equiping_item_id_2 == 0 || equiping_item_id_3 == 0)
+        {
+            return false;
+        }
+        rank += 1;
+        equiping_item_id_1 = 0;
+        equiping_item_id_2 = 0;
+        equiping_item_id_3 = 0;
+        return true;
+    }
 
 
 
