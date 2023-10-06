@@ -14,7 +14,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
 
     private Animator animator;
 
-    [SerializeField] private CharacterAsset characterAsset;
+    [SerializeField] private MasterChara characterAsset;
     [SerializeField] private OverrideSprite overrideSprite;
 
     public UserChara userChara;
@@ -29,11 +29,16 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         animator = GetComponent<Animator>();
     }
 
+    public bool IsAlive()
+    {
+        return !isDead;
+    }
+
     public void SetChara(UserChara userChara)
     {
         this.userChara = userChara;
-        characterAsset = ModelManager.Instance.GetCharacterAsset(userChara.id);
-        overrideSprite.OverrideTexture = characterAsset.miniTexture;
+        characterAsset = ModelManager.Instance.GetMasterChara(userChara.chara_id);
+        overrideSprite.OverrideTexture = TextureManager.Instance.GetMiniCharaTexture(characterAsset.chara_id);
     }
 
     public void WalkStart(float delay, FloorManager floorManager)
@@ -78,7 +83,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
             if (nearestEnemy != null)
             {
                 float distance = Vector3.Distance(machine.transform.position, nearestEnemy.transform.position);
-                if (distance <= machine.characterAsset.attackRange + machine.userChara.partyIndex * machine.PARTY_OFFSET)
+                if (distance <= machine.characterAsset.attack_range + machine.userChara.partyIndex * machine.PARTY_OFFSET)
                 {
                     ChangeState(new CharacterBase.Fighting(machine, nearestEnemy));
                     return;
@@ -129,7 +134,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
 
         public override void OnUpdateState()
         {
-            interval -= Time.deltaTime * machine.characterAsset.attackSpeed;
+            interval -= Time.deltaTime * machine.characterAsset.attack_speed;
             if (interval <= 0f)
             {
                 ChangeState(new CharacterBase.Attack(machine, nearestEnemy));

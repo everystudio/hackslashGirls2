@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 
 public class UICharacterCore : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private CharacterAsset characterAsset;
+    [SerializeField] private MasterChara characterAsset;
     [SerializeField] private UserChara userChara;
 
     [SerializeField] private Image iconImage;
@@ -18,6 +18,14 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
     [SerializeField] private TextMeshProUGUI rankText;
 
     [SerializeField] private Image selectingImage;
+
+    [SerializeField] private Slider hpGauge;
+    [SerializeField] private Slider strengthGauge;
+    [SerializeField] private Slider defenseGauge;
+    [SerializeField] private Slider speedGauge;
+    [SerializeField] private Slider luckGauge;
+    [SerializeField] private Slider spritGauge;
+
 
     public UnityEvent<UserChara> OnClick = new UnityEvent<UserChara>();
 
@@ -29,22 +37,22 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
     {
         if (selectingImage != null)
         {
-            selectingImage.gameObject.SetActive(characterAsset.id == charaId);
+            selectingImage.gameObject.SetActive(characterAsset.chara_id == charaId);
         }
     }
 
-    public void Set(CharacterAsset characterAsset, UserChara userChara)
+    public void Set(MasterChara characterAsset, UserChara userChara)
     {
         this.characterAsset = characterAsset;
         this.userChara = userChara;
 
         if (iconImage != null)
         {
-            iconImage.sprite = characterAsset.icon;
+            iconImage.sprite = TextureManager.Instance.GetIconCharaSprite(characterAsset.chara_id);
         }
         if (nameText != null)
         {
-            nameText.text = characterAsset.name;
+            nameText.text = characterAsset.chara_name;
         }
         if (levelText != null)
         {
@@ -58,6 +66,35 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         {
             selectingImage.gameObject.SetActive(false);
         }
+
+        if (hpGauge != null)
+        {
+            hpGauge.value = (float)userChara.hp / (float)userChara.hp_max;
+        }
+        if (strengthGauge != null)
+        {
+            strengthGauge.value = (float)userChara.strength / (float)UserChara.MAX_STATUS_PARAM;
+        }
+        if (defenseGauge != null)
+        {
+            defenseGauge.value = (float)userChara.defense / (float)UserChara.MAX_STATUS_PARAM;
+        }
+        if (speedGauge != null)
+        {
+            speedGauge.value = (float)userChara.speed / (float)UserChara.MAX_STATUS_PARAM;
+        }
+        if (luckGauge != null)
+        {
+            luckGauge.value = (float)userChara.luck / (float)UserChara.MAX_STATUS_PARAM;
+        }
+        if (spritGauge != null)
+        {
+            spritGauge.value = (float)userChara.spirit / (float)UserChara.MAX_STATUS_PARAM;
+        }
+
+
+
+
     }
 
 }

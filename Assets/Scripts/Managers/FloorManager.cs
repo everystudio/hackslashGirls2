@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using anogame;
 using System;
 
@@ -10,21 +11,25 @@ public class FloorManager : StateMachineBase<FloorManager>
     [SerializeField] private FadeScreenImage fadeScreenImage;
     [SerializeField] private WalkerManager walkerManager;
 
-
     [SerializeField] private GameObject testEnemyPrefab;
     private List<EnemyBase> enemies = new List<EnemyBase>();
+
+    private int currentFloor = 1;
+    public int CurrentFloor => currentFloor;
+    [HideInInspector] public UnityEvent<int> OnFloorStart = new UnityEvent<int>();
 
     private void Start()
     {
         ChangeState(new FloorManager.Standby(this));
     }
 
-    private void StartNewFloor()
+    private void StartNewFloor(int currentFloor)
     {
         if (testEnemyPrefab != null)
         {
             SpawnTestEnemy();
         }
+        OnFloorStart.Invoke(currentFloor);
     }
 
     private void SpawnTestEnemy()
@@ -74,18 +79,20 @@ public class FloorManager : StateMachineBase<FloorManager>
             base.OnEnterState();
             machine.fadeScreenImage.Black();
             machine.walkerManager.StandbyParty();
-            ChangeState(new FloorManager.FloorStart(machine));
+            ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
         }
     }
 
     private class FloorStart : StateBase<FloorManager>
     {
-        public FloorStart(FloorManager machine) : base(machine)
+        private int currentFloor;
+        public FloorStart(FloorManager machine, int currentFloor) : base(machine)
         {
+            this.currentFloor = currentFloor;
         }
         public override void OnEnterState()
         {
-            machine.StartNewFloor();
+            machine.StartNewFloor(currentFloor);
             machine.fadeScreenImage.FadeIn(() =>
             {
                 ChangeState(new FloorManager.Walking(machine));
@@ -124,7 +131,8 @@ public class FloorManager : StateMachineBase<FloorManager>
             base.OnEnterState();
             machine.fadeScreenImage.FadeOut(() =>
             {
-                ChangeState(new FloorManager.FloorStart(machine));
+                machine.currentFloor++;
+                ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
             });
         }
     }

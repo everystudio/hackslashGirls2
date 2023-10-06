@@ -9,10 +9,8 @@ using System;
 public class FadeScreenImage : MonoBehaviour
 {
     [SerializeField] private Image image;
-    [SerializeField] private float fadeTime = 0.25f;
     [SerializeField] private float fadeOutTime = 0.25f;
     [SerializeField] private float fadeInTime = 0.25f;
-    [SerializeField] private float waitTime = 0.25f;
     [SerializeField] private float fadeOutWaitTime = 0.25f;
     [SerializeField] private float fadeInWaitTime = 0.25f;
 
@@ -21,15 +19,17 @@ public class FadeScreenImage : MonoBehaviour
 
     public void FadeIn(Action OnFinished)
     {
-        image.DOFade(0f, fadeInTime).SetEase(Ease.Linear).SetDelay(fadeOutWaitTime).OnComplete(() =>
+        image.DOFade(0f, fadeInTime).SetEase(Ease.Linear).SetDelay(fadeInWaitTime).OnComplete(() =>
         {
             OnFinished.Invoke();
             OnFadeInCompleted?.Invoke();
+            image.raycastTarget = false;
         });
     }
 
     public void FadeOut(Action OnFinished)
     {
+        image.raycastTarget = true;
         image.DOFade(1f, fadeOutTime).SetEase(Ease.Linear).SetDelay(fadeOutWaitTime).OnComplete(() =>
         {
             OnFinished.Invoke();
@@ -40,5 +40,6 @@ public class FadeScreenImage : MonoBehaviour
     public void Black()
     {
         image.color = Color.black;
+        image.raycastTarget = true;
     }
 }

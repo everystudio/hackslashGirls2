@@ -48,7 +48,7 @@ public class ListParty : StateMachineBase<ListParty>
             party.transform.SetAsFirstSibling();
             partyCharacterCoreList.Add(party);
 
-            var characterAsset = ModelManager.Instance.GetCharacterAsset(userChara.id);
+            var characterAsset = ModelManager.Instance.GetMasterChara(userChara.chara_id);
             party.Set(characterAsset, userChara);
 
             /*
@@ -73,10 +73,10 @@ public class ListParty : StateMachineBase<ListParty>
         {
             Destroy(child.gameObject);
         }
-        foreach (var chara in ModelManager.Instance.CharacterAssets)
+        foreach (var chara in ModelManager.Instance.MasterChara.List)
         {
             var member = Instantiate(memberPrefab, memberRoot).GetComponent<UICharacterCore>();
-            var userChara = ModelManager.Instance.userChara.List.Find(x => x.id == chara.id);
+            var userChara = ModelManager.Instance.userChara.List.Find(x => x.chara_id == chara.chara_id);
             member.Set(chara, userChara);
             /*
             member.OnClick.AddListener((chara) =>
@@ -116,11 +116,11 @@ public class ListParty : StateMachineBase<ListParty>
         {
             foreach (var party in machine.partyCharacterCoreList)
             {
-                party.Select(arg0.id);
+                party.Select(arg0.chara_id);
             }
             foreach (var member in machine.memberCharacterCoreList)
             {
-                member.Select(arg0.id);
+                member.Select(arg0.chara_id);
             }
 
             ChangeState(new ListParty.SelectingParty(machine, arg0));
@@ -164,7 +164,7 @@ public class ListParty : StateMachineBase<ListParty>
 
         private void OnMemberSelect(UserChara arg1)
         {
-            if (selectedChara.id == arg1.id)
+            if (selectedChara.chara_id == arg1.chara_id)
             {
                 foreach (var member in machine.partyCharacterCoreList)
                 {
