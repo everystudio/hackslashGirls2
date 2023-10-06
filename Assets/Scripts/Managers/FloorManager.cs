@@ -14,6 +14,9 @@ public class FloorManager : StateMachineBase<FloorManager>
     [SerializeField] private GameObject testEnemyPrefab;
     private List<EnemyBase> enemies = new List<EnemyBase>();
 
+    [SerializeField] private GameObject collectableItemPrefab;
+    private List<CollectableItem> collectableItems = new List<CollectableItem>();
+
     private int currentFloor = 1;
     public int CurrentFloor => currentFloor;
     [HideInInspector] public UnityEvent<int> OnFloorStart = new UnityEvent<int>();
@@ -25,12 +28,25 @@ public class FloorManager : StateMachineBase<FloorManager>
 
     private void StartNewFloor(int currentFloor)
     {
-        if (testEnemyPrefab != null)
+        if (isQuest)
         {
-            SpawnTestEnemy();
+            if (testEnemyPrefab != null)
+            {
+                SpawnTestEnemy();
+            }
         }
+        else
+        {
+            if (collectableItemPrefab != null)
+            {
+                SpawnCollectableItem();
+            }
+        }
+
+
         OnFloorStart.Invoke(currentFloor);
     }
+
 
     private void SpawnTestEnemy()
     {
@@ -53,6 +69,30 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
     }
 
+    private void SpawnCollectableItem()
+    {
+        // collectableItemsをクリア
+        foreach (var collectableItem in collectableItems)
+        {
+            Destroy(collectableItem.gameObject);
+        }
+        collectableItems.Clear();
+
+        for (int i = 0; i < 3; i++)
+        {
+            CollectableItem collectableItem = Instantiate(collectableItemPrefab, transform).GetComponent<CollectableItem>();
+            collectableItems.Add(collectableItem);
+            collectableItem.transform.localPosition = new Vector3(i * 0.75f + 1.5f, 0, 0);
+            /*
+            collectableItem.OnCollect.AddListener(() =>
+            {
+                collectableItems.Remove(collectableItem);
+            });
+            */
+        }
+    }
+
+
     public EnemyBase GetNearestEnemy(CharacterBase walker)
     {
         EnemyBase nearestEnemy = null;
@@ -68,6 +108,23 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
         return nearestEnemy;
     }
+
+    public CollectableItem GetNearestCollectableItem(CharacterBase walker)
+    {
+        CollectableItem nearestCollectableItem = null;
+        float nearestDistance = 100f;
+        foreach (var collectableItem in collectableItems.FindAll(x => x.is_collected == false))
+        {
+            float distance = Vector3.Distance(walker.transform.position, collectableItem.transform.position);
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestCollectableItem = collectableItem;
+            }
+        }
+        return nearestCollectableItem;
+    }
+
 
     private class Standby : StateBase<FloorManager>
     {

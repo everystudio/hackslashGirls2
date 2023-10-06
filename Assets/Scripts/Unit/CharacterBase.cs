@@ -90,6 +90,18 @@ public class CharacterBase : StateMachineBase<CharacterBase>
                 }
             }
 
+            // 一番近いアイテムが攻撃範囲内にいるかどうか
+            CollectableItem nearestCollectableItem = machine.floorManager.GetNearestCollectableItem(machine);
+            if (nearestCollectableItem != null)
+            {
+                float distance = Vector3.Distance(machine.transform.position, nearestCollectableItem.transform.position);
+                if (distance <= machine.characterAsset.attack_range)
+                {
+                    nearestCollectableItem.Collect();
+                    ChangeState(new CharacterBase.Collecting(machine, nearestCollectableItem));
+                    return;
+                }
+            }
 
             if (isArrived)
             {
@@ -182,5 +194,37 @@ public class CharacterBase : StateMachineBase<CharacterBase>
     public void AnimationAttackEnd()
     {
         OnAttackEnd?.Invoke();
+    }
+
+    private class Collecting : StateBase<CharacterBase>
+    {
+        private float waittime = 1.5f;
+        private CollectableItem nearestCollectableItem;
+
+        public Collecting(CharacterBase machine, CollectableItem nearestCollectableItem) : base(machine)
+        {
+            this.machine = machine;
+            this.nearestCollectableItem = nearestCollectableItem;
+        }
+        public override void OnEnterState()
+        {
+            // キャラクターのアニメーションを変更する
+            machine.animator.SetTrigger("win");
+            //nearestCollectableItem.OnCollected.AddListener(TargetCollectableItemCollected);
+        }
+
+        public override void OnUpdateState()
+        {
+            base.OnUpdateState();
+            waittime -= Time.deltaTime;
+            if (waittime <= 0f)
+            {
+                ChangeState(new CharacterBase.Walking(machine));
+            }
+        }
+        public override void OnExitState()
+        {
+            machine.animator.Play("Idle");
+        }
     }
 }
