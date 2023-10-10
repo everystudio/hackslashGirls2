@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7792280334466660630}
   - component: {fileID: 6647036127468556636}
+  - component: {fileID: 5134128926038245830}
   m_Layer: 10
   m_Name: MonsterZako
   m_TagString: Untagged
@@ -129,3 +130,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1769547cb153cc4b9b21a03ce3f8fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDie:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5134128926038245830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792280334466660628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 5466977016316132657
+  localRefs:
+    _Keys:
+    - {fileID: 5134128926038245830}
+    - {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+    - {fileID: 4800000, guid: e260cfa7296ee7642b167f1eb5be5023, type: 3}
+    - {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+    - {fileID: 21300000, guid: 7aac3a73740b4304188af13c0191b2e1, type: 3}
+    - {fileID: 2800000, guid: 7aac3a73740b4304188af13c0191b2e1, type: 3}
+    - {fileID: 11500000, guid: c1769547cb153cc4b9b21a03ce3f8fea, type: 3}
+    - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - {fileID: 7792280334466660628}
+    - {fileID: 7792280334466660630}
+    - {fileID: 6647036127468556636}
+    - {fileID: 6560001773126208919}
+    - {fileID: 2473919643735282450}
+    - {fileID: 4487494712785938227}
+    _Values: 48d97dfe40f2861193fdbd0441ee22682c6d5f2432267b434e09384acc1c41413ee8cbe8411d4949f207036648a9f7435a57b70efa027e6eab3fb3b5d52e214fc20139a7dcc5d9494956e8c6d61d7308fe845adb2bb0c43b6a5c9380d1fe1f212852284ae39e20203101c5a319b89838

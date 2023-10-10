@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 741487098940200163}
   - component: {fileID: 741487098940200165}
   - component: {fileID: 741487098940200164}
+  - component: {fileID: 7835962055665604042}
   m_Layer: 5
   m_Name: PanelItemTop
   m_TagString: Untagged
@@ -154,6 +155,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7835962055665604042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741487098940200162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5182a470ac1ceb4468bec4afad977dfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIconPrefab: {fileID: 1783171022267236986, guid: 0db1623d2644a2c478fea1e89be7c675, type: 3}
+  itemIconParent: {fileID: 741487100731388680}
 --- !u!1 &741487099100348566
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,10 +656,10 @@ RectTransform:
   m_Father: {fileID: 741487100731388680}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 820, y: -130}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &741487099756399970
 CanvasRenderer:
@@ -854,10 +869,10 @@ RectTransform:
   m_Father: {fileID: 741487100731388680}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 590, y: -130}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &741487100127155169
 CanvasRenderer:
@@ -1095,7 +1110,7 @@ GameObject:
   - component: {fileID: 741487100320146246}
   - component: {fileID: 741487100320146245}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: ItemIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1118,10 +1133,10 @@ RectTransform:
   m_Father: {fileID: 741487100731388680}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 130, y: -130}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &741487100320146246
 CanvasRenderer:
@@ -1368,10 +1383,10 @@ RectTransform:
   m_Father: {fileID: 741487100731388680}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 360, y: -130}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &741487100517173250
 CanvasRenderer:
@@ -1423,7 +1438,7 @@ GameObject:
   - component: {fileID: 741487100572511443}
   - component: {fileID: 741487100572511442}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: countText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1480,14 +1495,14 @@ MonoBehaviour:
   m_text: x123
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0cd93c0f1a5d7264fbfe9bbe66cd8940, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 95bcb783f358d8c4488a035d2aa75564, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 926739a450b28734a9e90f32b03c3fb4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1504,8 +1519,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1991,7 +2006,7 @@ GameObject:
   - component: {fileID: 741487100951221422}
   - component: {fileID: 741487100951221421}
   m_Layer: 5
-  m_Name: Image
+  m_Name: iconImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
