@@ -23,6 +23,14 @@ public class PanelCharaTop : UIPanel
         base.initialize();
         Debug.Log(selectingCharaId);
 
+        ModelManager.Instance.OnUserCharaChanged.AddListener((userChara) =>
+        {
+            if (userChara.chara_id == selectingCharaId)
+            {
+                ShowSelectingChara(selectingCharaId);
+            }
+        });
+
         ShowSelectingChara(selectingCharaId);
 
         // charaListParentの子要素を全て削除

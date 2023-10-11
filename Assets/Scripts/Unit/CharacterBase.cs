@@ -34,6 +34,22 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         return !isDead;
     }
 
+    public void TakeDamage(int damage)
+    {
+        if (isDead)
+        {
+            return;
+        }
+        userChara.hp -= damage;
+        if (userChara.hp <= 0f)
+        {
+            isDead = true;
+
+            // このへんから実装再開
+            //ChangeState(new CharacterBase.Die(this));
+        }
+    }
+
     public void SetChara(UserChara userChara)
     {
         this.userChara = userChara;

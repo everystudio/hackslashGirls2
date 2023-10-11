@@ -21,6 +21,7 @@ public class UserChara : CsvModelParam
     public int speed { get { return chara_speed + assist_speed; } }
     public int luck { get { return chara_luck + assist_luck; } }
     public int spirit { get { return chara_spirit + assist_spirit; } }
+    public int heart { get { return chara_heart + assist_heart; } }
 
     public int chara_hp_max;
     public int chara_strength;
@@ -28,6 +29,7 @@ public class UserChara : CsvModelParam
     public int chara_speed;
     public int chara_luck;
     public int chara_spirit;
+    public int chara_heart;
 
     public int assist_hp_max;
     public int assist_strength;
@@ -35,6 +37,7 @@ public class UserChara : CsvModelParam
     public int assist_speed;
     public int assist_luck;
     public int assist_spirit;
+    public int assist_heart;
 
     public int next_exp;
 
@@ -47,24 +50,33 @@ public class UserChara : CsvModelParam
     {
         return equiping_item_id_1 == item_id || equiping_item_id_2 == item_id || equiping_item_id_3 == item_id;
     }
-    public bool AddEquip(int item_id)
+    public bool AddEquip(MasterItem masterItem)
     {
         if (equiping_item_id_1 == 0)
         {
-            equiping_item_id_1 = item_id;
+            equiping_item_id_1 = masterItem.item_id;
         }
         else if (equiping_item_id_2 == 0)
         {
-            equiping_item_id_2 = item_id;
+            equiping_item_id_2 = masterItem.item_id;
         }
         else if (equiping_item_id_3 == 0)
         {
-            equiping_item_id_3 = item_id;
+            equiping_item_id_3 = masterItem.item_id;
         }
         else
         {
             return false;
         }
+
+        hp += masterItem.hp_max;
+        assist_hp_max += masterItem.hp_max;
+
+        assist_strength += masterItem.strength;
+        assist_defense += masterItem.defense;
+        assist_speed += masterItem.speed;
+        assist_luck += masterItem.luck;
+        assist_spirit += masterItem.spirit;
 
         return true;
     }

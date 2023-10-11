@@ -10,9 +10,10 @@ public class FloorManager : StateMachineBase<FloorManager>
     [SerializeField] private bool isQuest;
     [SerializeField] private FadeScreenImage fadeScreenImage;
     [SerializeField] private WalkerManager walkerManager;
+    public WalkerManager WalkerManager => walkerManager;
 
     [SerializeField] private GameObject testEnemyPrefab;
-    private List<EnemyBase> enemies = new List<EnemyBase>();
+    private List<EnemyBase> enemyList = new List<EnemyBase>();
 
     [SerializeField] private GameObject collectableItemPrefab;
     private List<CollectableItem> collectableItems = new List<CollectableItem>();
@@ -24,6 +25,22 @@ public class FloorManager : StateMachineBase<FloorManager>
     private void Start()
     {
         ChangeState(new FloorManager.Standby(this));
+    }
+
+    public CharacterBase GetNearWalker(Vector3 position, float range)
+    {
+        CharacterBase nearestWalker = null;
+        float nearestDistance = 100f;
+        foreach (var walker in walkerManager.Walkers)
+        {
+            float distance = Vector3.Distance(position, walker.transform.position);
+            if (distance < nearestDistance && distance < range)
+            {
+                nearestDistance = distance;
+                nearestWalker = walker;
+            }
+        }
+        return nearestWalker;
     }
 
     private void StartNewFloor(int currentFloor)
@@ -51,20 +68,20 @@ public class FloorManager : StateMachineBase<FloorManager>
     private void SpawnTestEnemy()
     {
         // enemiesをクリア
-        foreach (var enemy in enemies)
+        foreach (var enemy in enemyList)
         {
             Destroy(enemy.gameObject);
         }
-        enemies.Clear();
+        enemyList.Clear();
 
         for (int i = 0; i < 5; i++)
         {
             EnemyBase enemyBase = Instantiate(testEnemyPrefab, transform).GetComponent<EnemyBase>();
-            enemies.Add(enemyBase);
+            enemyList.Add(enemyBase);
             enemyBase.transform.localPosition = new Vector3(i * 0.75f + 1.5f, 0, 0);
             enemyBase.OnDie.AddListener(() =>
             {
-                enemies.Remove(enemyBase);
+                enemyList.Remove(enemyBase);
             });
         }
     }
@@ -97,7 +114,7 @@ public class FloorManager : StateMachineBase<FloorManager>
     {
         EnemyBase nearestEnemy = null;
         float nearestDistance = 100f;
-        foreach (var enemy in enemies)
+        foreach (var enemy in enemyList)
         {
             float distance = Vector3.Distance(walker.transform.position, enemy.transform.position);
             if (distance < nearestDistance)
@@ -168,6 +185,11 @@ public class FloorManager : StateMachineBase<FloorManager>
             machine.walkerManager.OnArrived.RemoveAllListeners();
             machine.walkerManager.OnArrived.AddListener(OnArrived);
             machine.walkerManager.WalkStart(machine);
+
+            foreach (var enemy in machine.enemyList)
+            {
+                enemy.FloorStart(machine);
+            }
         }
 
         private void OnArrived()

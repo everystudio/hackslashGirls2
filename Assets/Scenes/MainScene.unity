@@ -8279,6 +8279,9 @@ MonoBehaviour:
   dummyUserItem: {fileID: 4900000, guid: 96491e7dd496674459f2f05972b33334, type: 3}
   masterCharaAsset: {fileID: 4900000, guid: 287abd45265fbe24c86f04852f43e859, type: 3}
   masterEquipAsset: {fileID: 4900000, guid: 0f750b146440f3745be48710303d6426, type: 3}
+  OnUserCharaChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &6988709988475343723
 PrefabInstance:
   m_ObjectHideFlags: 0

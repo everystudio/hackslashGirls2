@@ -8,6 +8,7 @@ public class WalkerManager : StateMachineBase<WalkerManager>
 {
     [SerializeField] private bool isQuest;
     private List<CharacterBase> walkers = new List<CharacterBase>();
+    public List<CharacterBase> Walkers => walkers;
 
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject walkerPrefab;
@@ -47,6 +48,7 @@ public class WalkerManager : StateMachineBase<WalkerManager>
             walker.WalkStart(walker.userChara.partyIndex * 0.5f + 0.5f, floorManager);
             index += 1;
         }
+
         ChangeState(new WalkerManager.Walking(this));
     }
 

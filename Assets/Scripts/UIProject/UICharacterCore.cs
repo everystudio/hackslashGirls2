@@ -19,12 +19,21 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private Image selectingImage;
 
+    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TextMeshProUGUI strengthText;
+    [SerializeField] private TextMeshProUGUI defenseText;
+    [SerializeField] private TextMeshProUGUI speedText;
+    [SerializeField] private TextMeshProUGUI luckText;
+    [SerializeField] private TextMeshProUGUI spritText;
+    [SerializeField] private TextMeshProUGUI heartText;
+
     [SerializeField] private Slider hpGauge;
     [SerializeField] private Slider strengthGauge;
     [SerializeField] private Slider defenseGauge;
     [SerializeField] private Slider speedGauge;
     [SerializeField] private Slider luckGauge;
     [SerializeField] private Slider spritGauge;
+    [SerializeField] private Slider heartGauge;
 
 
     public UnityEvent<UserChara> OnClick = new UnityEvent<UserChara>();
@@ -69,6 +78,7 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
 
         if (hpGauge != null)
         {
+            Debug.Log(userChara.hp + " " + userChara.hp_max);
             hpGauge.value = (float)userChara.hp / (float)userChara.hp_max;
         }
         if (strengthGauge != null)
@@ -91,6 +101,40 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         {
             spritGauge.value = (float)userChara.spirit / (float)UserChara.MAX_STATUS_PARAM;
         }
+        if (heartGauge != null)
+        {
+            heartGauge.value = (float)userChara.heart / (float)UserChara.MAX_STATUS_PARAM;
+        }
+
+        if (hpText != null)
+        {
+            hpText.text = userChara.hp.ToString() + "/" + userChara.hp_max.ToString();
+        }
+        if (strengthText != null)
+        {
+            strengthText.text = "力：" + userChara.strength.ToString();
+        }
+        if (defenseText != null)
+        {
+            defenseText.text = "守：" + userChara.defense.ToString();
+        }
+        if (speedText != null)
+        {
+            speedText.text = "速：" + userChara.speed.ToString();
+        }
+        if (luckText != null)
+        {
+            luckText.text = "運：" + userChara.luck.ToString();
+        }
+        if (spritText != null)
+        {
+            spritText.text = "魂：" + userChara.spirit.ToString();
+        }
+        if (heartText != null)
+        {
+            heartText.text = "心：" + userChara.heart.ToString();
+        }
+
 
 
 

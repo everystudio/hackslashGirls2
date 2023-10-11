@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using anogame;
 
 public class ModelManager : Singleton<ModelManager>
@@ -23,6 +24,8 @@ public class ModelManager : Singleton<ModelManager>
     public TextAsset masterEquipAsset;
     private CsvModel<MasterEquip> masterEquip = new CsvModel<MasterEquip>();
     public CsvModel<MasterEquip> MasterEquip { get { return masterEquip; } }
+
+    public UnityEvent<UserChara> OnUserCharaChanged = new UnityEvent<UserChara>();
 
     public override void Initialize()
     {
@@ -126,7 +129,7 @@ public class ModelManager : Singleton<ModelManager>
             {
                 throw new System.Exception("装備に失敗しました:アイテム数が足りません");
             }
-            if (!userChara.AddEquip(itemId))
+            if (!userChara.AddEquip(masterItem))
             {
                 throw new System.Exception("装備に失敗しました:空きスロットなし");
             }
@@ -136,6 +139,7 @@ public class ModelManager : Singleton<ModelManager>
             Debug.Log(e);
             return false;
         }
+        OnUserCharaChanged.Invoke(userChara);
         return true;
     }
 
