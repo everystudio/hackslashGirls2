@@ -38,9 +38,11 @@ public class ModelManager : Singleton<ModelManager>
     public CsvModel<MasterFloor> MasterFloor { get { return masterFloor; } }
 
     public UnityEvent<UserChara> OnUserCharaChanged = new UnityEvent<UserChara>();
+    public UnityEvent<UserChara> OnPartyCharaChanged = new UnityEvent<UserChara>();
 
     public override void Initialize()
     {
+        Debug.Log("ModelManager Initialize");
         userChara.Load(dummyUserChara);
         masterItem.Load(masterItemAsset);
 
@@ -155,12 +157,29 @@ public class ModelManager : Singleton<ModelManager>
             return false;
         }
         OnUserCharaChanged.Invoke(userChara);
+        if (userChara.questPartyId != 0)
+        {
+            OnPartyCharaChanged.Invoke(userChara);
+        }
         return true;
     }
 
     public MasterEnemy GetMasterEnemy(int enemyId)
     {
         return masterEnemy.List.Find(enemy => enemy.enemy_id == enemyId);
+    }
+
+    public UserChara GetQuestPartyChara(int partyId)
+    {
+        foreach (var userChara in userChara.List)
+        {
+            Debug.Log(userChara.chara_id + " " + userChara.questPartyId);
+            if (userChara.questPartyId == partyId)
+            {
+                return userChara;
+            }
+        }
+        return userChara.List.Find(chara => chara.questPartyId == partyId);
     }
 
 }

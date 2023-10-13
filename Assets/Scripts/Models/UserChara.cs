@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using anogame;
+using UnityEngine.Events;
 
 public class UserChara : CsvModelParam
 {
@@ -45,6 +46,8 @@ public class UserChara : CsvModelParam
     public int equiping_item_id_1;
     public int equiping_item_id_2;
     public int equiping_item_id_3;
+
+    public static UnityEvent<UserChara> OnChanged = new UnityEvent<UserChara>();
 
     public bool IsEquiping(int item_id)
     {

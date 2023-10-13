@@ -134,11 +134,14 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         {
             heartText.text = "心：" + userChara.heart.ToString();
         }
-
-
-
-
-
     }
+
+    public void Set(UserChara userChara)
+    {
+        Debug.Log(userChara);
+        MasterChara masterChara = ModelManager.Instance.GetMasterChara(userChara.chara_id);
+        Set(masterChara, userChara);
+    }
+
 
 }

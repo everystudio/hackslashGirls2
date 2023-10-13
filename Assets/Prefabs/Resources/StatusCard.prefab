@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 2440696375227468427}
   - component: {fileID: 2440696375227468426}
   m_Layer: 5
-  m_Name: paramSlider
+  m_Name: strengthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 2440696375350389357}
   - component: {fileID: 2440696375350389356}
   m_Layer: 5
-  m_Name: strSlider (2)
+  m_Name: heartSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 2440696375510591529}
   - component: {fileID: 2440696375510591528}
   m_Layer: 5
-  m_Name: strSlider
+  m_Name: defenseSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1288,6 +1288,7 @@ GameObject:
   - component: {fileID: 2440696376099501803}
   - component: {fileID: 2440696376099501805}
   - component: {fileID: 2440696376099501802}
+  - component: {fileID: 4429099510575214768}
   m_Layer: 5
   m_Name: StatusCard
   m_TagString: Untagged
@@ -1355,6 +1356,40 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4429099510575214768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440696376099501800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a32931bee67304aaf547a1ee4394bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 2440696376506385199}
+  nameText: {fileID: 0}
+  levelText: {fileID: 0}
+  rankText: {fileID: 0}
+  selectingImage: {fileID: 0}
+  hpText: {fileID: 0}
+  strengthText: {fileID: 2440696375688019425}
+  defenseText: {fileID: 2440696377157627256}
+  speedText: {fileID: 2440696375339728547}
+  luckText: {fileID: 2440696376230749001}
+  spritText: {fileID: 2440696376957350883}
+  heartText: {fileID: 2440696376121676221}
+  hpGauge: {fileID: 2440696376207295977}
+  strengthGauge: {fileID: 2440696375227468426}
+  defenseGauge: {fileID: 2440696375510591528}
+  speedGauge: {fileID: 2440696376859554792}
+  luckGauge: {fileID: 2440696376924940646}
+  spritGauge: {fileID: 2440696376817998631}
+  heartGauge: {fileID: 2440696375350389356}
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2440696376121676219
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,7 +2488,7 @@ GameObject:
   - component: {fileID: 2440696376817998628}
   - component: {fileID: 2440696376817998631}
   m_Layer: 5
-  m_Name: strSlider (2)
+  m_Name: spilitSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2544,7 +2579,7 @@ GameObject:
   - component: {fileID: 2440696376859554793}
   - component: {fileID: 2440696376859554792}
   m_Layer: 5
-  m_Name: strSlider (1)
+  m_Name: speedSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2826,7 +2861,7 @@ GameObject:
   - component: {fileID: 2440696376924940647}
   - component: {fileID: 2440696376924940646}
   m_Layer: 5
-  m_Name: strSlider (1)
+  m_Name: luckSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

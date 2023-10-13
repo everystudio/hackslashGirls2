@@ -44,10 +44,9 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         if (userChara.hp <= 0f)
         {
             isDead = true;
-
-            // このへんから実装再開
-            //ChangeState(new CharacterBase.Die(this));
         }
+        UserChara.OnChanged.Invoke(userChara);
+
     }
 
     public void SetChara(UserChara userChara)

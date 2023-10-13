@@ -12,10 +12,27 @@ public class GameManager : SingletonStateMachineBase<GameManager>
     [SerializeField] private UIClickHandle questView;
     [SerializeField] private UIClickHandle collectView;
 
+    [SerializeField] private List<UICharacterCore> charaPartyList;
+
     public override void Initialize()
     {
         base.Initialize();
         FooterButtons.OnFooterButtonEvent.AddListener(OnFooterButtonEvent);
+
+        for (int i = 0; i < charaPartyList.Count; i++)
+        {
+            var partyId = i + 1;
+            var userChara = ModelManager.Instance.GetQuestPartyChara(partyId);
+            charaPartyList[i].Set(userChara);
+        }
+
+        UserChara.OnChanged.AddListener((userChara) =>
+        {
+            if (0 < userChara.questPartyId)
+            {
+                charaPartyList[userChara.questPartyId - 1].Set(userChara);
+            }
+        });
 
         ChangeState(new GameManager.Idle(this));
     }
