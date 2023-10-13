@@ -16,5 +16,6 @@ public class MasterItem : CsvModelParam
     public int speed;
     public int luck;
     public int spirit;
+    public int heart;
 
 }
