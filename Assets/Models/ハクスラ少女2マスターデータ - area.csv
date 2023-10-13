@@ -1,0 +1,6 @@
+area_id,area_name,thumbnail,description,floor_id_start,floor_id_end,#diff
+1,平原,noname,おだやかな地域,1,10,10
+2,海辺,noname,潮風が心地良い,101,110,10
+3,火山,noname,少し熱い,201,210,10
+4,雪原,noname,厳しい寒さ,301,310,10
+5,お城,noname,本格的なお城,401,410,10

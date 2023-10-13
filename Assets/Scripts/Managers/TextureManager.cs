@@ -8,6 +8,7 @@ public class TextureManager : Singleton<TextureManager>
 {
     [SerializeField] private SpriteAtlas charaIconSpriteAtlas;
     [SerializeField] private SpriteAtlas itemSpriteAtlas;
+    [SerializeField] private SpriteAtlas enemiesSpriteAtlas;
 
     [SerializeField] private List<Texture2D> miniCharaTextureList;
 
@@ -38,6 +39,10 @@ public class TextureManager : Singleton<TextureManager>
         //"item00101_icon"
         string spriteName = ModelManager.Instance.GetMasterItem(itemId).filename;
         return GetIconItemSprite(spriteName);
+    }
+    public Sprite GetEnemySprite(string filename)
+    {
+        return enemiesSpriteAtlas.GetSprite(filename);
     }
 
 }

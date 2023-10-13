@@ -4669,6 +4669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charaIconSpriteAtlas: {fileID: 4343727234628468602, guid: 71c7d2329d4b33d4ba3164db7d5750e1, type: 2}
   itemSpriteAtlas: {fileID: 4343727234628468602, guid: ab775b6bfef1861448dc42a68a9b6206, type: 2}
+  enemiesSpriteAtlas: {fileID: 4343727234628468602, guid: 0efb0b17e0432f4479a7d6b201d1836d, type: 2}
   miniCharaTextureList:
   - {fileID: 2800000, guid: 115cbba3e6ecc0842aea24e51afa4d0f, type: 3}
   - {fileID: 2800000, guid: d01929492e77680488326ace2a98cab4, type: 3}
@@ -8279,6 +8280,9 @@ MonoBehaviour:
   dummyUserItem: {fileID: 4900000, guid: 96491e7dd496674459f2f05972b33334, type: 3}
   masterCharaAsset: {fileID: 4900000, guid: 287abd45265fbe24c86f04852f43e859, type: 3}
   masterEquipAsset: {fileID: 4900000, guid: 0f750b146440f3745be48710303d6426, type: 3}
+  masterEnemyAsset: {fileID: 4900000, guid: 084815bb33d45874e88de9f89c52b52e, type: 3}
+  masterAreaAsset: {fileID: 4900000, guid: 03cef56f3ba2b0f498af7015ffd7397e, type: 3}
+  masterFloorAsset: {fileID: 4900000, guid: 40e4415ad62882645ae54aef6663897c, type: 3}
   OnUserCharaChanged:
     m_PersistentCalls:
       m_Calls: []

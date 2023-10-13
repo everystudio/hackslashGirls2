@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: enemies
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 7e0fa78c921db6c4f8c8b9700b2f52c6, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d769ae4047237c3489c5f248de3c47c4, type: 3}
+  - {fileID: 21300000, guid: 62e465d0832fb8c47901b329a7c4eb06, type: 3}
+  - {fileID: 21300000, guid: 045641714ba2f074c9e1a5d7fb4f96f4, type: 3}
+  - {fileID: 21300000, guid: 4374cd71de00ebc45897839307dcd57d, type: 3}
+  - {fileID: 21300000, guid: cb59e0812db793640b7966904441c7c8, type: 3}
+  - {fileID: 21300000, guid: e3b5d7e144c2abb43b559084ef47542f, type: 3}
+  - {fileID: 21300000, guid: ff7cbad25905224448cb7d15e2a8ec3f, type: 3}
+  - {fileID: 21300000, guid: e9102343f2df08e4fbc39e9dfe951a2c, type: 3}
+  - {fileID: 21300000, guid: ed3b3743987fec1499d70950de60b34b, type: 3}
+  - {fileID: 21300000, guid: 7aac3a73740b4304188af13c0191b2e1, type: 3}
+  - {fileID: 21300000, guid: c56737a302ae7824f84e05ffc8ab53af, type: 3}
+  - {fileID: 21300000, guid: 33094a84a019f76478b76731429f9838, type: 3}
+  - {fileID: 21300000, guid: 7be2d5458a282b24e9fb1bc6a77bb068, type: 3}
+  - {fileID: 21300000, guid: 8eee95b7f08b2a544a42119edd79aff8, type: 3}
+  - {fileID: 21300000, guid: 8dcb94d8d403fc94ca8555300e2dfb1d, type: 3}
+  - {fileID: 21300000, guid: 1c5607c9801a18a47a9d674a904ce391, type: 3}
+  - {fileID: 21300000, guid: 41c69ed9fd480f948a44c2a7c0e5175e, type: 3}
+  - {fileID: 21300000, guid: d28a4c1b404547c49a28dec2ea30b6fa, type: 3}
+  - {fileID: 21300000, guid: 34db84db38be22c478353fdeef2423ae, type: 3}
+  - {fileID: 21300000, guid: 944a01eb2821697409c4c7cdc87afb9f, type: 3}
+  - {fileID: 21300000, guid: b8d861fc8096523468dac7e43d25ac70, type: 3}
+  - {fileID: 21300000, guid: adb7d76d169e94848bfc5878fc76a826, type: 3}
+  - {fileID: 21300000, guid: cd624c6e0a7685f44a01ae25badec125, type: 3}
+  - {fileID: 21300000, guid: 6901aeae171c02243b2fa7005c1af8f9, type: 3}
+  - {fileID: 21300000, guid: 9d9286ee57067634981f95c601a99317, type: 3}
+  - {fileID: 21300000, guid: 1f13cc2fb9df70d40992069371ac4ead, type: 3}
+  - {fileID: 21300000, guid: 1816fb4ff5a8aba4ca96017339e74f26, type: 3}
+  - {fileID: 21300000, guid: e648e0afb9c97ba4aac45da62bf71e68, type: 3}
+  - {fileID: 21300000, guid: be2c8cbfcbc59b343bbbcebc19600fd8, type: 3}
+  - {fileID: 21300000, guid: cec7f2cf646306d4db8c0f2b5c7f8990, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - m0101
+  - m0022
+  - m0356
+  - m0102
+  - m0098
+  - m0011
+  - m0041
+  - m0063
+  - m0042
+  - m0013
+  - m0062
+  - m0031
+  - m0002
+  - m0072
+  - m0001
+  - m0043
+  - m0003
+  - m0023
+  - m0032
+  - m0103
+  - m0096
+  - m0250
+  - m0097
+  - m0073
+  - m0061
+  - m0071
+  - m0012
+  - m0033
+  - m0244
+  - m0021
+  m_RenderDataMap: {}
+  m_Tag: enemies
+  m_IsVariant: 0

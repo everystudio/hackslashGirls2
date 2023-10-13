@@ -27,7 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7792280334466660630}
   m_RootOrder: 0
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7792280334466660630}
   - component: {fileID: 6647036127468556636}
   - component: {fileID: 5134128926038245830}
+  - component: {fileID: 2784384728023028364}
   m_Layer: 10
   m_Name: EnemyZako
   m_TagString: Untagged
@@ -130,9 +131,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1769547cb153cc4b9b21a03ce3f8fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnd:
+    m_PersistentCalls:
+      m_Calls: []
   OnDie:
     m_PersistentCalls:
       m_Calls: []
+  OnAttackHitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAttackEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  spriteRenderer: {fileID: 4487494712785938227}
 --- !u!114 &5134128926038245830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +177,24 @@ MonoBehaviour:
     - {fileID: 2473919643735282450}
     - {fileID: 4487494712785938227}
     _Values: 48d97dfe40f2861193fdbd0441ee22682c6d5f2432267b434e09384acc1c41413ee8cbe8411d4949f207036648a9f7435a57b70efa027e6eab3fb3b5d52e214fc20139a7dcc5d9494956e8c6d61d7308fe845adb2bb0c43b6a5c9380d1fe1f212852284ae39e20203101c5a319b89838
+--- !u!95 &2784384728023028364
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7792280334466660628}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4d2b3a19f6e27434a97cdc0ffcc31cc8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

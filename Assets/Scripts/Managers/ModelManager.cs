@@ -25,6 +25,18 @@ public class ModelManager : Singleton<ModelManager>
     private CsvModel<MasterEquip> masterEquip = new CsvModel<MasterEquip>();
     public CsvModel<MasterEquip> MasterEquip { get { return masterEquip; } }
 
+    public TextAsset masterEnemyAsset;
+    private CsvModel<MasterEnemy> masterEnemy = new CsvModel<MasterEnemy>();
+    public CsvModel<MasterEnemy> MasterEnemy { get { return masterEnemy; } }
+
+    public TextAsset masterAreaAsset;
+    private CsvModel<MasterArea> masterArea = new CsvModel<MasterArea>();
+    public CsvModel<MasterArea> MasterArea { get { return masterArea; } }
+
+    public TextAsset masterFloorAsset;
+    private CsvModel<MasterFloor> masterFloor = new CsvModel<MasterFloor>();
+    public CsvModel<MasterFloor> MasterFloor { get { return masterFloor; } }
+
     public UnityEvent<UserChara> OnUserCharaChanged = new UnityEvent<UserChara>();
 
     public override void Initialize()
@@ -34,6 +46,9 @@ public class ModelManager : Singleton<ModelManager>
 
         masterChara.Load(masterCharaAsset);
         masterEquip.Load(masterEquipAsset);
+        masterEnemy.Load(masterEnemyAsset);
+        masterArea.Load(masterAreaAsset);
+        masterFloor.Load(masterFloorAsset);
 
         userItem.Load(dummyUserItem);
 
@@ -141,6 +156,11 @@ public class ModelManager : Singleton<ModelManager>
         }
         OnUserCharaChanged.Invoke(userChara);
         return true;
+    }
+
+    public MasterEnemy GetMasterEnemy(int enemyId)
+    {
+        return masterEnemy.List.Find(enemy => enemy.enemy_id == enemyId);
     }
 
 }

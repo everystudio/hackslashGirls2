@@ -10,12 +10,16 @@ public class EnemyBase : StateMachineBase<EnemyBase>
     private float health = 25f;
     public UnityEvent OnDie = new UnityEvent();
 
-    private float attackRange = 1f;
+    private float attackRange = 3f;
     private FloorManager floorManager;
     private Animator animator;
 
     public UnityEvent OnAttackHitEvent = new UnityEvent();
     public UnityEvent OnAttackEndEvent = new UnityEvent();
+
+    public MasterEnemy masterEnemy;
+
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
@@ -23,10 +27,15 @@ public class EnemyBase : StateMachineBase<EnemyBase>
     }
 
 
-    public void FloorStart(FloorManager floorManager)
+    public void FloorStart(FloorManager floorManager, MasterEnemy masterEnemy)
     {
         this.floorManager = floorManager;
-        ChangeState(new EnemyBase.Battle(this));
+        this.masterEnemy = masterEnemy;
+        health = masterEnemy.hp;
+
+        spriteRenderer.sprite = TextureManager.Instance.GetEnemySprite(masterEnemy.filename);
+
+        ChangeState(new EnemyBase.Waiting(this));
     }
 
     public float Health
@@ -51,11 +60,35 @@ public class EnemyBase : StateMachineBase<EnemyBase>
     {
     }
 
+    private class Waiting : StateBase<EnemyBase>
+    {
+        float delayTime = 0f;
+        public Waiting(EnemyBase machine) : base(machine)
+        {
+        }
+
+        public override void OnUpdateState()
+        {
+            delayTime += Time.deltaTime;
+            base.OnUpdateState();
+            if (delayTime <= 1f)
+            {
+                return;
+            }
+            var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, machine.attackRange + 2f);
+
+            if (targetCharacter != null)
+            {
+                ChangeState(new Battle(machine));
+            }
+        }
+
+    }
+
     private class Battle : StateBase<EnemyBase>
     {
-        private float attackInterval = 2f;
+        private float attackInterval = 100f;
         private float elapsedTime = 0f;
-        private float range = 1f;
 
         public Battle(EnemyBase machine) : base(machine)
         {
@@ -63,20 +96,18 @@ public class EnemyBase : StateMachineBase<EnemyBase>
         public override void OnEnterState()
         {
             elapsedTime = 0f;
-            range = machine.attackRange;
         }
         public override void OnUpdateState()
         {
             base.OnUpdateState();
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime * machine.masterEnemy.speed;
             if (elapsedTime >= attackInterval)
             {
-                var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, range);
+                var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, machine.attackRange);
 
                 if (targetCharacter != null)
                 {
-                    targetCharacter.TakeDamage(1);
-                    //ChangeState(new Attack(machine, targetCharacter));
+                    ChangeState(new Attack(machine, targetCharacter));
                 }
                 else
                 {
@@ -97,8 +128,12 @@ public class EnemyBase : StateMachineBase<EnemyBase>
         {
             base.OnEnterState();
 
+            Debug.Log("攻撃開始");
+
             machine.OnAttackHitEvent.AddListener(() =>
             {
+                Debug.Log("キャラクターにダメージを与えた");
+                targetCharacter.TakeDamage(machine.masterEnemy.attack);
             });
             machine.OnAttackEndEvent.AddListener(() =>
             {
@@ -136,4 +171,6 @@ public class EnemyBase : StateMachineBase<EnemyBase>
     {
         OnAttackEndEvent?.Invoke();
     }
+
+
 }

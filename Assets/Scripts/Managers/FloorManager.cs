@@ -34,6 +34,7 @@ public class FloorManager : StateMachineBase<FloorManager>
         foreach (var walker in walkerManager.Walkers)
         {
             float distance = Vector3.Distance(position, walker.transform.position);
+
             if (distance < nearestDistance && distance < range)
             {
                 nearestDistance = distance;
@@ -83,6 +84,16 @@ public class FloorManager : StateMachineBase<FloorManager>
             {
                 enemyList.Remove(enemyBase);
             });
+
+            // 現在のフロアからFloorModelを検索
+            var floorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
+                x.floor_start <= currentFloor && currentFloor <= x.floor_end);
+
+            // FloorModelからEnemyModelを検索
+            var enemyModel = ModelManager.Instance.GetMasterEnemy(floorModel.GetRandomEnemyID());
+
+            enemyBase.FloorStart(this, enemyModel);
+
         }
     }
 
@@ -186,10 +197,8 @@ public class FloorManager : StateMachineBase<FloorManager>
             machine.walkerManager.OnArrived.AddListener(OnArrived);
             machine.walkerManager.WalkStart(machine);
 
-            foreach (var enemy in machine.enemyList)
-            {
-                enemy.FloorStart(machine);
-            }
+
+
         }
 
         private void OnArrived()
