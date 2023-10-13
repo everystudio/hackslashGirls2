@@ -14,7 +14,25 @@ public class PanelMainContent : UIPanel
     [SerializeField] private Button tabArea;
     [SerializeField] private Button tabParty;
 
+    [SerializeField] private Button closeButton;
+
     private GameObject currentContent;
+    public UnityEvent OnBackButtonClicked = new UnityEvent();
+
+    protected override void initialize()
+    {
+        closeButton.onClick.AddListener(() =>
+        {
+            OnBackButtonClicked.Invoke();
+            //UIController.Instance.RemovePanel(this.gameObject);
+        });
+    }
+
+    protected override void shutdown()
+    {
+        base.shutdown();
+        UIController.Instance.RemovePanel(currentContent);
+    }
 
     public void BuildQuest()
     {

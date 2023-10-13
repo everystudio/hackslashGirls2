@@ -88,6 +88,23 @@ public class GameManager : SingletonStateMachineBase<GameManager>
             base.OnEnterState();
             panelMainContent = UIController.Instance.AddPanel("PanelMainContent").GetComponent<PanelMainContent>();
             panelMainContent.BuildQuest();
+
+            FooterButtons.OnFooterButtonEvent.AddListener(OnFooterButtonEventQuest);
+
+            panelMainContent.OnBackButtonClicked.AddListener(() =>
+            {
+                ReturnIdle();
+            });
+        }
+
+        private void ReturnIdle()
+        {
+            machine.ChangeState(new GameManager.Idle(machine));
+        }
+
+        private void OnFooterButtonEventQuest(string arg0)
+        {
+            ReturnIdle();
         }
 
         public override void OnExitState()
