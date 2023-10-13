@@ -128,11 +128,8 @@ public class EnemyBase : StateMachineBase<EnemyBase>
         {
             base.OnEnterState();
 
-            Debug.Log("攻撃開始");
-
             machine.OnAttackHitEvent.AddListener(() =>
             {
-                Debug.Log("キャラクターにダメージを与えた");
                 targetCharacter.TakeDamage(machine.masterEnemy.attack);
             });
             machine.OnAttackEndEvent.AddListener(() =>

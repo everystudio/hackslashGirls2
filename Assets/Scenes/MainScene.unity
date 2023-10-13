@@ -8335,6 +8335,9 @@ MonoBehaviour:
   OnUserCharaChanged:
     m_PersistentCalls:
       m_Calls: []
+  OnPartyCharaChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &6988709988475343723
 PrefabInstance:
   m_ObjectHideFlags: 0

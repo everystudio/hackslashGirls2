@@ -46,6 +46,7 @@ public class FloorManager : StateMachineBase<FloorManager>
 
     private void StartNewFloor(int currentFloor)
     {
+        walkerManager.StandbyParty();
         if (isQuest)
         {
             if (testEnemyPrefab != null)
@@ -163,7 +164,7 @@ public class FloorManager : StateMachineBase<FloorManager>
         {
             base.OnEnterState();
             machine.fadeScreenImage.Black();
-            machine.walkerManager.StandbyParty();
+            //machine.walkerManager.StandbyParty();
             ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
         }
     }

@@ -17,6 +17,13 @@ public class WalkerManager : StateMachineBase<WalkerManager>
 
     public void StandbyParty()
     {
+        // walkersを初期化
+        foreach (var walker in walkers)
+        {
+            Destroy(walker.gameObject);
+        }
+        walkers.Clear();
+
         List<UserChara> partyList = null;
         if (isQuest)
         {
