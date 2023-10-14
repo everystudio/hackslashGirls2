@@ -12,6 +12,9 @@ public class FloorManager : StateMachineBase<FloorManager>
     [SerializeField] private WalkerManager walkerManager;
     public WalkerManager WalkerManager => walkerManager;
 
+    [SerializeField] private Camera usingCamera;
+    public Camera UsingCamera => usingCamera;
+
     [SerializeField] private GameObject testEnemyPrefab;
     private List<EnemyBase> enemyList = new List<EnemyBase>();
 

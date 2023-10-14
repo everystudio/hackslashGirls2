@@ -186,7 +186,15 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         {
             machine.OnAttackHit.AddListener(() =>
             {
-                nearestEnemy.TakeDamage(machine.characterAsset.attack);
+                if (nearestEnemy != null)
+                {
+                    var obj = Instantiate(Resources.Load("FlyingText"), GameObject.Find("Canvas").transform) as GameObject;
+                    Debug.Log(machine.floorManager.UsingCamera);
+                    obj.GetComponent<FollowTransform>().SetTarget(nearestEnemy.transform, machine.floorManager.UsingCamera);
+                    Destroy(obj, 5f);
+
+                    nearestEnemy.TakeDamage(machine.characterAsset.attack);
+                }
             });
             machine.OnAttackEnd.AddListener(() =>
             {
