@@ -188,12 +188,18 @@ public class CharacterBase : StateMachineBase<CharacterBase>
             {
                 if (nearestEnemy != null)
                 {
-                    var obj = Instantiate(Resources.Load("FlyingText"), GameObject.Find("Canvas").transform) as GameObject;
-                    //Debug.Log(machine.floorManager.UsingCamera);
-                    obj.GetComponent<FollowTransform>().SetTarget(nearestEnemy.transform, machine.floorManager.UsingCamera);
+                    var obj = Instantiate(Resources.Load("FlyingText"), machine.transform.parent) as GameObject;
+
+                    Vector3 randomOffsetXY = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
+
+                    obj.transform.position = nearestEnemy.transform.position + new Vector3(0, 0, -1f) + randomOffsetXY;
+
+
+                    var flyingText = obj.GetComponent<FlyingText>();
+                    flyingText.Initialize(machine.userChara.strength);
                     Destroy(obj, 5f);
 
-                    nearestEnemy.TakeDamage(machine.characterAsset.attack);
+                    nearestEnemy.TakeDamage(machine.userChara.strength);
                 }
             });
             machine.OnAttackEnd.AddListener(() =>
