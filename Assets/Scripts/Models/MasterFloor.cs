@@ -8,6 +8,7 @@ public class MasterFloor : CsvModelParam
     public int floor_id;
     public int floor_start;
     public int floor_end;
+    public string background;
     public int continue_num;    // 使わない
     public int enemy_id_1;
     public int enemy_id_2;

@@ -25,6 +25,8 @@ public class FloorManager : StateMachineBase<FloorManager>
     public int CurrentFloor => currentFloor;
     [HideInInspector] public UnityEvent<int> OnFloorStart = new UnityEvent<int>();
 
+    [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
+
     private void Start()
     {
         ChangeState(new FloorManager.Standby(this));
@@ -49,6 +51,20 @@ public class FloorManager : StateMachineBase<FloorManager>
 
     private void StartNewFloor(int currentFloor)
     {
+        MasterFloor currentFloorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
+            x.floor_start <= currentFloor && currentFloor <= x.floor_end);
+
+        if (backgroundSpriteRenderer == null)
+        {
+            backgroundSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+        if (currentFloorModel != null)
+        {
+            backgroundSpriteRenderer.sprite = TextureManager.Instance.GetBackgroundSprite(currentFloorModel.background);
+        }
+
+
+
         walkerManager.StandbyParty();
         if (isQuest)
         {

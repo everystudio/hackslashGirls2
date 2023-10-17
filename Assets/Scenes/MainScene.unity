@@ -3581,6 +3581,7 @@ MonoBehaviour:
   OnFloorStart:
     m_PersistentCalls:
       m_Calls: []
+  backgroundSpriteRenderer: {fileID: 1892076312}
 --- !u!1 &952440495
 GameObject:
   m_ObjectHideFlags: 0
@@ -4863,6 +4864,12 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 9211bf04270bcd846a9b1a2e976c7654, type: 3}
   - {fileID: 2800000, guid: d3c65336efad7224aaa46b901e331266, type: 3}
   - {fileID: 2800000, guid: 676b93573898a6b4bb43f77108d87a44, type: 3}
+  backgroundSpriteList:
+  - {fileID: 21300000, guid: 823e90aa5ea01c04d9b6444b04828485, type: 3}
+  - {fileID: 21300000, guid: fee1cce7bcffdb3458e1cb39fb98ea7c, type: 3}
+  - {fileID: 21300000, guid: 45920d89031202d4eadfdd04e03ec9ea, type: 3}
+  - {fileID: 21300000, guid: 71db774ac6fc79f47bf9341481f35fa6, type: 3}
+  - {fileID: 21300000, guid: c3f954d4e6419ee4cbbb8eac390f4d65, type: 3}
 --- !u!1 &1300089587
 GameObject:
   m_ObjectHideFlags: 0
@@ -7600,6 +7607,7 @@ MonoBehaviour:
   OnFloorStart:
     m_PersistentCalls:
       m_Calls: []
+  backgroundSpriteRenderer: {fileID: 67477240}
 --- !u!1 &1904544488
 GameObject:
   m_ObjectHideFlags: 0

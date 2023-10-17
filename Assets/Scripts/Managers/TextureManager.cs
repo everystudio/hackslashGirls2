@@ -12,6 +12,9 @@ public class TextureManager : Singleton<TextureManager>
 
     [SerializeField] private List<Texture2D> miniCharaTextureList;
 
+    [SerializeField] private List<Sprite> backgroundSpriteList;
+    public List<Sprite> BackgroundSpriteList { get { return backgroundSpriteList; } }
+
     public Texture2D GetMiniCharaTexture(int charaId)
     {
         // sample
@@ -43,6 +46,11 @@ public class TextureManager : Singleton<TextureManager>
     public Sprite GetEnemySprite(string filename)
     {
         return enemiesSpriteAtlas.GetSprite(filename);
+    }
+
+    public Sprite GetBackgroundSprite(string filename)
+    {
+        return backgroundSpriteList.Find(sprite => sprite.name == filename);
     }
 
 }
