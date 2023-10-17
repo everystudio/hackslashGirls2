@@ -4833,6 +4833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fdf9d2d3993b4bbffcc95d0b6af87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   charaIconSpriteAtlas: {fileID: 4343727234628468602, guid: 71c7d2329d4b33d4ba3164db7d5750e1, type: 2}
   itemSpriteAtlas: {fileID: 4343727234628468602, guid: ab775b6bfef1861448dc42a68a9b6206, type: 2}
   enemiesSpriteAtlas: {fileID: 4343727234628468602, guid: 0efb0b17e0432f4479a7d6b201d1836d, type: 2}
@@ -6167,6 +6168,7 @@ MonoBehaviour:
   - {fileID: 1984675306}
   - {fileID: 1956776060}
   - {fileID: 606667909}
+  gameSpeed: 3
 --- !u!1 &1550889806
 GameObject:
   m_ObjectHideFlags: 0
@@ -7534,7 +7536,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 823e90aa5ea01c04d9b6444b04828485, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 45920d89031202d4eadfdd04e03ec9ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8648,6 +8650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04dc556d3f4c5914f83397abe80779e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   dummyUserChara: {fileID: 4900000, guid: 7b633625cc64a124ea3d88a1f5a7b009, type: 3}
   masterItemAsset: {fileID: 4900000, guid: 4841c496311868e4bb42cb43d727bcb5, type: 3}
   dummyUserItem: {fileID: 4900000, guid: 96491e7dd496674459f2f05972b33334, type: 3}

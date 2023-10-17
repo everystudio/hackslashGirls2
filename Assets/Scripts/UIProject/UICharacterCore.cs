@@ -78,7 +78,7 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
 
         if (hpGauge != null)
         {
-            Debug.Log(userChara.hp + " " + userChara.hp_max);
+            //Debug.Log(userChara.hp + " " + userChara.hp_max);
             hpGauge.value = (float)userChara.hp / (float)userChara.hp_max;
         }
         if (strengthGauge != null)

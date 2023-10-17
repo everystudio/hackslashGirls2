@@ -189,7 +189,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
                 if (nearestEnemy != null)
                 {
                     var obj = Instantiate(Resources.Load("FlyingText"), GameObject.Find("Canvas").transform) as GameObject;
-                    Debug.Log(machine.floorManager.UsingCamera);
+                    //Debug.Log(machine.floorManager.UsingCamera);
                     obj.GetComponent<FollowTransform>().SetTarget(nearestEnemy.transform, machine.floorManager.UsingCamera);
                     Destroy(obj, 5f);
 

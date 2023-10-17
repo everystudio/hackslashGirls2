@@ -14,10 +14,24 @@ public class GameManager : SingletonStateMachineBase<GameManager>
 
     [SerializeField] private List<UICharacterCore> charaPartyList;
 
+    [SerializeField] private float gameSpeed = 1f;
+    public float GameSpeed
+    {
+        get { return gameSpeed; }
+        set
+        {
+            gameSpeed = value;
+            Time.timeScale = gameSpeed;
+        }
+    }
+
     public override void Initialize()
     {
+        //Debug.Log("GameManager Initialize");
         base.Initialize();
         FooterButtons.OnFooterButtonEvent.AddListener(OnFooterButtonEvent);
+
+        GameSpeed = 3f;
 
         for (int i = 0; i < charaPartyList.Count; i++)
         {

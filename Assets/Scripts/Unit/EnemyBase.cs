@@ -130,6 +130,7 @@ public class EnemyBase : StateMachineBase<EnemyBase>
 
             machine.OnAttackHitEvent.AddListener(() =>
             {
+                //Debug.Log(targetCharacter);
                 targetCharacter.TakeDamage(machine.masterEnemy.attack);
             });
             machine.OnAttackEndEvent.AddListener(() =>
