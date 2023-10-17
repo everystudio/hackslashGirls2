@@ -27,6 +27,9 @@ public class FloorManager : StateMachineBase<FloorManager>
 
     [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
 
+    // 最高到達フロアの更新をしたイベント
+    public static UnityEvent<int> OnUpdateMaxFloor = new UnityEvent<int>();
+
     private void Start()
     {
         ChangeState(new FloorManager.Standby(this));
@@ -239,7 +242,17 @@ public class FloorManager : StateMachineBase<FloorManager>
             base.OnEnterState();
             machine.fadeScreenImage.FadeOut(() =>
             {
+                if (machine.isQuest)
+                {
+                    if (ModelManager.Instance.UserGameData.max_floor_id < machine.currentFloor)
+                    {
+                        OnUpdateMaxFloor.Invoke(machine.currentFloor);
+                    }
+                }
+
                 machine.currentFloor++;
+
+
                 ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
             });
         }

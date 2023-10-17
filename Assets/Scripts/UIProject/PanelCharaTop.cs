@@ -39,11 +39,11 @@ public class PanelCharaTop : UIPanel
             Destroy(child.gameObject);
         }
 
-        foreach (var masterChara in ModelManager.Instance.MasterChara.List)
+        foreach (var userChara in ModelManager.Instance.UserChara.List)
         {
+            var masterChara = ModelManager.Instance.GetMasterChara(userChara.chara_id);
             int charaId = masterChara.chara_id;
             Debug.Log(charaId);
-            UserChara userChara = ModelManager.Instance.GetUserChara(charaId);
 
             GameObject charaButton = Instantiate(charaButtonPrefab, charaListParent);
             UICharacterCore charaButtonCore = charaButton.GetComponent<UICharacterCore>();

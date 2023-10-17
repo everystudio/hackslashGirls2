@@ -73,11 +73,11 @@ public class ListParty : StateMachineBase<ListParty>
         {
             Destroy(child.gameObject);
         }
-        foreach (var chara in ModelManager.Instance.MasterChara.List)
+        foreach (var userChara in ModelManager.Instance.UserChara.List)
         {
             var member = Instantiate(memberPrefab, memberRoot).GetComponent<UICharacterCore>();
-            var userChara = ModelManager.Instance.userChara.List.Find(x => x.chara_id == chara.chara_id);
-            member.Set(chara, userChara);
+            var masterChara = ModelManager.Instance.GetMasterChara(userChara.chara_id);
+            member.Set(masterChara, userChara);
             /*
             member.OnClick.AddListener((chara) =>
             {

@@ -6,6 +6,20 @@ using UnityEngine.Events;
 
 public class UserChara : CsvModelParam
 {
+    public UserChara() { }
+    public UserChara(MasterChara masterChara)
+    {
+        chara_id = masterChara.chara_id;
+        level = 1;
+        rank = 0;
+        chara_hp_max = 10;
+        chara_strength = 1;
+        chara_defense = 1;
+        chara_speed = 1;
+        chara_luck = 1;
+        chara_spirit = 1;
+        chara_heart = 1;
+    }
     public int chara_id;
 
     public int questPartyId;

@@ -6168,6 +6168,9 @@ MonoBehaviour:
   - {fileID: 1984675306}
   - {fileID: 1956776060}
   - {fileID: 606667909}
+  collectRootList:
+  - {fileID: 784331105}
+  - {fileID: 1425910936}
   gameSpeed: 3
 --- !u!1 &1550889806
 GameObject:

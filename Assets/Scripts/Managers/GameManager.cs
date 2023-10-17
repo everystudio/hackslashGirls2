@@ -14,7 +14,10 @@ public class GameManager : SingletonStateMachineBase<GameManager>
 
     [SerializeField] private List<UICharacterCore> charaPartyList;
 
+    [SerializeField] private List<GameObject> collectRootList;
+
     [SerializeField] private float gameSpeed = 1f;
+    private float savedGameSpeed = 1f;
     public float GameSpeed
     {
         get { return gameSpeed; }
@@ -24,9 +27,45 @@ public class GameManager : SingletonStateMachineBase<GameManager>
             Time.timeScale = gameSpeed;
         }
     }
+    private void GamePause()
+    {
+        savedGameSpeed = GameSpeed;
+        Time.timeScale = 0f;
+    }
+    private void GameResume()
+    {
+        Time.timeScale = savedGameSpeed;
+    }
 
     public override void Initialize()
     {
+        FloorManager.OnUpdateMaxFloor.AddListener((maxFloor) =>
+        {
+            // 採取メンバー解禁処理
+            if (maxFloor == Defines.CollectStartFloorID)
+            {
+                for (int i = 0; i < 4 + 2; i++)
+                {
+                    UserChara addChara = ModelManager.Instance.AddChara(i + 5);
+                    if (i < 4)
+                    {
+                        // 入れ替え用に2人メンバーを追加
+                        addChara.collectPartyId = i + 1;
+                    }
+                }
+                foreach (GameObject root in collectRootList)
+                {
+                    root.SetActive(true);
+                }
+            }
+        });
+
+        foreach (GameObject root in collectRootList)
+        {
+            root.SetActive(2 <= ModelManager.Instance.UserGameData.max_floor_id);
+        }
+
+
         //Debug.Log("GameManager Initialize");
         base.Initialize();
         FooterButtons.OnFooterButtonEvent.AddListener(OnFooterButtonEvent);

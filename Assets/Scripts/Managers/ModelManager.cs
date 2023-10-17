@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using anogame;
+using System;
 
 public class ModelManager : Singleton<ModelManager>
 {
     public TextAsset dummyUserChara;
     public CsvModel<UserChara> userChara = new CsvModel<UserChara>();
+    public CsvModel<UserChara> UserChara { get { return userChara; } }
 
     public TextAsset masterItemAsset;
     private CsvModel<MasterItem> masterItem = new CsvModel<MasterItem>();
@@ -39,6 +41,9 @@ public class ModelManager : Singleton<ModelManager>
 
     public UnityEvent<UserChara> OnUserCharaChanged = new UnityEvent<UserChara>();
     public UnityEvent<UserChara> OnPartyCharaChanged = new UnityEvent<UserChara>();
+
+    private UserGameData userGameData = new UserGameData();
+    public UserGameData UserGameData { get { return userGameData; } }
 
     public override void Initialize()
     {
@@ -173,7 +178,7 @@ public class ModelManager : Singleton<ModelManager>
     {
         foreach (var userChara in userChara.List)
         {
-            Debug.Log(userChara.chara_id + " " + userChara.questPartyId);
+            //Debug.Log(userChara.chara_id + " " + userChara.questPartyId);
             if (userChara.questPartyId == partyId)
             {
                 return userChara;
@@ -182,4 +187,22 @@ public class ModelManager : Singleton<ModelManager>
         return userChara.List.Find(chara => chara.questPartyId == partyId);
     }
 
+    public void SaveUserGameData()
+    {
+        // メソッドだけ用意
+
+    }
+
+    public UserChara AddChara(int chara_id)
+    {
+        MasterChara masterChara = GetMasterChara(chara_id);
+        if (masterChara == null)
+        {
+            return null;
+        }
+
+        UserChara addChara = new UserChara(masterChara);
+        userChara.List.Add(addChara);
+        return addChara;
+    }
 }
