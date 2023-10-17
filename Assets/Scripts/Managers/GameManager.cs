@@ -39,6 +39,16 @@ public class GameManager : SingletonStateMachineBase<GameManager>
 
     public override void Initialize()
     {
+        /*
+        int total = 0;
+        for (int i = 1; i < 100; i++)
+        {
+            total += Defines.CalculateRequiredLevelupCoin(i);
+            Debug.Log("Level:" + i + " RequiredExperience:" + Defines.CalculateRequiredLevelupCoin(i));
+        }
+        Debug.Log("Total:" + total);
+        */
+
         FloorManager.OnUpdateMaxFloor.AddListener((maxFloor) =>
         {
             // 採取メンバー解禁処理

@@ -45,6 +45,8 @@ public class ModelManager : Singleton<ModelManager>
     private UserGameData userGameData = new UserGameData();
     public UserGameData UserGameData { get { return userGameData; } }
 
+    public UnityEvent<UserGameData> OnChangeUserGameData = new UnityEvent<UserGameData>();
+
     public override void Initialize()
     {
         Debug.Log("ModelManager Initialize");
@@ -58,6 +60,8 @@ public class ModelManager : Singleton<ModelManager>
         masterFloor.Load(masterFloorAsset);
 
         userItem.Load(dummyUserItem);
+
+        userGameData.coin = 999999999;
 
         // マスターデータからユーザーデータを作成する
         foreach (var masterItem in masterItem.List)
@@ -204,5 +208,21 @@ public class ModelManager : Singleton<ModelManager>
         UserChara addChara = new UserChara(masterChara);
         userChara.List.Add(addChara);
         return addChara;
+    }
+
+    public void AddCoin(int coin)
+    {
+        userGameData.coin += coin;
+        OnChangeUserGameData.Invoke(userGameData);
+    }
+    public bool UseCoin(int coin)
+    {
+        if (userGameData.coin < coin)
+        {
+            return false;
+        }
+        userGameData.coin -= coin;
+        OnChangeUserGameData.Invoke(userGameData);
+        return true;
     }
 }

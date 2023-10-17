@@ -3824,7 +3824,7 @@ GameObject:
   - component: {fileID: 990087729}
   - component: {fileID: 990087728}
   m_Layer: 5
-  m_Name: numText
+  m_Name: coinNumText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5826,6 +5826,7 @@ GameObject:
   - component: {fileID: 1460103419}
   - component: {fileID: 1460103421}
   - component: {fileID: 1460103420}
+  - component: {fileID: 1460103422}
   m_Layer: 5
   m_Name: header
   m_TagString: Untagged
@@ -5894,6 +5895,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460103418}
   m_CullTransparentMesh: 1
+--- !u!114 &1460103422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460103418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d944248b8478f8b48b209d2a89598f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  coinText: {fileID: 990087728}
 --- !u!1 &1472829534
 GameObject:
   m_ObjectHideFlags: 3
@@ -8666,6 +8681,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnPartyCharaChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnChangeUserGameData:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &2746511539598743094

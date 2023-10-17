@@ -3,3 +3,4 @@ chara_id,questPartyId,collectPartyId,level,rank,next_exp,hp,chara_hp_max,chara_s
 2,2,0,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
 3,3,0,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
 4,4,0,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
+ 

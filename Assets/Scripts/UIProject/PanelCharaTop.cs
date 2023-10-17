@@ -17,6 +17,9 @@ public class PanelCharaTop : UIPanel
     [SerializeField] private Transform charaListParent;
     [SerializeField] private GameObject charaButtonPrefab;
 
+    [SerializeField] private Button levelupButton;
+    [SerializeField] private TextMeshProUGUI requireCoinText;
+
 
     protected override void initialize()
     {
@@ -54,6 +57,19 @@ public class PanelCharaTop : UIPanel
                 ShowSelectingChara(selectingCharaId);
             });
         }
+
+        levelupButton.onClick.AddListener(() =>
+        {
+            UserChara userChara = ModelManager.Instance.GetUserChara(selectingCharaId);
+            int requireCoint = Defines.CalculateRequiredLevelupCoin(userChara.level + 1);
+            if (ModelManager.Instance.UseCoin(requireCoint))
+            {
+                if (userChara.Levelup())
+                {
+                    ModelManager.Instance.OnUserCharaChanged.Invoke(userChara);
+                }
+            }
+        });
     }
 
     private void ShowSelectingChara(int selectingCharaId)
@@ -63,5 +79,10 @@ public class PanelCharaTop : UIPanel
         characterCore.Set(masterChara, userChara);
 
         userEquipHolder.Set(masterChara, userChara);
+
+        int requireCoint = Defines.CalculateRequiredLevelupCoin(userChara.level + 1);
+        requireCoinText.text = Defines.GetNumericString(requireCoint);
+
+        levelupButton.interactable = requireCoint <= ModelManager.Instance.UserGameData.coin;
     }
 }

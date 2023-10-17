@@ -112,6 +112,29 @@ public class UserChara : CsvModelParam
         return true;
     }
 
+    public bool Levelup()
+    {
+        if (level >= 99)
+        {
+            return false;
+        }
+
+        level += 1;
+
+        MasterChara masterChara = ModelManager.Instance.GetMasterChara(chara_id);
+
+        chara_hp_max = (int)Mathf.Lerp(1, masterChara.hp, level / 99f);
+        chara_strength = (int)Mathf.Lerp(1, masterChara.strength, level / 99f);
+        chara_defense = (int)Mathf.Lerp(1, masterChara.defense, level / 99f);
+        chara_speed = (int)Mathf.Lerp(1, masterChara.speed, level / 99f);
+        chara_luck = (int)Mathf.Lerp(1, masterChara.luck, level / 99f);
+        chara_spirit = (int)Mathf.Lerp(1, masterChara.spirit, level / 99f);
+        chara_heart = (int)Mathf.Lerp(1, masterChara.heart, level / 99f);
+
+        hp = hp_max;
+        return true;
+    }
+
 
 
     public static readonly int MAX_STATUS_PARAM = 100;

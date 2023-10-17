@@ -6,4 +6,5 @@ using anogame;
 public class UserGameData : CsvModelParam
 {
     public int max_floor_id;
+    public int coin;
 }

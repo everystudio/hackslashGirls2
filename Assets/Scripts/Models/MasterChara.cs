@@ -12,4 +12,12 @@ public class MasterChara : CsvModelParam
     public float attack_range;
     public int attack_speed;
 
+    public int hp;
+    public int strength;
+    public int defense;
+    public int speed;
+    public int luck;
+    public int spirit;
+    public int heart;
+
 }
