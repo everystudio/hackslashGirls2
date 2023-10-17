@@ -157,7 +157,7 @@ public class EnemyBase : StateMachineBase<EnemyBase>
         {
             base.OnEnterState();
             machine.OnDie?.Invoke();
-            Destroy(machine.gameObject);
+            machine.animator.SetTrigger("dead");
         }
     }
 
@@ -168,6 +168,10 @@ public class EnemyBase : StateMachineBase<EnemyBase>
     public void OnAttackEndHandler()
     {
         OnAttackEndEvent?.Invoke();
+    }
+    public void OnDeadEndHandler()
+    {
+        Destroy(gameObject);
     }
 
 
