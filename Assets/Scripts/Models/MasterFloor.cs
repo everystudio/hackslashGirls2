@@ -13,6 +13,7 @@ public class MasterFloor : CsvModelParam
     public int enemy_id_1;
     public int enemy_id_2;
     public int enemy_id_3;
+    public int enemy_id_boss;
 
     public int GetRandomEnemyID()
     {

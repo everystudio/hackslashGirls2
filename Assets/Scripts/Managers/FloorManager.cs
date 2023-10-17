@@ -25,13 +25,20 @@ public class FloorManager : StateMachineBase<FloorManager>
     public int CurrentFloor => currentFloor;
     [HideInInspector] public UnityEvent<int> OnFloorStart = new UnityEvent<int>();
 
+    [SerializeField] private Transform enemyRoot;
     [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
 
     // 最高到達フロアの更新をしたイベント
     public static UnityEvent<int> OnUpdateMaxFloor = new UnityEvent<int>();
 
+    [SerializeField] private BossInfo bossInfo;
+
     private void Start()
     {
+        if (bossInfo != null)
+        {
+            bossInfo.gameObject.SetActive(false);
+        }
         ChangeState(new FloorManager.Standby(this));
     }
 
@@ -66,14 +73,12 @@ public class FloorManager : StateMachineBase<FloorManager>
             backgroundSpriteRenderer.sprite = TextureManager.Instance.GetBackgroundSprite(currentFloorModel.background);
         }
 
-
-
         walkerManager.StandbyParty();
         if (isQuest)
         {
             if (testEnemyPrefab != null)
             {
-                SpawnTestEnemy();
+                SpawnEnemy();
             }
         }
         else
@@ -89,7 +94,7 @@ public class FloorManager : StateMachineBase<FloorManager>
     }
 
 
-    private void SpawnTestEnemy()
+    private void SpawnEnemy()
     {
         // enemiesをクリア
         foreach (var enemy in enemyList)
@@ -98,24 +103,45 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
         enemyList.Clear();
 
-        for (int i = 0; i < 5; i++)
+
+        for (int i = 0; i < Defines.MaxEnemyNum; i++)
         {
             EnemyBase enemyBase = Instantiate(testEnemyPrefab, transform).GetComponent<EnemyBase>();
             enemyList.Add(enemyBase);
-            enemyBase.transform.localPosition = new Vector3(i * 0.75f + 1.5f, 0, 0);
+            Debug.Log(enemyRoot.transform.localPosition.y);
+            enemyBase.transform.localPosition = new Vector3(i * 0.75f + 1.5f, enemyRoot.transform.localPosition.y, 0);
             enemyBase.OnDie.AddListener(() =>
             {
                 enemyList.Remove(enemyBase);
             });
 
             // 現在のフロアからFloorModelを検索
-            var floorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
+            MasterFloor floorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
                 x.floor_start <= currentFloor && currentFloor <= x.floor_end);
 
-            // FloorModelからEnemyModelを検索
-            var enemyModel = ModelManager.Instance.GetMasterEnemy(floorModel.GetRandomEnemyID());
+            bool isBoss = false;
+            MasterEnemy enemyModel = null;
 
-            enemyBase.FloorStart(this, enemyModel);
+            bool forceBossAppearFlag = false;
+
+            if ((forceBossAppearFlag || currentFloor == floorModel.floor_end) && i == Defines.MaxEnemyNum - 1)
+            {
+                // 最後の敵
+                enemyModel = ModelManager.Instance.GetMasterEnemy(floorModel.enemy_id_boss);
+                isBoss = true;
+            }
+            else
+            {
+                // FloorModelからEnemyModelを検索
+                enemyModel = ModelManager.Instance.GetMasterEnemy(floorModel.GetRandomEnemyID());
+            }
+
+            enemyBase.FloorStart(this, enemyModel, isBoss);
+            if (isBoss)
+            {
+                bossInfo.gameObject.SetActive(true);
+                bossInfo.Initialize(enemyBase);
+            }
 
         }
     }

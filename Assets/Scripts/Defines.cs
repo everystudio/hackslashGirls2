@@ -10,6 +10,9 @@ public static class Defines
     public const int BaseExperience = 100;
     public const float Exponent = 1.25f;
 
+    // １フロアでの最大敵数
+    public const int MaxEnemyNum = 5;
+
     public static int CalculateRequiredLevelupCoin(int level)
     {
         float level_rate = (float)level / 50;

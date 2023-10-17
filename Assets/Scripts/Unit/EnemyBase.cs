@@ -8,6 +8,12 @@ using anogame;
 public class EnemyBase : StateMachineBase<EnemyBase>
 {
     private float health = 25f;
+    private float healthMax = 25f;
+    public float HealthMax
+    {
+        get { return healthMax; }
+    }
+
     public UnityEvent OnDie = new UnityEvent();
 
     private float attackRange = 3f;
@@ -19,6 +25,9 @@ public class EnemyBase : StateMachineBase<EnemyBase>
 
     public MasterEnemy masterEnemy;
 
+    private int attackAssist = 0;
+    public UnityEvent<float> OnChangeHealth = new UnityEvent<float>();
+
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private void Awake()
@@ -27,13 +36,24 @@ public class EnemyBase : StateMachineBase<EnemyBase>
     }
 
 
-    public void FloorStart(FloorManager floorManager, MasterEnemy masterEnemy)
+    public void FloorStart(FloorManager floorManager, MasterEnemy masterEnemy, bool isBoss)
     {
         this.floorManager = floorManager;
         this.masterEnemy = masterEnemy;
         health = masterEnemy.hp;
 
+        if (isBoss)
+        {
+            health *= 5f;
+            attackAssist = masterEnemy.attack;
+            transform.localScale *= 2.0f;
+        }
+        else
+        {
+            attackAssist = 0;
+        }
         spriteRenderer.sprite = TextureManager.Instance.GetEnemySprite(masterEnemy.filename);
+        healthMax = health;
 
         ChangeState(new EnemyBase.Waiting(this));
     }
@@ -50,6 +70,9 @@ public class EnemyBase : StateMachineBase<EnemyBase>
             return;
         }
         health -= damage;
+        health = Mathf.Max(health, 0f);
+        OnChangeHealth?.Invoke(health);
+
         if (health <= 0f)
         {
             ChangeState(new EnemyBase.Die(this));
