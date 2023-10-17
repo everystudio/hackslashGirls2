@@ -36,7 +36,7 @@ public class PanelMainContent : UIPanel
         UIController.Instance.RemovePanel(currentContent);
     }
 
-    public void BuildQuest()
+    public void Build(bool isQuest)
     {
         if (lastViewContentIsParty == false)
         {
@@ -47,7 +47,7 @@ public class PanelMainContent : UIPanel
             currentContent = UIController.Instance.AddPanel(partyPrefab, contentRoot);
             if (currentContent.TryGetComponent(out ListParty listParty))
             {
-                listParty.isQuest = true;
+                listParty.isQuest = isQuest;
                 listParty.Initialize();
             }
         }
@@ -67,12 +67,11 @@ public class PanelMainContent : UIPanel
             {
                 lastViewContentIsParty = true;
 
-                Debug.Log("Party");
                 UIController.Instance.RemovePanel(currentContent);
                 currentContent = UIController.Instance.AddPanel(partyPrefab, contentRoot);
                 if (currentContent.TryGetComponent(out ListParty listParty))
                 {
-                    listParty.isQuest = true;
+                    listParty.isQuest = isQuest;
                     listParty.Initialize();
                 }
             });

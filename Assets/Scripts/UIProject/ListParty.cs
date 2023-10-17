@@ -78,6 +78,25 @@ public class ListParty : StateMachineBase<ListParty>
             var member = Instantiate(memberPrefab, memberRoot).GetComponent<UICharacterCore>();
             var masterChara = ModelManager.Instance.GetMasterChara(userChara.chara_id);
             member.Set(masterChara, userChara);
+
+            if (0 < userChara.partyIndex)
+            {
+                bool block = false;
+                if (isQuest && 0 < userChara.collectPartyId)
+                {
+                    block = true;
+                }
+                else if (!isQuest && 0 < userChara.questPartyId)
+                {
+                    block = true;
+                }
+                if (block)
+                {
+                    member.SetBlockClick();
+                }
+            }
+
+
             /*
             member.OnClick.AddListener((chara) =>
             {
@@ -175,9 +194,18 @@ public class ListParty : StateMachineBase<ListParty>
             }
             else
             {
-                int tempPartyId = selectedChara.questPartyId;
-                selectedChara.questPartyId = arg1.questPartyId;
-                arg1.questPartyId = tempPartyId;
+                if (machine.isQuest)
+                {
+                    int tempPartyId = selectedChara.questPartyId;
+                    selectedChara.questPartyId = arg1.questPartyId;
+                    arg1.questPartyId = tempPartyId;
+                }
+                else
+                {
+                    int tempPartyId = selectedChara.collectPartyId;
+                    selectedChara.collectPartyId = arg1.collectPartyId;
+                    arg1.collectPartyId = tempPartyId;
+                }
 
                 machine.RefreshPartyList();
                 ChangeState(new ListParty.Newtral(machine));

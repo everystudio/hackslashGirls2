@@ -129,19 +129,17 @@ public class GameManager : SingletonStateMachineBase<GameManager>
             machine.collectView.OnClicked.RemoveAllListeners();
         }
     }
-
-    private class Quest : StateBase<GameManager>
+    private class MainContentsView : StateBase<GameManager>
     {
         public PanelMainContent panelMainContent;
-        public Quest(GameManager machine) : base(machine)
+        public MainContentsView(GameManager machine) : base(machine)
         {
         }
+
         public override void OnEnterState()
         {
             base.OnEnterState();
             panelMainContent = UIController.Instance.AddPanel("PanelMainContent").GetComponent<PanelMainContent>();
-            panelMainContent.BuildQuest();
-
             FooterButtons.OnFooterButtonEvent.AddListener(OnFooterButtonEventQuest);
 
             panelMainContent.OnBackButtonClicked.AddListener(() =>
@@ -149,7 +147,6 @@ public class GameManager : SingletonStateMachineBase<GameManager>
                 ReturnIdle();
             });
         }
-
         private void ReturnIdle()
         {
             machine.ChangeState(new GameManager.Idle(machine));
@@ -165,12 +162,34 @@ public class GameManager : SingletonStateMachineBase<GameManager>
             base.OnExitState();
             UIController.Instance.RemovePanel(panelMainContent.gameObject);
         }
+
     }
 
-    private class Collect : StateBase<GameManager>
+
+
+    private class Quest : MainContentsView
+    {
+        public Quest(GameManager machine) : base(machine)
+        {
+        }
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+            panelMainContent.Build(true);
+
+        }
+
+    }
+
+    private class Collect : MainContentsView
     {
         public Collect(GameManager machine) : base(machine)
         {
+        }
+        public override void OnEnterState()
+        {
+            base.OnEnterState();
+            panelMainContent.Build(false);
         }
     }
 }

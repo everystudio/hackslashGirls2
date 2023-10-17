@@ -35,15 +35,33 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Slider spritGauge;
     [SerializeField] private Slider heartGauge;
 
-
+    private bool isBlocking = false;
     public UnityEvent<UserChara> OnClick = new UnityEvent<UserChara>();
+
+    public void SetBlockClick()
+    {
+        if (selectingImage != null)
+        {
+            selectingImage.gameObject.SetActive(true);
+            selectingImage.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        }
+        isBlocking = true;
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (isBlocking)
+        {
+            return;
+        }
         OnClick.Invoke(userChara);
     }
     public void Select(int charaId)
     {
+        if (isBlocking)
+        {
+            return;
+        }
         if (selectingImage != null)
         {
             selectingImage.gameObject.SetActive(characterAsset.chara_id == charaId);
