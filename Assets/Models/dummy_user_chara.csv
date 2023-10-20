@@ -1,6 +1,5 @@
-chara_id,questPartyId,collectPartyId,level,rank,next_exp,hp,chara_hp_max,chara_strength,chara_defense,chara_speed,chara_luck,chara_spirit,assist_hp_max,assist_strength,assist_defense,assist_speed,assist_luck,assist_spirit
-1,1,0,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
-2,2,0,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
-3,3,0,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
-4,4,0,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
- 
+chara_id,questPartyId,collectPartyId,level,rank,star,next_exp,hp,chara_hp_max,chara_strength,chara_defense,chara_speed,chara_luck,chara_spirit,assist_hp_max,assist_strength,assist_defense,assist_speed,assist_luck,assist_spirit
+1,1,0,1,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
+2,2,0,1,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
+3,3,0,1,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0
+4,4,0,1,1,1,100,30,30,5,5,5,10,3,0,0,0,0,0,0

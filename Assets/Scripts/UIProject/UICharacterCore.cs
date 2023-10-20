@@ -35,6 +35,8 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Slider spritGauge;
     [SerializeField] private Slider heartGauge;
 
+    [SerializeField] private StarView starView;
+
     private bool isBlocking = false;
     public UnityEvent<UserChara> OnClick = new UnityEvent<UserChara>();
 
@@ -83,7 +85,7 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         }
         if (levelText != null)
         {
-            levelText.text = userChara.level.ToString();
+            levelText.text = "Level." + userChara.level.ToString();
         }
         if (rankText != null)
         {
@@ -152,6 +154,12 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         {
             heartText.text = "心：" + userChara.heart.ToString();
         }
+
+        if (starView != null)
+        {
+            starView.Set(userChara.star);
+        }
+
     }
 
     public void Set(UserChara userChara)

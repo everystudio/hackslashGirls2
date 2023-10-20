@@ -108,7 +108,7 @@ public class FloorManager : StateMachineBase<FloorManager>
         {
             EnemyBase enemyBase = Instantiate(testEnemyPrefab, transform).GetComponent<EnemyBase>();
             enemyList.Add(enemyBase);
-            Debug.Log(enemyRoot.transform.localPosition.y);
+            //Debug.Log(enemyRoot.transform.localPosition.y);
             enemyBase.transform.localPosition = new Vector3(i * 0.75f + 1.5f, enemyRoot.transform.localPosition.y, 0);
             enemyBase.OnDie.AddListener(() =>
             {

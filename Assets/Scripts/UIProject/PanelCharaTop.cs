@@ -20,6 +20,8 @@ public class PanelCharaTop : UIPanel
     [SerializeField] private Button levelupButton;
     [SerializeField] private TextMeshProUGUI requireCoinText;
 
+    [SerializeField] private Button starupButton;
+
 
     protected override void initialize()
     {
@@ -84,5 +86,9 @@ public class PanelCharaTop : UIPanel
         requireCoinText.text = Defines.GetNumericString(requireCoint);
 
         levelupButton.interactable = requireCoint <= ModelManager.Instance.UserGameData.coin;
+
+        starupButton.gameObject.SetActive(userChara.star < 5);
+
+
     }
 }

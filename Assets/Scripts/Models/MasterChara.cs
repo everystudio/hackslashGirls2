@@ -8,6 +8,7 @@ public class MasterChara : CsvModelParam
     public int chara_id;
     public string chara_name;
     public string description;
+    public int initial_star;
     public int attack;
     public float attack_range;
     public int attack_speed;
