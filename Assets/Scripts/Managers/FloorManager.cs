@@ -136,7 +136,21 @@ public class FloorManager : StateMachineBase<FloorManager>
                 enemyModel = ModelManager.Instance.GetMasterEnemy(floorModel.GetRandomEnemyID());
             }
 
-            enemyBase.FloorStart(this, enemyModel, isBoss);
+            int rarity = enemyModel.rarity;
+            if (1 < rarity)
+            {
+                // 0.1%の確率でレア敵
+                if (UnityEngine.Random.Range(0, 1000) < 1)
+                {
+                    rarity = enemyModel.rarity;
+                }
+                else
+                {
+                    rarity = 1;
+                }
+            }
+
+            enemyBase.FloorStart(this, enemyModel, isBoss, rarity);
             if (isBoss)
             {
                 bossInfo.gameObject.SetActive(true);

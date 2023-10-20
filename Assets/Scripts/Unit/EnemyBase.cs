@@ -30,13 +30,15 @@ public class EnemyBase : StateMachineBase<EnemyBase>
 
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    [SerializeField] private Material rareMaterial;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
 
-    public void FloorStart(FloorManager floorManager, MasterEnemy masterEnemy, bool isBoss)
+    public void FloorStart(FloorManager floorManager, MasterEnemy masterEnemy, bool isBoss, int rarity = 1)
     {
         this.floorManager = floorManager;
         this.masterEnemy = masterEnemy;
@@ -47,6 +49,12 @@ public class EnemyBase : StateMachineBase<EnemyBase>
             health *= 5f;
             attackAssist = masterEnemy.attack;
             transform.localScale *= 2.0f;
+        }
+        else if (1 < rarity)
+        {
+            health *= 10f;
+            attackAssist = masterEnemy.attack / 2;
+            spriteRenderer.material = rareMaterial;
         }
         else
         {

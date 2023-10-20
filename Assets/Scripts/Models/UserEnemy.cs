@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using anogame;
 
-public class UserEnemy : MonoBehaviour
+public class UserEnemy : CsvModelParam
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int enemy_id;
+    public int area_id;
+    public int rarity;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int count;
 }
