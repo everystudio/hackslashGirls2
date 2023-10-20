@@ -68,6 +68,8 @@ public class GameManager : SingletonStateMachineBase<GameManager>
                     root.SetActive(true);
                 }
             }
+            // 実際の更新はここ
+            ModelManager.Instance.UserGameData.max_floor_id = maxFloor;
         });
 
         foreach (GameObject root in collectRootList)

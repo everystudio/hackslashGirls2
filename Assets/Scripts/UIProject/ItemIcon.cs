@@ -22,6 +22,16 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler
         this.userItem = userItem;
     }
 
+    public void Initialize(MasterItem masterItem, bool isFind = false)
+    {
+        icon.sprite = TextureManager.Instance.GetIconItemSprite(masterItem.item_id);
+        icon.color = isFind ? Color.white : Color.black;
+        icon.enabled = true;
+        count.text = "";
+
+        this.userItem = null;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         OnClick.Invoke(userItem);

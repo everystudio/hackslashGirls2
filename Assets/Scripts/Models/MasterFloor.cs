@@ -6,6 +6,7 @@ using anogame;
 public class MasterFloor : CsvModelParam
 {
     public int floor_id;
+    public int area_id;
     public int floor_start;
     public int floor_end;
     public string background;

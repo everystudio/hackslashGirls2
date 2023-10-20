@@ -225,4 +225,9 @@ public class ModelManager : Singleton<ModelManager>
         OnChangeUserGameData.Invoke(userGameData);
         return true;
     }
+
+    public MasterArea GetMasterArea(int areaId)
+    {
+        return masterArea.List.Find(area => area.area_id == areaId);
+    }
 }

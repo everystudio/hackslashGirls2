@@ -9,6 +9,6 @@ public class MasterArea : CsvModelParam
     public string area_name;
     public string thumbnail;
     public string description;
-    public int floor_start;
-    public int floor_end;
+    public int floor_id_start;
+    public int floor_id_end;
 }

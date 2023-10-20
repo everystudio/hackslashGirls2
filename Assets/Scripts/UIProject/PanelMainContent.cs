@@ -36,44 +36,61 @@ public class PanelMainContent : UIPanel
         UIController.Instance.RemovePanel(currentContent);
     }
 
+    private void BuildArea(bool isQuest)
+    {
+        lastViewContentIsParty = false;
+        if (currentContent != null)
+        {
+            UIController.Instance.RemovePanel(currentContent);
+        }
+
+        currentContent = UIController.Instance.AddPanel(areaPrefab, contentRoot);
+        if (currentContent.TryGetComponent(out ListArea listArea))
+        {
+            listArea.Init(isQuest);
+        }
+    }
+
+    private void BuildParty(bool isQuest)
+    {
+        lastViewContentIsParty = true;
+
+        if (currentContent != null)
+        {
+            UIController.Instance.RemovePanel(currentContent);
+        }
+
+        currentContent = UIController.Instance.AddPanel(partyPrefab, contentRoot);
+        if (currentContent.TryGetComponent(out ListParty listParty))
+        {
+            listParty.isQuest = isQuest;
+            listParty.Initialize();
+        }
+    }
+
     public void Build(bool isQuest)
     {
         if (lastViewContentIsParty == false)
         {
-            currentContent = UIController.Instance.AddPanel(areaPrefab, contentRoot);
+            BuildArea(isQuest);
         }
         else
         {
-            currentContent = UIController.Instance.AddPanel(partyPrefab, contentRoot);
-            if (currentContent.TryGetComponent(out ListParty listParty))
-            {
-                listParty.isQuest = isQuest;
-                listParty.Initialize();
-            }
+            BuildParty(isQuest);
         }
 
         if (tabArea != null)
         {
             tabArea.onClick.AddListener(() =>
             {
-                lastViewContentIsParty = false;
-                UIController.Instance.RemovePanel(currentContent);
-                currentContent = UIController.Instance.AddPanel(areaPrefab, contentRoot);
+                BuildArea(isQuest);
             });
         }
         if (tabParty != null)
         {
             tabParty.onClick.AddListener(() =>
             {
-                lastViewContentIsParty = true;
-
-                UIController.Instance.RemovePanel(currentContent);
-                currentContent = UIController.Instance.AddPanel(partyPrefab, contentRoot);
-                if (currentContent.TryGetComponent(out ListParty listParty))
-                {
-                    listParty.isQuest = isQuest;
-                    listParty.Initialize();
-                }
+                BuildParty(isQuest);
             });
         }
     }
