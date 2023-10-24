@@ -423,7 +423,10 @@ public class ModelManager : Singleton<ModelManager>
 
         // 達成率を計算する
         int total = (floorDiffMax) + enemyCount + itemCount;
-        int current = (floorDiffCurrent) + userEnemy.List.Count + userItem.List.Count;
+
+        int areaEnemyCount = userEnemy.List.FindAll(enemy => enemy.area_id == area_id).Count;
+        int areaItemCount = userItem.List.FindAll(item => item.area_id == area_id).Count;
+        int current = (floorDiffCurrent) + areaEnemyCount + areaItemCount;
 
         UserArea userArea = ModelManager.Instance.userArea.List.Find(area => area.area_id == area_id);
         if (userArea == null)
