@@ -21,6 +21,9 @@ public class PanelMainContent : UIPanel
 
     private static bool lastViewContentIsParty = false;
 
+    public UnityEvent<int, bool> OnFloorStart = new UnityEvent<int, bool>();
+
+
     protected override void initialize()
     {
         closeButton.onClick.AddListener(() =>
@@ -48,6 +51,10 @@ public class PanelMainContent : UIPanel
         if (currentContent.TryGetComponent(out ListArea listArea))
         {
             listArea.Init(isQuest);
+            listArea.OnFloorStart.AddListener((floorId, isQuest) =>
+            {
+                OnFloorStart.Invoke(floorId, isQuest);
+            });
         }
     }
 

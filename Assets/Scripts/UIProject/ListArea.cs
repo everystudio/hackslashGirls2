@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using anogame;
 
@@ -12,6 +13,9 @@ public class ListArea : StateMachineBase<ListArea>
     [SerializeField] private GameObject areaDetailPrefab;
     private GameObject areaDetailGameObject;
     private bool isQuest;
+
+    public UnityEvent<int, bool> OnFloorStart = new UnityEvent<int, bool>();
+
 
     public void Init(bool isQuest)
     {
@@ -57,6 +61,10 @@ public class ListArea : StateMachineBase<ListArea>
             {
                 UIController.Instance.RemovePanel(areaDetailGameObject);
                 areaDetailGameObject = null;
+            });
+            panelAreaDetail.OnFloorStart.AddListener((floorId, isQuest) =>
+            {
+                OnFloorStart.Invoke(floorId, isQuest);
             });
         }
     }

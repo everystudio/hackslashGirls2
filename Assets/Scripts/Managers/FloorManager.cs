@@ -78,14 +78,14 @@ public class FloorManager : StateMachineBase<FloorManager>
         {
             if (testEnemyPrefab != null)
             {
-                SpawnEnemy();
+                SpawnEnemy(currentFloor);
             }
         }
         else
         {
             if (collectableItemPrefab != null)
             {
-                SpawnCollectableItem();
+                SpawnCollectableItem(currentFloor);
             }
         }
 
@@ -94,7 +94,7 @@ public class FloorManager : StateMachineBase<FloorManager>
     }
 
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(int floor)
     {
         // enemiesをクリア
         foreach (var enemy in enemyList)
@@ -117,14 +117,14 @@ public class FloorManager : StateMachineBase<FloorManager>
 
             // 現在のフロアからFloorModelを検索
             MasterFloor floorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
-                x.floor_start <= currentFloor && currentFloor <= x.floor_end);
+                x.floor_start <= floor && floor <= x.floor_end);
 
             bool isBoss = false;
             MasterEnemy enemyModel = null;
 
             bool forceBossAppearFlag = false;
 
-            if ((forceBossAppearFlag || currentFloor == floorModel.floor_end) && i == Defines.MaxEnemyNum - 1)
+            if ((forceBossAppearFlag || floor == floorModel.floor_end) && i == Defines.MaxEnemyNum - 1)
             {
                 // 最後の敵
                 enemyModel = ModelManager.Instance.GetMasterEnemy(floorModel.enemy_id_boss);
@@ -140,7 +140,7 @@ public class FloorManager : StateMachineBase<FloorManager>
             if (1 < rarity)
             {
                 // 0.1%の確率でレア敵
-                if (UnityEngine.Random.Range(0, 1000) < 1)
+                if (UnityEngine.Random.Range(0, 2) < 1)
                 {
                     rarity = enemyModel.rarity;
                 }
@@ -160,7 +160,7 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
     }
 
-    private void SpawnCollectableItem()
+    private void SpawnCollectableItem(int floor)
     {
         // collectableItemsをクリア
         foreach (var collectableItem in collectableItems)
@@ -216,6 +216,13 @@ public class FloorManager : StateMachineBase<FloorManager>
         return nearestCollectableItem;
     }
 
+    public void RequestStart(int floorId)
+    {
+        fadeScreenImage.Black();
+        currentFloor = floorId;
+        ChangeState(new FloorManager.FloorStart(this, floorId));
+    }
+
 
     private class Standby : StateBase<FloorManager>
     {
@@ -227,6 +234,10 @@ public class FloorManager : StateMachineBase<FloorManager>
             base.OnEnterState();
             machine.fadeScreenImage.Black();
             //machine.walkerManager.StandbyParty();
+
+            machine.currentFloor = ModelManager.Instance.UserGameData.last_quest_floor_id;
+
+
             ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
         }
     }
@@ -291,6 +302,7 @@ public class FloorManager : StateMachineBase<FloorManager>
                 }
 
                 machine.currentFloor++;
+                Debug.Log("currentFloor:" + machine.currentFloor);
 
 
                 ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));

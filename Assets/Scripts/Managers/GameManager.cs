@@ -12,6 +12,9 @@ public class GameManager : SingletonStateMachineBase<GameManager>
     [SerializeField] private UIClickHandle questView;
     [SerializeField] private UIClickHandle collectView;
 
+    [SerializeField] private FloorManager questFloorManager;
+    [SerializeField] private FloorManager collectFloorManager;
+
     [SerializeField] private List<UICharacterCore> charaPartyList;
 
     [SerializeField] private List<GameObject> collectRootList;
@@ -153,6 +156,15 @@ public class GameManager : SingletonStateMachineBase<GameManager>
             base.OnEnterState();
             panelMainContent = UIController.Instance.AddPanel("PanelMainContent").GetComponent<PanelMainContent>();
             FooterButtons.OnFooterButtonEvent.AddListener(OnFooterButtonEventQuest);
+
+            panelMainContent.OnFloorStart.AddListener((floorId, isQuest) =>
+            {
+                if (isQuest)
+                {
+                    machine.questFloorManager.RequestStart(floorId);
+                }
+                ReturnIdle();
+            });
 
             panelMainContent.OnBackButtonClicked.AddListener(() =>
             {

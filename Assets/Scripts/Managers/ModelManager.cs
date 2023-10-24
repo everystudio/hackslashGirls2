@@ -19,31 +19,36 @@ public class ModelManager : Singleton<ModelManager>
     private CsvModel<UserItem> userItem = new CsvModel<UserItem>();
     public CsvModel<UserItem> UserItem { get { return userItem; } }
 
-    public TextAsset masterCharaAsset;
+    [SerializeField] private TextAsset masterCharaAsset;
     private CsvModel<MasterChara> masterChara = new CsvModel<MasterChara>();
     public CsvModel<MasterChara> MasterChara { get { return masterChara; } }
 
-    public TextAsset masterEquipAsset;
+    [SerializeField] private TextAsset masterEquipAsset;
     private CsvModel<MasterEquip> masterEquip = new CsvModel<MasterEquip>();
     public CsvModel<MasterEquip> MasterEquip { get { return masterEquip; } }
 
-    public TextAsset masterEnemyAsset;
+    [SerializeField] private TextAsset masterEnemyAsset;
     private CsvModel<MasterEnemy> masterEnemy = new CsvModel<MasterEnemy>();
     public CsvModel<MasterEnemy> MasterEnemy { get { return masterEnemy; } }
 
-    public TextAsset masterAreaAsset;
+    [SerializeField] private TextAsset masterAreaAsset;
     private CsvModel<MasterArea> masterArea = new CsvModel<MasterArea>();
     public CsvModel<MasterArea> MasterArea { get { return masterArea; } }
 
-    public TextAsset masterFloorAsset;
+    [SerializeField] private TextAsset masterFloorAsset;
     private CsvModel<MasterFloor> masterFloor = new CsvModel<MasterFloor>();
     public CsvModel<MasterFloor> MasterFloor { get { return masterFloor; } }
+
+    [SerializeField] private TextAsset masterAchievementAsset;
+    private CsvModel<MasterAchievement> masterAchievement = new CsvModel<MasterAchievement>();
+    public CsvModel<MasterAchievement> MasterAchievement { get { return masterAchievement; } }
 
     public UnityEvent<UserChara> OnUserCharaChanged = new UnityEvent<UserChara>();
     public UnityEvent<UserChara> OnPartyCharaChanged = new UnityEvent<UserChara>();
 
     private UserGameData userGameData = new UserGameData();
     public UserGameData UserGameData { get { return userGameData; } }
+
 
     public UnityEvent<UserGameData> OnChangeUserGameData = new UnityEvent<UserGameData>();
 
@@ -59,9 +64,17 @@ public class ModelManager : Singleton<ModelManager>
         masterArea.Load(masterAreaAsset);
         masterFloor.Load(masterFloorAsset);
 
+        masterAchievement.Load(masterAchievementAsset);
+        foreach (MasterAchievement achievement in masterAchievement.List)
+        {
+            Debug.Log(achievement.achievement_id + " " + achievement.title + " " + achievement.description);
+        }
+
         userItem.Load(dummyUserItem);
 
-        userGameData.coin = 999999999;
+        userGameData.coin = 999999;
+        userGameData.last_quest_floor_id = 1;
+        userGameData.last_collect_floor_id = 1;
 
         // マスターデータからユーザーデータを作成する
         foreach (var masterItem in masterItem.List)

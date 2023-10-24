@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using anogame;
 using TMPro;
@@ -21,6 +22,8 @@ public class PanelAreaDetail : UIPanel
 
     [SerializeField] private Button closeButton;
     public Button CloseButton => closeButton;
+
+    public UnityEvent<int, bool> OnFloorStart = new UnityEvent<int, bool>();
 
     private bool isQuest;
 
@@ -88,11 +91,12 @@ public class PanelAreaDetail : UIPanel
         // フロアのスタートボタンを10個生成
         foreach (var floor in masterFloors)
         {
-            var floorStartButton = Instantiate(floorStartButtonPrefab, floorStartButtonParent).GetComponent<FloorStartButton>();
+            FloorStartButton floorStartButton = Instantiate(floorStartButtonPrefab, floorStartButtonParent).GetComponent<FloorStartButton>();
             floorStartButton.Set(floor.floor_start);
             floorStartButton.Button.onClick.AddListener(() =>
             {
-                Debug.Log("FloorStartButton Click!");
+                Debug.Log(floor.floor_start + " Click!");
+                OnFloorStart.Invoke(floor.floor_start, isQuest);
             });
         }
 
