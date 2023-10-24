@@ -12,6 +12,8 @@ public class GameManager : SingletonStateMachineBase<GameManager>
     [SerializeField] private UIClickHandle questView;
     [SerializeField] private UIClickHandle collectView;
 
+    [SerializeField] private UIClickHandle achievementBanner;
+
     [SerializeField] private FloorManager questFloorManager;
     [SerializeField] private FloorManager collectFloorManager;
 
