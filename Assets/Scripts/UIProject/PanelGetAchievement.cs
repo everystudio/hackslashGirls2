@@ -33,8 +33,8 @@ public class PanelGetAchievement : MonoBehaviour
 
     public void AddCompletedAchievement(MasterAchievement masterAchievement)
     {
-        Debug.Log("AddCompletedAchievement");
-        Debug.Log(masterAchievement.title);
+        //Debug.Log("AddCompletedAchievement");
+        //Debug.Log(masterAchievement.title);
         completedAchievements.Enqueue(masterAchievement);
 
         if (isPlayingAnimation == false)

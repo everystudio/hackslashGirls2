@@ -178,7 +178,7 @@ public class FloorManager : StateMachineBase<FloorManager>
         List<MasterItem> masterItems = ModelManager.Instance.MasterItem.List.FindAll(
             item => item.area_id == areaModel.area_id && item.floor_start <= floor);
 
-        Debug.Log(masterItems.Count);
+        //Debug.Log(masterItems.Count);
         int[] probArray = new int[masterItems.Count];
         for (int i = 0; i < masterItems.Count; i++)
         {

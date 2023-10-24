@@ -59,6 +59,9 @@ public class ModelManager : Singleton<ModelManager>
 
     public UnityEvent<UserGameData> OnChangeUserGameData = new UnityEvent<UserGameData>();
 
+    private CsvModel<UserArea> userArea = new CsvModel<UserArea>();
+    public CsvModel<UserArea> UserArea { get { return userArea; } }
+
     public override void Initialize()
     {
         Debug.Log("ModelManager Initialize");
@@ -132,6 +135,12 @@ public class ModelManager : Singleton<ModelManager>
             Debug.Log(item.chara_id + " " + item.chara_name + " " + item.description + " " + item.attack + " " + item.attack_range + " " + item.attack_speed);
         }
         */
+
+        // 各エリアの達成率を更新する
+        foreach (MasterArea masterArea in masterArea.List)
+        {
+            UpdateAchievementRate(masterArea.area_id);
+        }
 
         CollectableItem.OnCollect.AddListener(CollectItemOne);
     }
@@ -297,10 +306,10 @@ public class ModelManager : Singleton<ModelManager>
 
             MasterAchievement masterAchievement = this.masterAchievement.List.Find(achievement => achievement.type == (int)AchievementType.COLLECT && achievement.param1 == item_id);
 
-            Debug.Log("アイテム初取得");
+            //Debug.Log("アイテム初取得");
             if (masterAchievement != null)
             {
-                Debug.Log("実績初解除");
+                //Debug.Log("実績初解除");
                 UnlockAchievement(masterAchievement.achievement_id);
             }
 
@@ -348,6 +357,10 @@ public class ModelManager : Singleton<ModelManager>
             this.userAchievement.List.Add(userAchievement);
             this.userAchievement.List.Sort((a, b) => a.achievement_id - b.achievement_id);
         }
+        else if (userAchievement.is_completed == true)
+        {
+            return;
+        }
         userAchievement.is_completed = true;
 
         MasterAchievement unlockAchievement = this.masterAchievement.List.Find(achievement => achievement.achievement_id == achievementId);
@@ -365,6 +378,82 @@ public class ModelManager : Singleton<ModelManager>
             // id順に並べ直す
             this.userAchievement.List.Sort((a, b) => a.achievement_id - b.achievement_id);
         }
+
+        // 各エリアの達成率を更新する
+        foreach (MasterArea masterArea in masterArea.List)
+        {
+            UpdateAchievementRate(masterArea.area_id);
+        }
+    }
+
+    private void UpdateAchievementRate(int area_id)
+    {
+        List<MasterFloor> masterFloors = ModelManager.Instance.MasterFloor.List.FindAll(floor => floor.area_id == area_id);
+
+        int minFloorId = 0;
+        int maxFloorId = 0;
+        foreach (var floor in masterFloors)
+        {
+            minFloorId = Mathf.Min(minFloorId, floor.floor_start);
+            maxFloorId = Mathf.Max(maxFloorId, floor.floor_end);
+        }
+        int currentMaxFloorId = Mathf.Min(UserGameData.max_floor_id, maxFloorId);
+
+        // 登場する敵の数を数える
+        int enemyCount = 0;
+        List<MasterEnemy> masterEnemies = ModelManager.Instance.MasterEnemy.List.FindAll(enemy => enemy.area_id == area_id);
+        foreach (var enemy in masterEnemies)
+        {
+            enemyCount += enemy.rarity;
+        }
+
+        // 登場するアイテムの数をｋ数える
+        int itemCount = 0;
+        List<MasterItem> masterItems = ModelManager.Instance.MasterItem.List.FindAll(item => item.area_id == area_id);
+        itemCount = masterItems.Count;
+
+        // 達成率を計算する
+        int total = (maxFloorId - minFloorId) + enemyCount + itemCount;
+        int current = (currentMaxFloorId - minFloorId) + userEnemy.List.Count + userItem.List.Count;
+
+        UserArea userArea = ModelManager.Instance.userArea.List.Find(area => area.area_id == area_id);
+        if (userArea == null)
+        {
+            userArea = new UserArea();
+            userArea.area_id = area_id;
+
+            ModelManager.Instance.userArea.List.Add(userArea);
+        }
+        userArea.floor_max = maxFloorId;
+        userArea.floor_count = currentMaxFloorId;
+        userArea.enemy_max = enemyCount;
+        userArea.enemy_count = userEnemy.List.Count;
+        userArea.item_max = itemCount;
+        userArea.item_count = userItem.List.Count;
+
+        List<MasterAchievement> currentAreaAchievements = masterAchievement.List.FindAll(achievement => achievement.type == (int)AchievementType.COMPLETE_RATE && achievement.param1 == area_id);
+        foreach (var achievement in currentAreaAchievements)
+        {
+            int rate = (int)(float)(100f * current / total);
+            //Debug.Log(achievement.title + " " + achievement.param2 + " " + rate + "%");
+            if (achievement.param2 <= rate)
+            {
+                var userAchievement = GetUserAchievement(achievement.achievement_id);
+                if (userAchievement == null)
+                {
+                    UnlockAchievement(achievement.achievement_id);
+                }
+                else if (userAchievement.is_completed == false)
+                {
+                    UnlockAchievement(achievement.achievement_id);
+                }
+                else
+                {
+                    // コンプ済みなので何もしない
+                }
+            }
+        }
+
     }
 
     private void OnUpdateMaxFloor(int newFloorID)
