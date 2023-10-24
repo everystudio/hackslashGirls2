@@ -14,7 +14,8 @@ public class EnemyBase : StateMachineBase<EnemyBase>
         get { return healthMax; }
     }
 
-    public UnityEvent OnDie = new UnityEvent();
+    public UnityEvent<UserEnemy> OnDie = new UnityEvent<UserEnemy>();
+    public static UnityEvent<UserEnemy> OnAnyDie = new UnityEvent<UserEnemy>();
 
     private float attackRange = 3f;
     private FloorManager floorManager;
@@ -32,6 +33,10 @@ public class EnemyBase : StateMachineBase<EnemyBase>
 
     [SerializeField] private Material rareMaterial;
 
+    UserEnemy userEnemy;
+
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -43,6 +48,13 @@ public class EnemyBase : StateMachineBase<EnemyBase>
         this.floorManager = floorManager;
         this.masterEnemy = masterEnemy;
         health = masterEnemy.hp;
+
+        userEnemy = new UserEnemy();
+        userEnemy.enemy_id = masterEnemy.enemy_id;
+        userEnemy.area_id = masterEnemy.area_id;
+        userEnemy.rarity = rarity;
+        userEnemy.count = 1;
+
 
         if (isBoss)
         {
@@ -187,7 +199,8 @@ public class EnemyBase : StateMachineBase<EnemyBase>
         public override void OnEnterState()
         {
             base.OnEnterState();
-            machine.OnDie?.Invoke();
+            machine.OnDie?.Invoke(machine.userEnemy);
+            OnAnyDie?.Invoke(machine.userEnemy);
             machine.animator.SetTrigger("dead");
         }
     }

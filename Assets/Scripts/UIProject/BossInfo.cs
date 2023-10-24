@@ -22,7 +22,7 @@ public class BossInfo : MonoBehaviour
             bossHPGaugeImage.fillAmount = (float)health / enemyBase.HealthMax;
         });
 
-        enemyBase.OnDie.AddListener(() =>
+        enemyBase.OnDie.AddListener((userEnemy) =>
         {
             gameObject.SetActive(false);
         });

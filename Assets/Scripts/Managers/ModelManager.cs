@@ -31,6 +31,9 @@ public class ModelManager : Singleton<ModelManager>
     private CsvModel<MasterEnemy> masterEnemy = new CsvModel<MasterEnemy>();
     public CsvModel<MasterEnemy> MasterEnemy { get { return masterEnemy; } }
 
+    private CsvModel<UserEnemy> userEnemy = new CsvModel<UserEnemy>();
+    public CsvModel<UserEnemy> UserEnemy { get { return userEnemy; } }
+
     [SerializeField] private TextAsset masterAreaAsset;
     private CsvModel<MasterArea> masterArea = new CsvModel<MasterArea>();
     public CsvModel<MasterArea> MasterArea { get { return masterArea; } }
@@ -88,8 +91,7 @@ public class ModelManager : Singleton<ModelManager>
         // クエスト(Achievement)達成確認用
         MissionBanner.OnRecieve.AddListener(OnAchievementRecieve);
         FloorManager.OnUpdateMaxFloor.AddListener(OnUpdateMaxFloor);
-
-
+        EnemyBase.OnAnyDie.AddListener(OnEnemyDie);
 
 
         if (dummyUserItem != null)
@@ -292,6 +294,17 @@ public class ModelManager : Singleton<ModelManager>
 
             // userItemをitem_idでソートする
             this.userItem.List.Sort((a, b) => a.item_id - b.item_id);
+
+            MasterAchievement masterAchievement = this.masterAchievement.List.Find(achievement => achievement.type == (int)AchievementType.COLLECT && achievement.param1 == item_id);
+
+            Debug.Log("アイテム初取得");
+            if (masterAchievement != null)
+            {
+                Debug.Log("実績初解除");
+                UnlockAchievement(masterAchievement.achievement_id);
+            }
+
+
         }
         userItem.item_num += amount;
     }
@@ -328,7 +341,12 @@ public class ModelManager : Singleton<ModelManager>
         UserAchievement userAchievement = GetUserAchievement(achievementId);
         if (userAchievement == null)
         {
-            return;
+            userAchievement = new UserAchievement();
+            userAchievement.achievement_id = achievementId;
+            userAchievement.is_completed = false;
+            userAchievement.is_received = false;
+            this.userAchievement.List.Add(userAchievement);
+            this.userAchievement.List.Sort((a, b) => a.achievement_id - b.achievement_id);
         }
         userAchievement.is_completed = true;
 
@@ -370,8 +388,33 @@ public class ModelManager : Singleton<ModelManager>
             }
 
         }
+    }
+
+    private void OnEnemyDie(UserEnemy argEnemy)
+    {
+        UserEnemy diedEnemy = userEnemy.List.Find(enemy => enemy.enemy_id == argEnemy.enemy_id && argEnemy.rarity == enemy.rarity);
+
+        if (diedEnemy == null)
+        {
+            diedEnemy = new UserEnemy();
+            diedEnemy.enemy_id = argEnemy.enemy_id;
+            diedEnemy.area_id = argEnemy.area_id;
+            diedEnemy.rarity = argEnemy.rarity;
+            diedEnemy.count = argEnemy.count;
+            userEnemy.List.Add(diedEnemy);
+
+            //初めて倒す敵の場合
+            MasterAchievement masterAchievement = this.masterAchievement.List.Find(achievement => achievement.type == (int)AchievementType.ENEMY && achievement.param1 == argEnemy.enemy_id);
+            if (masterAchievement != null)
+            {
+                UnlockAchievement(masterAchievement.achievement_id);
+            }
+
+
+        }
 
     }
+
 
 
 }

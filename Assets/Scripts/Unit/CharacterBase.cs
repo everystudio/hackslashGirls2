@@ -153,7 +153,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
             nearestEnemy.OnDie.AddListener(TargetEnemyDie);
         }
 
-        private void TargetEnemyDie()
+        private void TargetEnemyDie(UserEnemy userEnemy)
         {
             ChangeState(new CharacterBase.Walking(machine));
         }

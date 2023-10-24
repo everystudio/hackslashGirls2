@@ -110,7 +110,7 @@ public class FloorManager : StateMachineBase<FloorManager>
             enemyList.Add(enemyBase);
             //Debug.Log(enemyRoot.transform.localPosition.y);
             enemyBase.transform.localPosition = new Vector3(i * 0.75f + 1.5f, enemyRoot.transform.localPosition.y, 0);
-            enemyBase.OnDie.AddListener(() =>
+            enemyBase.OnDie.AddListener((userEnemy) =>
             {
                 enemyList.Remove(enemyBase);
             });
@@ -189,7 +189,7 @@ public class FloorManager : StateMachineBase<FloorManager>
         {
             // MasterItem.probを元にランダムにアイテムを生成
             int itemIndex = UtilRand.GetIndex(probArray);
-            Debug.Log(itemIndex);
+            //Debug.Log(itemIndex);
             CollectableItem collectableItem = Instantiate(collectableItemPrefab, transform).GetComponent<CollectableItem>();
             collectableItem.Initialize(masterItems[itemIndex]);
             collectableItems.Add(collectableItem);
@@ -316,7 +316,7 @@ public class FloorManager : StateMachineBase<FloorManager>
                 }
 
                 machine.currentFloor++;
-                Debug.Log("currentFloor:" + machine.currentFloor);
+                //Debug.Log("currentFloor:" + machine.currentFloor);
 
 
                 ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
