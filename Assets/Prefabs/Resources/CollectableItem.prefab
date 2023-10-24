@@ -130,8 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0838813321d6041867e628a617b2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item_id: 0
   is_collected: 0
+  spriteRenderer: {fileID: 8164630047202480026}
 --- !u!95 &5655843931532079677
 Animator:
   serializedVersion: 5

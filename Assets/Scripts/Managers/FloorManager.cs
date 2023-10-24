@@ -169,17 +169,31 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
         collectableItems.Clear();
 
+        // 現在のマスターフロアを取得
+        MasterFloor floorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
+            x.floor_start <= floor && floor <= x.floor_end);
+        MasterArea areaModel = ModelManager.Instance.GetMasterArea(floorModel.area_id);
+
+        // 現在のマスターアイテムを取得
+        List<MasterItem> masterItems = ModelManager.Instance.MasterItem.List.FindAll(
+            item => item.area_id == areaModel.area_id && item.floor_start <= floor);
+
+        Debug.Log(masterItems.Count);
+        int[] probArray = new int[masterItems.Count];
+        for (int i = 0; i < masterItems.Count; i++)
+        {
+            probArray[i] = masterItems[i].prob;
+        }
+
         for (int i = 0; i < 3; i++)
         {
+            // MasterItem.probを元にランダムにアイテムを生成
+            int itemIndex = UtilRand.GetIndex(probArray);
+            Debug.Log(itemIndex);
             CollectableItem collectableItem = Instantiate(collectableItemPrefab, transform).GetComponent<CollectableItem>();
+            collectableItem.Initialize(masterItems[itemIndex]);
             collectableItems.Add(collectableItem);
             collectableItem.transform.localPosition = new Vector3(i * 0.75f + 1.5f, 0, 0);
-            /*
-            collectableItem.OnCollect.AddListener(() =>
-            {
-                collectableItems.Remove(collectableItem);
-            });
-            */
         }
     }
 

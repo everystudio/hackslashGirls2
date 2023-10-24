@@ -69,13 +69,19 @@ public class ModelManager : Singleton<ModelManager>
         {
             Debug.Log(achievement.achievement_id + " " + achievement.title + " " + achievement.description);
         }
+        if (dummyUserItem != null)
+        {
+            userItem.Load(dummyUserItem);
+        }
 
-        userItem.Load(dummyUserItem);
+        // userItemをitem_idでソートする
+        userItem.List.Sort((a, b) => a.item_id - b.item_id);
 
         userGameData.coin = 999999;
         userGameData.last_quest_floor_id = 1;
         userGameData.last_collect_floor_id = 1;
 
+        /*
         // マスターデータからユーザーデータを作成する
         foreach (var masterItem in masterItem.List)
         {
@@ -91,6 +97,7 @@ public class ModelManager : Singleton<ModelManager>
             item.item_num = 0;
             this.userItem.List.Add(item);
         }
+        */
 
 
         /*
@@ -101,6 +108,7 @@ public class ModelManager : Singleton<ModelManager>
         }
         */
 
+        CollectableItem.OnCollect.AddListener(CollectItem);
     }
 
     public MasterChara GetMasterChara(int charaId)
@@ -243,4 +251,21 @@ public class ModelManager : Singleton<ModelManager>
     {
         return masterArea.List.Find(area => area.area_id == areaId);
     }
+
+    private void CollectItem(int item_id)
+    {
+        UserItem userItem = GetUserItem(item_id);
+        if (userItem == null)
+        {
+            userItem = new UserItem();
+            userItem.item_id = item_id;
+            userItem.item_num = 0;
+            this.userItem.List.Add(userItem);
+
+            // userItemをitem_idでソートする
+            this.userItem.List.Sort((a, b) => a.item_id - b.item_id);
+        }
+        userItem.item_num++;
+    }
+
 }

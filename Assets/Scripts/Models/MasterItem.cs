@@ -7,6 +7,8 @@ public class MasterItem : CsvModelParam
 {
     public int item_id;
     public int area_id;
+    public int floor_start;
+    public int prob;
 
     public string item_name;
     public string filename;

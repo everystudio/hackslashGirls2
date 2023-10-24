@@ -112,7 +112,6 @@ public class CharacterBase : StateMachineBase<CharacterBase>
                 float distance = Vector3.Distance(machine.transform.position, nearestCollectableItem.transform.position);
                 if (distance <= machine.characterAsset.attack_range)
                 {
-                    nearestCollectableItem.Collect();
                     ChangeState(new CharacterBase.Collecting(machine, nearestCollectableItem));
                     return;
                 }
@@ -239,7 +238,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         {
             // キャラクターのアニメーションを変更する
             machine.animator.SetTrigger("win");
-            //nearestCollectableItem.OnCollected.AddListener(TargetCollectableItemCollected);
+            nearestCollectableItem.Collect();
         }
 
         public override void OnUpdateState()
