@@ -6,5 +6,6 @@ using anogame;
 public class UserItem : CsvModelParam
 {
     public int item_id;
+    public int area_id;
     public int item_num;
 }

@@ -1038,6 +1038,9 @@ MonoBehaviour:
   areaBannerPrefab: {fileID: 8156272849964699499, guid: e9b3b710bb4abd642b32ba85fa60d584, type: 3}
   contentRoot: {fileID: 4444145288537366390}
   areaDetailPrefab: {fileID: 4514053926267825272, guid: abf68be9466d63d42a88f411ae956553, type: 3}
+  OnFloorStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4444145289492878356
 GameObject:
   m_ObjectHideFlags: 0
