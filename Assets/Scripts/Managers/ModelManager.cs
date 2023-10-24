@@ -52,6 +52,7 @@ public class ModelManager : Singleton<ModelManager>
     private UserGameData userGameData = new UserGameData();
     public UserGameData UserGameData { get { return userGameData; } }
 
+    public UnityEvent<MasterAchievement> OnUnlockAchievement = new UnityEvent<MasterAchievement>();
 
     public UnityEvent<UserGameData> OnChangeUserGameData = new UnityEvent<UserGameData>();
 
@@ -330,6 +331,9 @@ public class ModelManager : Singleton<ModelManager>
             return;
         }
         userAchievement.is_completed = true;
+
+        MasterAchievement unlockAchievement = this.masterAchievement.List.Find(achievement => achievement.achievement_id == achievementId);
+        OnUnlockAchievement.Invoke(unlockAchievement);
 
         MasterAchievement masterAchievement = this.masterAchievement.List.Find(achievement => achievement.open_id == achievementId);
         if (masterAchievement != null)
