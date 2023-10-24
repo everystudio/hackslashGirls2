@@ -43,6 +43,9 @@ public class ModelManager : Singleton<ModelManager>
     private CsvModel<MasterAchievement> masterAchievement = new CsvModel<MasterAchievement>();
     public CsvModel<MasterAchievement> MasterAchievement { get { return masterAchievement; } }
 
+    private CsvModel<UserAchievement> userAchievement = new CsvModel<UserAchievement>();
+    public CsvModel<UserAchievement> UserAchievement { get { return userAchievement; } }
+
     public UnityEvent<UserChara> OnUserCharaChanged = new UnityEvent<UserChara>();
     public UnityEvent<UserChara> OnPartyCharaChanged = new UnityEvent<UserChara>();
 
@@ -67,8 +70,27 @@ public class ModelManager : Singleton<ModelManager>
         masterAchievement.Load(masterAchievementAsset);
         foreach (MasterAchievement achievement in masterAchievement.List)
         {
-            Debug.Log(achievement.achievement_id + " " + achievement.title + " " + achievement.description);
+            if (achievement.open_id == 0)
+            {
+                var userAchievement = GetUserAchievement(achievement.achievement_id);
+                if (userAchievement == null)
+                {
+                    userAchievement = new UserAchievement();
+                    userAchievement.achievement_id = achievement.achievement_id;
+                    userAchievement.is_completed = false;
+                    userAchievement.is_received = false;
+                    this.userAchievement.List.Add(userAchievement);
+                }
+            }
         }
+
+        // クエスト(Achievement)達成確認用
+        MissionBanner.OnRecieve.AddListener(OnAchievementRecieve);
+        FloorManager.OnUpdateMaxFloor.AddListener(OnUpdateMaxFloor);
+
+
+
+
         if (dummyUserItem != null)
         {
             userItem.Load(dummyUserItem);
@@ -77,7 +99,7 @@ public class ModelManager : Singleton<ModelManager>
         // userItemをitem_idでソートする
         userItem.List.Sort((a, b) => a.item_id - b.item_id);
 
-        userGameData.coin = 999999;
+        userGameData.coin = 0;
         userGameData.last_quest_floor_id = 1;
         userGameData.last_collect_floor_id = 1;
 
@@ -108,7 +130,7 @@ public class ModelManager : Singleton<ModelManager>
         }
         */
 
-        CollectableItem.OnCollect.AddListener(CollectItem);
+        CollectableItem.OnCollect.AddListener(CollectItemOne);
     }
 
     public MasterChara GetMasterChara(int charaId)
@@ -252,7 +274,12 @@ public class ModelManager : Singleton<ModelManager>
         return masterArea.List.Find(area => area.area_id == areaId);
     }
 
-    private void CollectItem(int item_id)
+    private void CollectItemOne(int item_id)
+    {
+        CollectItem(item_id, 1);
+    }
+
+    private void CollectItem(int item_id, int amount = 1)
     {
         UserItem userItem = GetUserItem(item_id);
         if (userItem == null)
@@ -265,7 +292,82 @@ public class ModelManager : Singleton<ModelManager>
             // userItemをitem_idでソートする
             this.userItem.List.Sort((a, b) => a.item_id - b.item_id);
         }
-        userItem.item_num++;
+        userItem.item_num += amount;
     }
+
+    public UserAchievement GetUserAchievement(int achievementId)
+    {
+        return userAchievement.List.Find(achievement => achievement.achievement_id == achievementId);
+    }
+    public MasterAchievement GetMasterAchievement(int achievementId)
+    {
+        return masterAchievement.List.Find(achievement => achievement.achievement_id == achievementId);
+    }
+
+    private void OnAchievementRecieve(MasterAchievement master, UserAchievement user)
+    {
+        user.is_received = true;
+        switch (master.prize_type)
+        {
+            case 1:
+                AddCoin(master.prize_amount);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                CollectItem(master.prize_id, master.prize_amount);
+                break;
+        }
+    }
+
+    private void UnlockAchievement(int achievementId)
+    {
+        UserAchievement userAchievement = GetUserAchievement(achievementId);
+        if (userAchievement == null)
+        {
+            return;
+        }
+        userAchievement.is_completed = true;
+
+        MasterAchievement masterAchievement = this.masterAchievement.List.Find(achievement => achievement.open_id == achievementId);
+        if (masterAchievement != null)
+        {
+            UserAchievement nextUserAchievement = new UserAchievement();
+            nextUserAchievement.achievement_id = masterAchievement.achievement_id;
+            nextUserAchievement.is_completed = false;
+            nextUserAchievement.is_received = false;
+            this.userAchievement.List.Add(nextUserAchievement);
+
+            // id順に並べ直す
+            this.userAchievement.List.Sort((a, b) => a.achievement_id - b.achievement_id);
+        }
+    }
+
+    private void OnUpdateMaxFloor(int newFloorID)
+    {
+        List<UserAchievement> list = userAchievement.List.FindAll(achievement => achievement.is_completed == false);
+
+        foreach (UserAchievement userAchievement in list)
+        {
+            MasterAchievement masterAchievement = GetMasterAchievement(userAchievement.achievement_id);
+            if (masterAchievement == null)
+            {
+                continue;
+            }
+
+            if (masterAchievement.type == (int)AchievementType.FLOOR)
+            {
+                if (masterAchievement.param1 <= newFloorID)
+                {
+                    UnlockAchievement(userAchievement.achievement_id);
+                }
+            }
+
+        }
+
+    }
+
 
 }

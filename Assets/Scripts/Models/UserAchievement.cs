@@ -6,7 +6,7 @@ using anogame;
 public class UserAchievement : CsvModelParam
 {
     public int achievement_id;
-    public int progress;
+    public bool is_completed;
     public bool is_received;
 
 
