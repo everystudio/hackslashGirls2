@@ -10,7 +10,7 @@ public class FooterButtons : MonoBehaviour
     [SerializeField] private Button charaButton;
     [SerializeField] private Button itemButton;
     [SerializeField] private Button mainButton;
-    [SerializeField] private Button shopButton;
+    [SerializeField] private Button gachaButton;
     [SerializeField] private Button settingButton;
 
     private void Awake()
@@ -18,7 +18,7 @@ public class FooterButtons : MonoBehaviour
         charaButton.onClick.AddListener(() => OnFooterButtonEvent.Invoke("Chara"));
         itemButton.onClick.AddListener(() => OnFooterButtonEvent.Invoke("Item"));
         mainButton.onClick.AddListener(() => OnFooterButtonEvent.Invoke("Main"));
-        shopButton.onClick.AddListener(() => OnFooterButtonEvent.Invoke("Shop"));
+        gachaButton.onClick.AddListener(() => OnFooterButtonEvent.Invoke("Gacha"));
         settingButton.onClick.AddListener(() => OnFooterButtonEvent.Invoke("Settings"));
     }
 

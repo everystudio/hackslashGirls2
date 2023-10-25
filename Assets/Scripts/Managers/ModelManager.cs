@@ -447,7 +447,6 @@ public class ModelManager : Singleton<ModelManager>
         foreach (var achievement in currentAreaAchievements)
         {
             int rate = (int)(float)(100f * current / total);
-            //Debug.Log(achievement.title + " " + achievement.param2 + " " + rate + "%");
             if (achievement.param2 <= rate)
             {
                 var userAchievement = GetUserAchievement(achievement.achievement_id);
@@ -465,7 +464,6 @@ public class ModelManager : Singleton<ModelManager>
                 }
             }
         }
-
     }
 
     private void OnUpdateMaxFloor(int newFloorID)

@@ -1123,7 +1123,7 @@ MonoBehaviour:
   charaButton: {fileID: 1300089589}
   itemButton: {fileID: 1550889808}
   mainButton: {fileID: 1569158913}
-  shopButton: {fileID: 1349575802}
+  gachaButton: {fileID: 1349575802}
   settingButton: {fileID: 1028213317}
 --- !u!1001 &359309727
 PrefabInstance:
@@ -1510,7 +1510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808802477648057707, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60.450016
+      value: 60.450012
       objectReference: {fileID: 0}
     - target: {fileID: 5808802477648057707, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1534,7 +1534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7271648928680501776, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20.150005
+      value: 20.150003
       objectReference: {fileID: 0}
     - target: {fileID: 7271648928680501776, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4053,7 +4053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808802477648057707, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60.450016
+      value: 60.450012
       objectReference: {fileID: 0}
     - target: {fileID: 5808802477648057707, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4077,7 +4077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7271648928680501776, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20.150005
+      value: 20.150003
       objectReference: {fileID: 0}
     - target: {fileID: 7271648928680501776, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5351,7 +5351,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Shop
+  m_text: Gacha
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0cd93c0f1a5d7264fbfe9bbe66cd8940, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 926739a450b28734a9e90f32b03c3fb4, type: 2}
@@ -6093,7 +6093,7 @@ GameObject:
   - component: {fileID: 1349575803}
   - component: {fileID: 1349575802}
   m_Layer: 5
-  m_Name: shopButton
+  m_Name: gachaButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9392,7 +9392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808802477648057707, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60.450016
+      value: 60.450012
       objectReference: {fileID: 0}
     - target: {fileID: 5808802477648057707, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -9416,7 +9416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7271648928680501776, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20.150005
+      value: 20.150003
       objectReference: {fileID: 0}
     - target: {fileID: 7271648928680501776, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10138,7 +10138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808802477648057707, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60.450016
+      value: 60.450012
       objectReference: {fileID: 0}
     - target: {fileID: 5808802477648057707, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10162,7 +10162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7271648928680501776, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20.150005
+      value: 20.150003
       objectReference: {fileID: 0}
     - target: {fileID: 7271648928680501776, guid: a84dd11d12c6f4d4285707fc85e668a4, type: 3}
       propertyPath: m_AnchoredPosition.y
