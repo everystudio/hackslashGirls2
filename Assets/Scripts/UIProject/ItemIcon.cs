@@ -22,7 +22,7 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler
         this.userItem = userItem;
     }
 
-    public void Initialize(MasterItem masterItem, bool isFind = false)
+    public void Initialize(MasterItem masterItem, bool isFind)
     {
         icon.sprite = TextureManager.Instance.GetIconItemSprite(masterItem.item_id);
         icon.color = isFind ? Color.white : Color.black;

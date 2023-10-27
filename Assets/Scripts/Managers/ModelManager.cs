@@ -554,9 +554,10 @@ public class ModelManager : Singleton<ModelManager>
 
 
         }
-
     }
 
-
-
+    public UserEnemy GetUserEnemy(int enemy_id, int rarity)
+    {
+        return userEnemy.List.Find(enemy => enemy.enemy_id == enemy_id && enemy.rarity == rarity);
+    }
 }

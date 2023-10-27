@@ -40,13 +40,14 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         {
             return;
         }
+
         userChara.hp -= damage;
         if (userChara.hp <= 0f)
         {
             isDead = true;
+            ChangeState(new CharacterBase.Die(this));
         }
         UserChara.OnChanged.Invoke(userChara);
-
     }
 
     public void SetChara(UserChara userChara)
@@ -81,7 +82,6 @@ public class CharacterBase : StateMachineBase<CharacterBase>
     private class Walking : StateBase<CharacterBase>
     {
         private bool isArrived = false;
-
 
         public Walking(CharacterBase machine) : base(machine)
         {
@@ -255,4 +255,19 @@ public class CharacterBase : StateMachineBase<CharacterBase>
             machine.animator.Play("Idle");
         }
     }
+
+    private class Die : StateBase<CharacterBase>
+    {
+        public Die(CharacterBase machine) : base(machine)
+        {
+        }
+        public override void OnEnterState()
+        {
+            machine.OnArrived.Invoke();
+            machine.animator.SetTrigger("die");
+        }
+    }
+
+
+
 }

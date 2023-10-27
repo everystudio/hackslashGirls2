@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: background
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 4a675ad6fabd99f4da4b8c499ada5648, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c3f954d4e6419ee4cbbb8eac390f4d65, type: 3}
+  - {fileID: 21300000, guid: fee1cce7bcffdb3458e1cb39fb98ea7c, type: 3}
+  - {fileID: 21300000, guid: 45920d89031202d4eadfdd04e03ec9ea, type: 3}
+  - {fileID: 21300000, guid: 71db774ac6fc79f47bf9341481f35fa6, type: 3}
+  - {fileID: 21300000, guid: 823e90aa5ea01c04d9b6444b04828485, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 05palace
+  - 02beach
+  - 03fire
+  - 04snow
+  - 01forest
+  m_RenderDataMap: {}
+  m_Tag: background
+  m_IsVariant: 0

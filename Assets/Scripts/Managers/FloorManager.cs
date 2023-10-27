@@ -315,14 +315,47 @@ public class FloorManager : StateMachineBase<FloorManager>
                     }
                 }
 
-                machine.currentFloor++;
                 //Debug.Log("currentFloor:" + machine.currentFloor);
 
 
-                ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
+                // 生存者の確認
+                bool isAlive = false;
+                foreach (var walker in machine.walkerManager.Walkers)
+                {
+                    if (walker.IsAlive())
+                    {
+                        isAlive = true;
+                        break;
+                    }
+                }
+
+                if (isAlive)
+                {
+                    machine.currentFloor++;
+                    ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
+                }
+                else
+                {
+                    ChangeState(new FloorManager.Restart(machine));
+                }
             });
         }
     }
 
+    private class Restart : StateBase<FloorManager>
+    {
+        public Restart(FloorManager machine) : base(machine)
+        {
+        }
+        public override void OnEnterState()
+        {
 
+
+            ChangeState(new FloorManager.FloorStart(machine, 1));
+
+        }
+
+
+
+    }
 }

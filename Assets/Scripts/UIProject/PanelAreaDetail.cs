@@ -59,7 +59,8 @@ public class PanelAreaDetail : UIPanel
         foreach (var item in masterItems)
         {
             var itemIcon = Instantiate(itemIconPrefab, itemIconParent).GetComponent<ItemIcon>();
-            itemIcon.Initialize(item);
+            var userItem = ModelManager.Instance.GetUserItem(item.item_id);
+            itemIcon.Initialize(item, userItem != null);
         }
 
         // enemyIconParentの子要素を全削除
@@ -71,13 +72,18 @@ public class PanelAreaDetail : UIPanel
         List<MasterEnemy> masterRareEnemies = ModelManager.Instance.MasterEnemy.List.FindAll(enemy => enemy.area_id == masterArea.area_id && enemy.rarity == 2);
         foreach (var enemy in masterEnemies)
         {
+            int rarity = 1;
             var enemyIcon = Instantiate(enemyIconPrefab, enemyIconParent).GetComponent<EnemyIcon>();
-            enemyIcon.Set(enemy, 1, false);
+
+            UserEnemy userEnemy = ModelManager.Instance.GetUserEnemy(enemy.enemy_id, rarity);
+            enemyIcon.Set(enemy, rarity, userEnemy != null);
         }
         foreach (var enemy in masterRareEnemies)
         {
             var enemyIcon = Instantiate(enemyIconPrefab, enemyIconParent).GetComponent<EnemyIcon>();
-            enemyIcon.Set(enemy, enemy.rarity, false);
+
+            UserEnemy userEnemy = ModelManager.Instance.GetUserEnemy(enemy.enemy_id, enemy.rarity);
+            enemyIcon.Set(enemy, enemy.rarity, userEnemy != null);
         }
 
 
