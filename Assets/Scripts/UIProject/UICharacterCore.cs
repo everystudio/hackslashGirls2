@@ -70,6 +70,31 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void Clear()
+    {
+        if (iconImage != null)
+        {
+            iconImage.sprite = null;
+        }
+        if (nameText != null)
+        {
+            nameText.text = "";
+        }
+        if (levelText != null)
+        {
+            levelText.text = "";
+        }
+        if (rankText != null)
+        {
+            rankText.text = "";
+        }
+        if (selectingImage != null)
+        {
+            selectingImage.gameObject.SetActive(false);
+        }
+
+    }
+
     public void Set(MasterChara characterAsset, UserChara userChara)
     {
         this.characterAsset = characterAsset;

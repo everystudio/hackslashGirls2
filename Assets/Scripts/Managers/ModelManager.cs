@@ -106,6 +106,8 @@ public class ModelManager : Singleton<ModelManager>
         userItem.List.Sort((a, b) => a.item_id - b.item_id);
 
         userGameData.coin = 0;
+        userGameData.gem = 0;
+        userGameData.ticket = 3;
         userGameData.last_quest_floor_id = 1;
         userGameData.last_collect_floor_id = 1;
 
@@ -281,6 +283,38 @@ public class ModelManager : Singleton<ModelManager>
         return true;
     }
 
+    public void AddGem(int gem)
+    {
+        userGameData.gem += gem;
+        OnChangeUserGameData.Invoke(userGameData);
+    }
+    public bool UseGem(int gem)
+    {
+        if (userGameData.gem < gem)
+        {
+            return false;
+        }
+        userGameData.gem -= gem;
+        OnChangeUserGameData.Invoke(userGameData);
+        return true;
+    }
+
+    public void AddTicket(int ticket)
+    {
+        userGameData.ticket += ticket;
+        OnChangeUserGameData.Invoke(userGameData);
+    }
+    public bool UseTicket(int ticket)
+    {
+        if (userGameData.ticket < ticket)
+        {
+            return false;
+        }
+        userGameData.ticket -= ticket;
+        OnChangeUserGameData.Invoke(userGameData);
+        return true;
+    }
+
     public MasterArea GetMasterArea(int areaId)
     {
         return masterArea.List.Find(area => area.area_id == areaId);
@@ -336,13 +370,16 @@ public class ModelManager : Singleton<ModelManager>
         user.is_received = true;
         switch (master.prize_type)
         {
-            case 1:
+            case (int)AchievementPrizeType.COIN:
                 AddCoin(master.prize_amount);
                 break;
-            case 2:
+            case (int)AchievementPrizeType.GEM:
+                AddGem(master.prize_amount);
                 break;
-            case 3:
+            case (int)AchievementPrizeType.TICKET:
+                AddTicket(master.prize_amount);
                 break;
+            case (int)AchievementPrizeType.ITEM:
             default:
                 CollectItem(master.prize_id, master.prize_amount);
                 break;

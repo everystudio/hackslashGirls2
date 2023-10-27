@@ -26,7 +26,7 @@ public class PanelCharaTop : UIPanel
     protected override void initialize()
     {
         base.initialize();
-        Debug.Log(selectingCharaId);
+        //Debug.Log(selectingCharaId);
 
         ModelManager.Instance.OnUserCharaChanged.AddListener((userChara) =>
         {
@@ -48,7 +48,7 @@ public class PanelCharaTop : UIPanel
         {
             var masterChara = ModelManager.Instance.GetMasterChara(userChara.chara_id);
             int charaId = masterChara.chara_id;
-            Debug.Log(charaId);
+            //Debug.Log(charaId);
 
             GameObject charaButton = Instantiate(charaButtonPrefab, charaListParent);
             UICharacterCore charaButtonCore = charaButton.GetComponent<UICharacterCore>();

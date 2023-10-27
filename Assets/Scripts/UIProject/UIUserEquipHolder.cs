@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using anogame;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIUserEquipHolder : MonoBehaviour
 {
     private MasterChara masterChara;
     private UserChara userChara;
     [SerializeField] private Button rankUpButton;
+    [SerializeField] private TextMeshProUGUI rankUpGemText;
+
 
     // 原則３つ
     [SerializeField] private EquipmentButton[] equipmentButtons;
@@ -50,19 +53,32 @@ public class UIUserEquipHolder : MonoBehaviour
             }
             index += 1;
         }
-        if (equipingCount == 3)
+
+        int rankUpGem = Defines.GetRankUpGem(userChara.rank + 1);
+        rankUpButton.interactable = false;
+        if (5 <= userChara.rank)
         {
+            rankUpGemText.text = "MAX";
+        }
+        else if (equipingCount < 3)
+        {
+            rankUpGemText.text = "装備が足りません";
+        }
+        else if (rankUpGem > ModelManager.Instance.UserGameData.gem)
+        {
+            rankUpGemText.text = $"ジェム不足({rankUpGem})";
+        }
+        else
+        {
+            rankUpGemText.text = $"ランクアップ({rankUpGem}ジェム)";
             rankUpButton.interactable = true;
             rankUpButton.onClick.RemoveAllListeners();
             rankUpButton.onClick.AddListener(() =>
             {
+                ModelManager.Instance.UseGem(rankUpGem);
                 userChara.Rankup();
                 Set(masterChara, userChara);
             });
-        }
-        else
-        {
-            rankUpButton.interactable = false;
         }
     }
 
