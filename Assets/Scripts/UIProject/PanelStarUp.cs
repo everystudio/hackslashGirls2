@@ -61,7 +61,7 @@ public class PanelStarUp : MonoBehaviour
             gameObject.SetActive(false);
         });
 
-        starUpButton.interactable = canStarUp;
+        //starUpButton.interactable = canStarUp;
         starUpButton.onClick.RemoveAllListeners();
         starUpButton.onClick.AddListener(() =>
         {

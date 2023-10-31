@@ -73,4 +73,23 @@ public static class Defines
                 return 0;
         }
     }
+
+    public static float GetStarRate(int star)
+    {
+        switch (star)
+        {
+            case 1:
+                return 1.0f;
+            case 2:
+                return 1.2f;
+            case 3:
+                return 1.5f;
+            case 4:
+                return 1.75f;
+            case 5:
+                return 2.0f;
+            default:
+                return 1.0f;
+        }
+    }
 }

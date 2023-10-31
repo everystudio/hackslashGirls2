@@ -32,13 +32,13 @@ public class UserChara : CsvModelParam
 
     public int hp;
 
-    public int hp_max { get { return chara_hp_max + assist_hp_max; } }
-    public int strength { get { return chara_strength + assist_strength; } }
-    public int defense { get { return chara_defense + assist_defense; } }
-    public int speed { get { return chara_speed + assist_speed; } }
-    public int luck { get { return chara_luck + assist_luck; } }
-    public int spirit { get { return chara_spirit + assist_spirit; } }
-    public int heart { get { return chara_heart + assist_heart; } }
+    public int hp_max { get { return (int)(chara_hp_max * Defines.GetStarRate(star)) + assist_hp_max; } }
+    public int strength { get { return (int)(chara_strength * Defines.GetStarRate(star)) + assist_strength; } }
+    public int defense { get { return (int)(chara_defense * Defines.GetStarRate(star)) + assist_defense; } }
+    public int speed { get { return (int)(chara_speed * Defines.GetStarRate(star)) + assist_speed; } }
+    public int luck { get { return (int)(chara_luck * Defines.GetStarRate(star)) + assist_luck; } }
+    public int spirit { get { return (int)(chara_spirit * Defines.GetStarRate(star)) + assist_spirit; } }
+    public int heart { get { return (int)(chara_heart * Defines.GetStarRate(star)) + assist_heart; } }
 
     public int chara_hp_max;
     public int chara_strength;
