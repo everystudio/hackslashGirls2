@@ -311,17 +311,6 @@ public class FloorManager : StateMachineBase<FloorManager>
             base.OnEnterState();
             machine.fadeScreenImage.FadeOut(() =>
             {
-                if (machine.isQuest)
-                {
-                    if (ModelManager.Instance.UserGameData.max_floor_id < machine.currentFloor)
-                    {
-                        OnUpdateMaxFloor.Invoke(machine.currentFloor);
-                    }
-                }
-
-                //Debug.Log("currentFloor:" + machine.currentFloor);
-
-
                 // 生存者の確認
                 bool isAlive = false;
                 foreach (var walker in machine.walkerManager.Walkers)
@@ -335,6 +324,13 @@ public class FloorManager : StateMachineBase<FloorManager>
 
                 if (isAlive)
                 {
+                    if (machine.isQuest)
+                    {
+                        if (ModelManager.Instance.UserGameData.max_floor_id < machine.currentFloor)
+                        {
+                            OnUpdateMaxFloor.Invoke(machine.currentFloor);
+                        }
+                    }
                     machine.currentFloor++;
                     ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
                 }
@@ -353,12 +349,14 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
         public override void OnEnterState()
         {
-
-
-
+            foreach (var walker in machine.walkerManager.Walkers)
+            {
+                walker.Revive();
+                Debug.Log(walker.userChara.chara_id);
+                Debug.Log(walker.userChara.hp);
+            }
 
             ChangeState(new FloorManager.FloorStart(machine, 1));
-
         }
 
 

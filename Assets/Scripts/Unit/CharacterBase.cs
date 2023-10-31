@@ -49,7 +49,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         {
             ChangeState(new CharacterBase.Die(this));
         }
-        UserChara.OnChanged.Invoke(userChara);
+        UserChara.OnAnyChanged.Invoke(userChara);
     }
 
     public void SetChara(UserChara userChara)
@@ -236,6 +236,13 @@ public class CharacterBase : StateMachineBase<CharacterBase>
     public void AnimationAttackEnd()
     {
         OnAttackEnd?.Invoke();
+    }
+
+    public void Revive()
+    {
+        userChara.hp = userChara.hp_max;
+        UserChara.OnAnyChanged.Invoke(userChara);
+
     }
 
     private class Collecting : StateBase<CharacterBase>

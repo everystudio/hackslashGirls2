@@ -96,7 +96,7 @@ public class GameManager : SingletonStateMachineBase<GameManager>
             charaPartyList[i].Set(userChara);
         }
 
-        UserChara.OnChanged.AddListener((userChara) =>
+        UserChara.OnAnyChanged.AddListener((userChara) =>
         {
             if (0 < userChara.questPartyId)
             {

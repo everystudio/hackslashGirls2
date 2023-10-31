@@ -63,7 +63,7 @@ public class UserChara : CsvModelParam
     public int equiping_item_id_2;
     public int equiping_item_id_3;
 
-    public static UnityEvent<UserChara> OnChanged = new UnityEvent<UserChara>();
+    public static UnityEvent<UserChara> OnAnyChanged = new UnityEvent<UserChara>();
 
     public bool IsEquiping(int item_id)
     {
