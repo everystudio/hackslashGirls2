@@ -7,10 +7,10 @@ using anogame;
 
 public class CharacterBase : StateMachineBase<CharacterBase>
 {
-    private bool isDead = false;
     private const float EDGE_X = 13f;
     [SerializeField] private float speed = 2.5f;
     public UnityEvent OnArrived = new UnityEvent();
+    public UnityEvent OnDied = new UnityEvent();
 
     private Animator animator;
 
@@ -24,6 +24,9 @@ public class CharacterBase : StateMachineBase<CharacterBase>
     private UnityEvent OnAttackHit = new UnityEvent();
     private UnityEvent OnAttackEnd = new UnityEvent();
 
+    // 編成用のやつではなく、現在冒険中のインデックス
+    private int partyIndex = 0;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -31,12 +34,12 @@ public class CharacterBase : StateMachineBase<CharacterBase>
 
     public bool IsAlive()
     {
-        return !isDead;
+        return 0 < userChara.hp;
     }
 
     public void TakeDamage(int damage)
     {
-        if (isDead)
+        if (IsAlive() == false)
         {
             return;
         }
@@ -44,7 +47,6 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         userChara.hp -= damage;
         if (userChara.hp <= 0f)
         {
-            isDead = true;
             ChangeState(new CharacterBase.Die(this));
         }
         UserChara.OnChanged.Invoke(userChara);
@@ -57,10 +59,22 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         overrideSprite.OverrideTexture = TextureManager.Instance.GetMiniCharaTexture(characterAsset.chara_id);
     }
 
+    public void SetIndex(int index)
+    {
+        partyIndex = index;
+    }
+
     public void WalkStart(float delay, FloorManager floorManager)
     {
         this.floorManager = floorManager;
-        ChangeState(new CharacterBase.WalkDelay(this, delay));
+        if (IsAlive())
+        {
+            ChangeState(new CharacterBase.WalkDelay(this, delay));
+        }
+        else
+        {
+            ChangeState(new CharacterBase.Close(this));
+        }
     }
     private class WalkDelay : StateBase<CharacterBase>
     {
@@ -98,7 +112,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
             if (nearestEnemy != null)
             {
                 float distance = Vector3.Distance(machine.transform.position, nearestEnemy.transform.position);
-                if (distance <= machine.characterAsset.attack_range + machine.userChara.partyIndex * machine.PARTY_OFFSET)
+                if (distance <= machine.characterAsset.attack_range + machine.partyIndex * machine.PARTY_OFFSET)
                 {
                     ChangeState(new CharacterBase.Fighting(machine, nearestEnemy));
                     return;
@@ -263,11 +277,20 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         }
         public override void OnEnterState()
         {
+            machine.OnDied.Invoke();
             machine.OnArrived.Invoke();
             machine.animator.SetTrigger("die");
         }
     }
 
-
+    private class Close : StateBase<CharacterBase>
+    {
+        public Close(CharacterBase machine) : base(machine)
+        {
+        }
+        public override void OnEnterState()
+        {
+        }
+    }
 
 }

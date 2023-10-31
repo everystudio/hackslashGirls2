@@ -146,7 +146,8 @@ public class EnemyBase : StateMachineBase<EnemyBase>
             elapsedTime += Time.deltaTime * machine.masterEnemy.speed;
             if (elapsedTime >= attackInterval)
             {
-                var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, machine.attackRange);
+                //var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, machine.attackRange);
+                var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, Mathf.Infinity);
 
                 if (targetCharacter != null)
                 {

@@ -48,6 +48,10 @@ public class FloorManager : StateMachineBase<FloorManager>
         float nearestDistance = 100f;
         foreach (var walker in walkerManager.Walkers)
         {
+            if (walker.IsAlive() == false)
+            {
+                continue;
+            }
             float distance = Vector3.Distance(position, walker.transform.position);
 
             if (distance < nearestDistance && distance < range)

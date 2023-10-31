@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using anogame;
+using System;
 
 public class WalkerManager : StateMachineBase<WalkerManager>
 {
@@ -14,15 +15,18 @@ public class WalkerManager : StateMachineBase<WalkerManager>
     [SerializeField] private GameObject walkerPrefab;
 
     public UnityEvent OnArrived = new UnityEvent();
+    private FloorManager floorManager;
 
     public void StandbyParty()
     {
+        Debug.Log("StandbyParty");
         // walkersを初期化
         foreach (var walker in walkers)
         {
             Destroy(walker.gameObject);
         }
         walkers.Clear();
+
 
         List<UserChara> partyList = null;
         if (isQuest)
@@ -48,14 +52,24 @@ public class WalkerManager : StateMachineBase<WalkerManager>
 
     public void WalkStart(FloorManager floorManager)
     {
-        int index = 0;
+        this.floorManager = floorManager;
+
+        ResetWalkerIndex();
+
+        int index = 1;
         foreach (var walker in walkers)
         {
             walker.transform.position = spawnPoint.position;
-            walker.WalkStart(walker.userChara.partyIndex * 0.5f + 0.5f, floorManager);
-            index += 1;
+            if (walker.IsAlive())
+            {
+                walker.WalkStart(index * 0.5f + 0.5f, floorManager);
+                index += 1;
+            }
+            else
+            {
+                walker.gameObject.SetActive(false);
+            }
         }
-
         ChangeState(new WalkerManager.Walking(this));
     }
 
@@ -80,6 +94,7 @@ public class WalkerManager : StateMachineBase<WalkerManager>
     private class Walking : StateBase<WalkerManager>
     {
         private int arrivedCount = 0;
+        private int walkingNum = 0;
         public Walking(WalkerManager machine) : base(machine)
         {
         }
@@ -91,16 +106,43 @@ public class WalkerManager : StateMachineBase<WalkerManager>
             {
                 walker.OnArrived.RemoveAllListeners();
                 walker.OnArrived.AddListener(OnArrived);
+                walker.OnDied.RemoveAllListeners();
+                walker.OnDied.AddListener(OnDied);
+
+                if (walker.IsAlive())
+                {
+                    walkingNum += 1;
+                }
             }
         }
+
+        private void OnDied()
+        {
+            machine.ResetWalkerIndex();
+        }
+
         private void OnArrived()
         {
             arrivedCount++;
-            if (machine.walkers.Count <= arrivedCount)
+            if (walkingNum <= arrivedCount)
             {
                 ChangeState(new WalkerManager.Arrived(machine));
             }
         }
+    }
+
+    private void ResetWalkerIndex()
+    {
+        int index = 1;
+        foreach (var walker in walkers)
+        {
+            if (walker.IsAlive())
+            {
+                walker.SetIndex(index);
+                index += 1;
+            }
+        }
+
     }
 
     private class Arrived : StateBase<WalkerManager>
