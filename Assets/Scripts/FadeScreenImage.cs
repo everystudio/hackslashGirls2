@@ -17,28 +17,39 @@ public class FadeScreenImage : MonoBehaviour
     public UnityEvent OnFadeInCompleted = new UnityEvent();
     public UnityEvent OnFadeOutCompleted = new UnityEvent();
 
+    private Tweener tweener;
+
     public void FadeIn(Action OnFinished)
     {
-        image.DOFade(0f, fadeInTime).SetEase(Ease.Linear).SetDelay(fadeInWaitTime).OnComplete(() =>
+
+        tweener = image.DOFade(0f, fadeInTime).SetEase(Ease.Linear).SetDelay(fadeInWaitTime).OnComplete(() =>
         {
             OnFinished.Invoke();
             OnFadeInCompleted?.Invoke();
             image.raycastTarget = false;
+            tweener = null;
         });
     }
 
     public void FadeOut(Action OnFinished)
     {
+        Debug.Log("start fadeout");
         image.raycastTarget = true;
-        image.DOFade(1f, fadeOutTime).SetEase(Ease.Linear).SetDelay(fadeOutWaitTime).OnComplete(() =>
+        tweener = image.DOFade(1f, fadeOutTime).SetEase(Ease.Linear).SetDelay(fadeOutWaitTime).OnComplete(() =>
         {
+            Debug.Log("end fadeout");
             OnFinished.Invoke();
             OnFadeOutCompleted?.Invoke();
+            tweener = null;
         });
     }
 
     public void Black()
     {
+        if (tweener != null)
+        {
+            tweener.Kill();
+        }
         image.color = Color.black;
         image.raycastTarget = true;
     }

@@ -11,5 +11,7 @@ public class UserGameData : CsvModelParam
     public int ticket;
 
     public int last_quest_floor_id;
-    public int last_collect_floor_id;
+    public int last_collect_area_id;
+
+    public int game_speed_index;
 }

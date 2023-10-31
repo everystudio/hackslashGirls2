@@ -21,15 +21,13 @@ public class GameManager : SingletonStateMachineBase<GameManager>
 
     [SerializeField] private List<GameObject> collectRootList;
 
-    [SerializeField] private float gameSpeed = 1f;
-    private float savedGameSpeed = 1f;
-    public float GameSpeed
+    private int savedGameSpeed = 1;
+    public int GameSpeed
     {
-        get { return gameSpeed; }
+        get { return Defines.GetCurrentGameSpeed(ModelManager.Instance.UserGameData.game_speed_index); }
         set
         {
-            gameSpeed = value;
-            Time.timeScale = gameSpeed;
+            Time.timeScale = value;
         }
     }
     private void GamePause()
@@ -44,6 +42,19 @@ public class GameManager : SingletonStateMachineBase<GameManager>
 
     public override void Initialize()
     {
+        GameSpeed = Defines.GetCurrentGameSpeed(ModelManager.Instance.UserGameData.game_speed_index);
+
+        SpeedControlButton.OnClicedHandler.AddListener(() =>
+        {
+            // Defines.GetNextGameSpeedを利用して、次のインデックスとスピードを取得する
+            Debug.Log(ModelManager.Instance.UserGameData.game_speed_index);
+            var temp = Defines.GetNextGameSpeed(ModelManager.Instance.UserGameData.game_speed_index);
+            GameSpeed = temp.Item1;
+            ModelManager.Instance.SetGameSpeedIndex(temp.Item2);
+        });
+
+
+
         /*
         int total = 0;
         for (int i = 1; i < 100; i++)
@@ -86,8 +97,6 @@ public class GameManager : SingletonStateMachineBase<GameManager>
         //Debug.Log("GameManager Initialize");
         base.Initialize();
         FooterButtons.OnFooterButtonEvent.AddListener(OnFooterButtonEvent);
-
-        GameSpeed = 3f;
 
         for (int i = 0; i < charaPartyList.Count; i++)
         {
@@ -161,10 +170,16 @@ public class GameManager : SingletonStateMachineBase<GameManager>
 
             panelMainContent.OnFloorStart.AddListener((floorId, isQuest) =>
             {
+                // クエストの時しか呼ばれないかも
                 if (isQuest)
                 {
                     machine.questFloorManager.RequestStart(floorId);
                 }
+                ReturnIdle();
+            });
+            panelMainContent.OnAreaStartCollect.AddListener((areaId) =>
+            {
+                machine.collectFloorManager.RequestStart(areaId);
                 ReturnIdle();
             });
 

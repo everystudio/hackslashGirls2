@@ -96,4 +96,28 @@ public static class Defines
                 return 1.0f;
         }
     }
+
+
+    public static int GetCurrentGameSpeed(int currentSpeedIndex)
+    {
+        int[] spped_array = new int[] { 1, 2, 5, 10 };
+        return spped_array[currentSpeedIndex];
+    }
+
+
+    public static (int, int) GetNextGameSpeed(int currentSpeedIndex)
+    {
+        int[] spped_array = new int[] { 1, 2, 5, 10 };
+        int nextSpeedIndex = currentSpeedIndex + 1;
+        if (spped_array.Length <= nextSpeedIndex)
+        {
+            nextSpeedIndex = 0;
+        }
+        return (spped_array[nextSpeedIndex], nextSpeedIndex);
+
+
+    }
+
+
+
 }

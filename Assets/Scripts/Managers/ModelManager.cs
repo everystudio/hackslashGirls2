@@ -112,7 +112,8 @@ public class ModelManager : Singleton<ModelManager>
         userGameData.gem = 0;
         userGameData.ticket = 3;
         userGameData.last_quest_floor_id = 1;
-        userGameData.last_collect_floor_id = 1;
+        userGameData.last_collect_area_id = 1;
+        userGameData.game_speed_index = 0;
 
         /*
         // マスターデータからユーザーデータを作成する
@@ -324,6 +325,12 @@ public class ModelManager : Singleton<ModelManager>
         userGameData.ticket -= ticket;
         OnChangeUserGameData.Invoke(userGameData);
         return true;
+    }
+
+    public void SetGameSpeedIndex(int gameSpeedIndex)
+    {
+        userGameData.game_speed_index = gameSpeedIndex;
+        OnChangeUserGameData.Invoke(userGameData);
     }
 
     public MasterArea GetMasterArea(int areaId)

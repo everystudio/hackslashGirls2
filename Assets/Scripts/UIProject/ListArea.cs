@@ -15,6 +15,7 @@ public class ListArea : StateMachineBase<ListArea>
     private bool isQuest;
 
     public UnityEvent<int, bool> OnFloorStart = new UnityEvent<int, bool>();
+    public UnityEvent<int> OnAreaStartCollect = new UnityEvent<int>();
 
 
     public void Init(bool isQuest)
@@ -66,10 +67,9 @@ public class ListArea : StateMachineBase<ListArea>
             {
                 OnFloorStart.Invoke(floorId, isQuest);
             });
-            panelAreaDetail.AreaSelectButton.onClick.AddListener(() =>
+            panelAreaDetail.OnAreaSelect.AddListener((area_id) =>
             {
-                UIController.Instance.RemovePanel(areaDetailGameObject);
-                areaDetailGameObject = null;
+                OnAreaStartCollect.Invoke(area_id);
             });
         }
     }

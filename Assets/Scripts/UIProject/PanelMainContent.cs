@@ -22,6 +22,7 @@ public class PanelMainContent : UIPanel
     private static bool lastViewContentIsParty = false;
 
     public UnityEvent<int, bool> OnFloorStart = new UnityEvent<int, bool>();
+    public UnityEvent<int> OnAreaStartCollect = new UnityEvent<int>();
 
 
     protected override void initialize()
@@ -54,6 +55,10 @@ public class PanelMainContent : UIPanel
             listArea.OnFloorStart.AddListener((floorId, isQuest) =>
             {
                 OnFloorStart.Invoke(floorId, isQuest);
+            });
+            listArea.OnAreaStartCollect.AddListener((areaId) =>
+            {
+                OnAreaStartCollect.Invoke(areaId);
             });
         }
     }

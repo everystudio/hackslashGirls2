@@ -21,7 +21,6 @@ public class PanelAreaDetail : UIPanel
     [SerializeField] private Transform floorStartButtonParent;
 
     [SerializeField] private Button areaSelectButton;
-    public Button AreaSelectButton => areaSelectButton;
 
     [SerializeField] private Button closeButton;
     public Button CloseButton => closeButton;
@@ -29,7 +28,8 @@ public class PanelAreaDetail : UIPanel
     [SerializeField] private GameObject rootFloorSelect;
     [SerializeField] private GameObject rootAreaSelect;
 
-    public UnityEvent<int, bool> OnFloorStart = new UnityEvent<int, bool>();
+    [HideInInspector] public UnityEvent<int, bool> OnFloorStart = new UnityEvent<int, bool>();
+    [HideInInspector] public UnityEvent<int> OnAreaSelect = new UnityEvent<int>();
 
     private bool isQuest;
 
@@ -113,6 +113,11 @@ public class PanelAreaDetail : UIPanel
             // ここはよくデバッグで解除する
             floorStartButton.Button.interactable = floor.floor_start <= ModelManager.Instance.UserGameData.max_floor_id;
         }
+
+        areaSelectButton.onClick.AddListener(() =>
+        {
+            OnAreaSelect.Invoke(masterArea.area_id);
+        });
 
 
 

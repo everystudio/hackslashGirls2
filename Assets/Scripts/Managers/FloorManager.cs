@@ -9,7 +9,7 @@ public class FloorManager : StateMachineBase<FloorManager>
 {
     [SerializeField] private bool isQuest;
     [SerializeField] private FadeScreenImage fadeScreenImage;
-    [SerializeField] private WalkerManager walkerManager;
+    [SerializeField] protected WalkerManager walkerManager;
     public WalkerManager WalkerManager => walkerManager;
 
     [SerializeField] private Camera usingCamera;
@@ -18,15 +18,15 @@ public class FloorManager : StateMachineBase<FloorManager>
     [SerializeField] private GameObject testEnemyPrefab;
     private List<EnemyBase> enemyList = new List<EnemyBase>();
 
-    [SerializeField] private GameObject collectableItemPrefab;
-    private List<CollectableItem> collectableItems = new List<CollectableItem>();
+    [SerializeField] protected GameObject collectableItemPrefab;
+    protected List<CollectableItem> collectableItems = new List<CollectableItem>();
 
     private int currentFloor = 1;
     public int CurrentFloor => currentFloor;
     [HideInInspector] public UnityEvent<int> OnFloorStart = new UnityEvent<int>();
 
     [SerializeField] private Transform enemyRoot;
-    [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
+    [SerializeField] protected SpriteRenderer backgroundSpriteRenderer;
 
     // 最高到達フロアの更新をしたイベント
     public static UnityEvent<int> OnUpdateMaxFloor = new UnityEvent<int>();
@@ -63,7 +63,7 @@ public class FloorManager : StateMachineBase<FloorManager>
         return nearestWalker;
     }
 
-    private void StartNewFloor(int currentFloor)
+    protected virtual void StartNewFloor(int currentFloor)
     {
         MasterFloor currentFloorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
             x.floor_start <= currentFloor && currentFloor <= x.floor_end);
@@ -78,19 +78,9 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
 
         walkerManager.StandbyParty();
-        if (isQuest)
+        if (testEnemyPrefab != null)
         {
-            if (testEnemyPrefab != null)
-            {
-                SpawnEnemy(currentFloor);
-            }
-        }
-        else
-        {
-            if (collectableItemPrefab != null)
-            {
-                SpawnCollectableItem(currentFloor);
-            }
+            SpawnEnemy(currentFloor);
         }
 
 
@@ -164,52 +154,6 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
     }
 
-    private void SpawnCollectableItem(int floor)
-    {
-        // collectableItemsをクリア
-        foreach (var collectableItem in collectableItems)
-        {
-            Destroy(collectableItem.gameObject);
-        }
-        collectableItems.Clear();
-
-        // 現在のマスターフロアを取得
-        MasterFloor floorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
-            x.floor_start <= floor && floor <= x.floor_end);
-        MasterArea areaModel = ModelManager.Instance.GetMasterArea(floorModel.area_id);
-
-        // 現在のマスターアイテムを取得
-        List<MasterItem> masterItems = ModelManager.Instance.MasterItem.List.FindAll(
-            item => item.area_id == areaModel.area_id && item.floor_start <= floor);
-
-        //Debug.Log(masterItems.Count);
-        int[] probArray = new int[masterItems.Count];
-        for (int i = 0; i < masterItems.Count; i++)
-        {
-            probArray[i] = masterItems[i].prob;
-        }
-
-        for (int i = 0; i < 3; i++)
-        {
-            CollectableItem collectableItem = Instantiate(collectableItemPrefab, transform).GetComponent<CollectableItem>();
-            // 90%の確率でコインを獲得する
-            if (UnityEngine.Random.Range(0, 10) < 9)
-            {
-                collectableItem.Initialize(ModelManager.Instance.GetMasterItem(Defines.CoinItemID));
-            }
-            else
-            {
-                // MasterItem.probを元にランダムにアイテムを生成
-                int itemIndex = UtilRand.GetIndex(probArray);
-                //Debug.Log(itemIndex);
-                collectableItem.Initialize(masterItems[itemIndex]);
-            }
-            collectableItems.Add(collectableItem);
-            collectableItem.transform.localPosition = new Vector3(i * 0.75f + 1.5f, 0, 0);
-        }
-    }
-
-
     public EnemyBase GetNearestEnemy(CharacterBase walker)
     {
         EnemyBase nearestEnemy = null;
@@ -246,6 +190,7 @@ public class FloorManager : StateMachineBase<FloorManager>
     {
         fadeScreenImage.Black();
         currentFloor = floorId;
+        Debug.Log($"RequestStart:{floorId}");
         ChangeState(new FloorManager.FloorStart(this, floorId));
     }
 
@@ -260,9 +205,14 @@ public class FloorManager : StateMachineBase<FloorManager>
             base.OnEnterState();
             machine.fadeScreenImage.Black();
             //machine.walkerManager.StandbyParty();
-
-            machine.currentFloor = ModelManager.Instance.UserGameData.last_quest_floor_id;
-
+            if (machine.isQuest)
+            {
+                machine.currentFloor = ModelManager.Instance.UserGameData.last_quest_floor_id;
+            }
+            else
+            {
+                machine.currentFloor = ModelManager.Instance.UserGameData.last_collect_area_id;
+            }
 
             ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
         }
@@ -296,9 +246,6 @@ public class FloorManager : StateMachineBase<FloorManager>
             machine.walkerManager.OnArrived.RemoveAllListeners();
             machine.walkerManager.OnArrived.AddListener(OnArrived);
             machine.walkerManager.WalkStart(machine);
-
-
-
         }
 
         private void OnArrived()
@@ -338,8 +285,8 @@ public class FloorManager : StateMachineBase<FloorManager>
                         {
                             OnUpdateMaxFloor.Invoke(machine.currentFloor);
                         }
+                        machine.currentFloor++;
                     }
-                    machine.currentFloor++;
                     ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
                 }
                 else
