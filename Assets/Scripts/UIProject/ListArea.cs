@@ -66,6 +66,11 @@ public class ListArea : StateMachineBase<ListArea>
             {
                 OnFloorStart.Invoke(floorId, isQuest);
             });
+            panelAreaDetail.AreaSelectButton.onClick.AddListener(() =>
+            {
+                UIController.Instance.RemovePanel(areaDetailGameObject);
+                areaDetailGameObject = null;
+            });
         }
     }
 

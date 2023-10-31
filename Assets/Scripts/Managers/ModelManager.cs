@@ -331,6 +331,35 @@ public class ModelManager : Singleton<ModelManager>
         return masterArea.List.Find(area => area.area_id == areaId);
     }
 
+    public void AddResourcesItem(int item_id, int amount)
+    {
+        switch (item_id)
+        {
+            case Defines.CoinItemID:
+                AddCoin(amount);
+                break;
+            case Defines.GemItemID:
+                AddGem(amount);
+                break;
+            case Defines.TicketItemID:
+                AddTicket(amount);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public bool IsResourcesItem(int item_id)
+    {
+        // 特に識別できるものがなかったので、area_id == 0のものをリソースアイテムとする
+        MasterItem masterItem = GetMasterItem(item_id);
+        if (masterItem == null)
+        {
+            return false;
+        }
+        return masterItem.area_id == 0;
+    }
+
     private void CollectItemOne(int item_id)
     {
         CollectItem(item_id, 1);
@@ -338,6 +367,12 @@ public class ModelManager : Singleton<ModelManager>
 
     private void CollectItem(int item_id, int amount = 1)
     {
+        if (IsResourcesItem(item_id))
+        {
+            AddResourcesItem(item_id, amount);
+            return;
+        }
+
         UserItem userItem = GetUserItem(item_id);
         if (userItem == null)
         {

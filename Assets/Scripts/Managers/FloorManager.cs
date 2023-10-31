@@ -191,11 +191,19 @@ public class FloorManager : StateMachineBase<FloorManager>
 
         for (int i = 0; i < 3; i++)
         {
-            // MasterItem.probを元にランダムにアイテムを生成
-            int itemIndex = UtilRand.GetIndex(probArray);
-            //Debug.Log(itemIndex);
             CollectableItem collectableItem = Instantiate(collectableItemPrefab, transform).GetComponent<CollectableItem>();
-            collectableItem.Initialize(masterItems[itemIndex]);
+            // 90%の確率でコインを獲得する
+            if (UnityEngine.Random.Range(0, 10) < 9)
+            {
+                collectableItem.Initialize(ModelManager.Instance.GetMasterItem(Defines.CoinItemID));
+            }
+            else
+            {
+                // MasterItem.probを元にランダムにアイテムを生成
+                int itemIndex = UtilRand.GetIndex(probArray);
+                //Debug.Log(itemIndex);
+                collectableItem.Initialize(masterItems[itemIndex]);
+            }
             collectableItems.Add(collectableItem);
             collectableItem.transform.localPosition = new Vector3(i * 0.75f + 1.5f, 0, 0);
         }

@@ -33,6 +33,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 3a96ff00ba827b849b5870f4c33f0398, type: 3}
+    - {fileID: 2800000, guid: 11c41604a64b7fb4792bc33e4efdd556, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -50,13 +51,18 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 67ce4ea17235ed348bdb9bf41d7579ef, type: 3}
   - {fileID: 21300000, guid: 7cd00cc1d5f81ee4c813ca5d1747f4f1, type: 3}
   - {fileID: 21300000, guid: 9415c332c0f27e7419bc01236b728d11, type: 3}
+  - {fileID: 21300000, guid: 2abadd72192305e40b46e5d548ecb729, type: 3}
   - {fileID: 21300000, guid: e42c9d92be87d33478e4af83ec73b469, type: 3}
+  - {fileID: 21300000, guid: e10e5ac2b4eeba34db60cc5a69908435, type: 3}
   - {fileID: 21300000, guid: 278bb5d274a594c49a16922299c549dc, type: 3}
   - {fileID: 21300000, guid: 93e9d3e28aa90744eae774ba5973bc6f, type: 3}
+  - {fileID: 21300000, guid: e8b5e7234eab6d549a43b6c7cd1e8458, type: 3}
   - {fileID: 21300000, guid: ab667543ceb057d49a74e86d58bc3f91, type: 3}
   - {fileID: 21300000, guid: c97136930551b7c4abaf88c548837318, type: 3}
   - {fileID: 21300000, guid: 3261e79354c28cd49bee5f0d46c7deb8, type: 3}
   - {fileID: 21300000, guid: a4690cf3ae35665499c11548f63f9214, type: 3}
+  - {fileID: 21300000, guid: 11c41604a64b7fb4792bc33e4efdd556, type: 3}
+  - {fileID: 21300000, guid: f840ad0491a2e2b438f93d833359a5d7, type: 3}
   - {fileID: 21300000, guid: 9fdc2f1482b1ac04f940b36c4d944d9d, type: 3}
   - {fileID: 21300000, guid: 5153d744d33751249914f070ee5ea236, type: 3}
   - {fileID: 21300000, guid: a82d1f543abb0da4c978ee70e1b2e567, type: 3}
@@ -71,7 +77,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fc2fbf568ff2a704cafb1a6335c4708f, type: 3}
   - {fileID: 21300000, guid: 8a59ec6618ba9574582ea44f9316fbc1, type: 3}
   - {fileID: 21300000, guid: 834ec9074eddb8c47b9c1456b9c59397, type: 3}
+  - {fileID: 21300000, guid: 0371de67ec8f8c644a8ea65dd8f5c818, type: 3}
   - {fileID: 21300000, guid: b72c4e874085fd7438bfb0e7b99eee38, type: 3}
+  - {fileID: 21300000, guid: 7287dba7620b69c4db0eaa6ce2c1a457, type: 3}
   - {fileID: 21300000, guid: 62ea93089058d084e8ed043d3687d590, type: 3}
   - {fileID: 21300000, guid: bb48ed1892c17534193f012e7350a0a5, type: 3}
   - {fileID: 21300000, guid: 37cd392859de9324a9b3de5194b55da3, type: 3}
@@ -116,13 +124,18 @@ SpriteAtlas:
   - addons_09_t
   - 175_t
   - 155_t
+  - UI_Graphic_Resource_Food
   - staff_08_t
+  - UI_Graphic_Resource_Tools
   - addons_13_t
   - t_06_a
+  - UI_Graphic_Resource_Wood
   - orb_05_t
   - wgg_01_t
   - ember_t_01
   - in_t_07
+  - icon_ticket
+  - UI_Graphic_Resource_Coins
   - orb_02_t
   - b_29
   - g_38
@@ -137,7 +150,9 @@ SpriteAtlas:
   - artifact_06_t
   - cs_t_05
   - shard_t_01
+  - UI_Graphic_Resource_Gems
   - book_10_t
+  - UI_Graphic_Resource_Iron
   - engeniring_04_t
   - b_24
   - f_07

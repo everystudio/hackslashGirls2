@@ -1,4 +1,8 @@
 item_id,item_name,area_id,floor_start,prob,filename,description,hp_max,strength,defense,speed,luck,spirit,#currentsum,#require,#gap
+0,なし(none),0,0,0,none,none,0,0,0,0,0,0,0,15,-15
+10001,コイン,0,0,0,UI_Graphic_Resource_Coins,コイン,0,0,0,0,0,0,0,15,-15
+10002,ジェム,0,0,0,UI_Graphic_Resource_Gems,ジェム,0,0,0,0,0,0,0,15,-15
+10003,チケット,0,0,0,icon_ticket,チケット,0,0,0,0,0,0,0,15,-15
 1,きのこ,1,0,1000,109_t,どこでも発見！,10,0,0,5,0,0,15,15,0
 2,いしころ,1,0,1000,160_t,地元のヒーロー,0,10,5,0,0,0,15,15,0
 3,球根,1,0,1000,artifact_06_t,お庭の隠し玉,0,0,0,0,10,5,15,15,0

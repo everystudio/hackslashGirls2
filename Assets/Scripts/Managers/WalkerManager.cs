@@ -19,7 +19,7 @@ public class WalkerManager : StateMachineBase<WalkerManager>
 
     public void StandbyParty()
     {
-        Debug.Log("StandbyParty");
+        //Debug.Log("StandbyParty");
         // walkersを初期化
         foreach (var walker in walkers)
         {

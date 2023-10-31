@@ -20,8 +20,14 @@ public class PanelAreaDetail : UIPanel
     [SerializeField] private GameObject floorStartButtonPrefab;
     [SerializeField] private Transform floorStartButtonParent;
 
+    [SerializeField] private Button areaSelectButton;
+    public Button AreaSelectButton => areaSelectButton;
+
     [SerializeField] private Button closeButton;
     public Button CloseButton => closeButton;
+
+    [SerializeField] private GameObject rootFloorSelect;
+    [SerializeField] private GameObject rootAreaSelect;
 
     public UnityEvent<int, bool> OnFloorStart = new UnityEvent<int, bool>();
 
@@ -30,6 +36,8 @@ public class PanelAreaDetail : UIPanel
     public void Init(bool isQuest, MasterArea masterArea)
     {
         Debug.Log("PanelAreaDetail Init");
+        rootFloorSelect.SetActive(isQuest);
+        rootAreaSelect.SetActive(!isQuest);
 
         List<MasterFloor> masterFloors = ModelManager.Instance.MasterFloor.List.FindAll(floor => floor.area_id == masterArea.area_id);
 
@@ -86,8 +94,6 @@ public class PanelAreaDetail : UIPanel
             enemyIcon.Set(enemy, enemy.rarity, userEnemy != null);
         }
 
-
-
         // floorStartButtonParentの子要素を全削除
         foreach (Transform child in floorStartButtonParent)
         {
@@ -104,6 +110,8 @@ public class PanelAreaDetail : UIPanel
                 Debug.Log(floor.floor_start + " Click!");
                 OnFloorStart.Invoke(floor.floor_start, isQuest);
             });
+            // ここはよくデバッグで解除する
+            floorStartButton.Button.interactable = floor.floor_start <= ModelManager.Instance.UserGameData.max_floor_id;
         }
 
 

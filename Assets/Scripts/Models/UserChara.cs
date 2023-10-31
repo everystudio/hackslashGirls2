@@ -10,9 +10,11 @@ public class UserChara : CsvModelParam
     public UserChara(MasterChara masterChara)
     {
         chara_id = masterChara.chara_id;
-        level = 1;
+        level = 0;
+
         rank = 0;
         star = Mathf.Max(1, masterChara.initial_star);
+        /*
         chara_hp_max = 10;
         chara_strength = 1;
         chara_defense = 1;
@@ -20,6 +22,8 @@ public class UserChara : CsvModelParam
         chara_luck = 1;
         chara_spirit = 1;
         chara_heart = 1;
+        */
+        Levelup();
     }
     public int chara_id;
 

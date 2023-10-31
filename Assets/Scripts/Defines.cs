@@ -13,6 +13,10 @@ public static class Defines
     // １フロアでの最大敵数
     public const int MaxEnemyNum = 5;
 
+    public const int CoinItemID = 10001;
+    public const int GemItemID = 10002;
+    public const int TicketItemID = 10003;
+
     public static int CalculateRequiredLevelupCoin(int level)
     {
         float level_rate = (float)level / 50;
