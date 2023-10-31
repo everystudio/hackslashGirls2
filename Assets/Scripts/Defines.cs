@@ -56,4 +56,21 @@ public static class Defines
                 return 0;
         }
     }
+
+    public static int GetStarUp(int nextStar)
+    {
+        switch (nextStar)
+        {
+            case 2:
+                return 5;
+            case 3:
+                return 25;
+            case 4:
+                return 100;
+            case 5:
+                return 500;
+            default:
+                return 0;
+        }
+    }
 }

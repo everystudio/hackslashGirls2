@@ -62,6 +62,9 @@ public class ModelManager : Singleton<ModelManager>
     private CsvModel<UserArea> userArea = new CsvModel<UserArea>();
     public CsvModel<UserArea> UserArea { get { return userArea; } }
 
+    private CsvModel<UserStar> userStar = new CsvModel<UserStar>();
+    public CsvModel<UserStar> UserStar { get { return userStar; } }
+
     public override void Initialize()
     {
         Debug.Log("ModelManager Initialize");
@@ -256,6 +259,14 @@ public class ModelManager : Singleton<ModelManager>
 
     public UserChara AddChara(int chara_id)
     {
+        // すでに持っているキャラかどうかを確認する
+        UserChara checkChara = GetUserChara(chara_id);
+        if (checkChara != null)
+        {
+            return null;
+        }
+
+        // マスターデータからキャラを取得する
         MasterChara masterChara = GetMasterChara(chara_id);
         if (masterChara == null)
         {
@@ -559,5 +570,38 @@ public class ModelManager : Singleton<ModelManager>
     public UserEnemy GetUserEnemy(int enemy_id, int rarity)
     {
         return userEnemy.List.Find(enemy => enemy.enemy_id == enemy_id && enemy.rarity == rarity);
+    }
+
+    public UserStar GetUserStar(int chara_id)
+    {
+        return userStar.List.Find(star => star.chara_id == chara_id);
+    }
+
+    public void AddStar(int chara_id, int num)
+    {
+        UserStar userStar = GetUserStar(chara_id);
+        if (userStar == null)
+        {
+            userStar = new UserStar();
+            userStar.chara_id = chara_id;
+            userStar.num = 0;
+            this.userStar.List.Add(userStar);
+        }
+        userStar.num += num;
+    }
+
+    public bool UseStar(int chara_id, int num)
+    {
+        UserStar userStar = GetUserStar(chara_id);
+        if (userStar == null)
+        {
+            return false;
+        }
+        if (userStar.num < num)
+        {
+            return false;
+        }
+        userStar.num -= num;
+        return true;
     }
 }

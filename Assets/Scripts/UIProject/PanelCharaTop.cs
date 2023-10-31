@@ -21,12 +21,15 @@ public class PanelCharaTop : UIPanel
     [SerializeField] private TextMeshProUGUI requireCoinText;
 
     [SerializeField] private Button starupButton;
+    [SerializeField] private PanelStarUp panelStarUp;
 
 
     protected override void initialize()
     {
         base.initialize();
         //Debug.Log(selectingCharaId);
+
+        panelStarUp.gameObject.SetActive(false);
 
         ModelManager.Instance.OnUserCharaChanged.AddListener((userChara) =>
         {
@@ -71,6 +74,17 @@ public class PanelCharaTop : UIPanel
                     ModelManager.Instance.OnUserCharaChanged.Invoke(userChara);
                 }
             }
+        });
+
+        starupButton.onClick.AddListener(() =>
+        {
+            panelStarUp.gameObject.SetActive(true);
+            panelStarUp.Redraw(ModelManager.Instance.GetUserChara(selectingCharaId), ModelManager.Instance.GetMasterChara(selectingCharaId));
+        });
+
+        panelStarUp.OnStarUp.AddListener(() =>
+        {
+            ShowSelectingChara(selectingCharaId);
         });
     }
 
