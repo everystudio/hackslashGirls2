@@ -201,6 +201,8 @@ public class CharacterBase : StateMachineBase<CharacterBase>
             {
                 if (nearestEnemy != null)
                 {
+                    AudioManager.Instance.PlayRandomAttackPlayerSFX();
+
                     var obj = Instantiate(Resources.Load("FlyingText"), machine.transform.parent) as GameObject;
 
                     Vector3 randomOffsetXY = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);

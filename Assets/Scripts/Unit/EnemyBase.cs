@@ -175,6 +175,7 @@ public class EnemyBase : StateMachineBase<EnemyBase>
             machine.OnAttackHitEvent.AddListener(() =>
             {
                 //Debug.Log(targetCharacter);
+                AudioManager.Instance.PlayRandomAttackEnemySFX();
                 targetCharacter.TakeDamage(machine.masterEnemy.attack);
             });
             machine.OnAttackEndEvent.AddListener(() =>

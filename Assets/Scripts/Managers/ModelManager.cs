@@ -343,6 +343,7 @@ public class ModelManager : Singleton<ModelManager>
         switch (item_id)
         {
             case Defines.CoinItemID:
+                AudioManager.Instance.PlayCoinGetSFX();
                 AddCoin(amount);
                 break;
             case Defines.GemItemID:
@@ -406,6 +407,7 @@ public class ModelManager : Singleton<ModelManager>
 
 
         }
+        AudioManager.Instance.PlayItemGetSFX();
         userItem.item_num += amount;
     }
 

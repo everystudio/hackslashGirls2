@@ -27,11 +27,12 @@ public class CollectableItem : MonoBehaviour
         is_collected = true;
         //gameObject.SetActive(false);
         animator.SetTrigger("Collect");
+        OnCollect.Invoke(masterItem.item_id);
     }
 
     public void OnCollectAnimationEnd()
     {
-        OnCollect.Invoke(masterItem.item_id);
+        // ここでOnCollectイベントを呼んでたけど、エフェクト音のなるタイミングがおそくなってしまったので、処理ごと前倒しした
     }
 
     public void Initialize(MasterItem masterItem)
