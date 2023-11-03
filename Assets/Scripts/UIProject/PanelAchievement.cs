@@ -10,6 +10,8 @@ public class PanelAchievement : UIPanel
     [SerializeField] private Transform bannerParent;
 
     [SerializeField] private Button closeButton;
+    [SerializeField] private Button allCollectButton;
+
 
     // Start is called before the first frame update
     protected override void initialize()

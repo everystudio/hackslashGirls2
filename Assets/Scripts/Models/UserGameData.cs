@@ -14,4 +14,10 @@ public class UserGameData : CsvModelParam
     public int last_collect_area_id;
 
     public int game_speed_index;
+
+    public float master_volume;
+    public float bgm_volume;
+    public float sfx_volume;
+
+
 }

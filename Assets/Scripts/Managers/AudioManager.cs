@@ -19,18 +19,30 @@ public class AudioManager : Singleton<AudioManager>
     public AudioClip levelUpClip;
     public AudioClip gachaClip;
 
+    private float GetDecibel(float volume)
+    {
+        volume = Mathf.Clamp01(volume);
+
+        float decibel = 20f * Mathf.Log10(volume);
+        decibel = Mathf.Clamp(decibel, -80f, 0f);
+        return decibel;
+
+    }
+
+
     public void OnChangeVolumeBGM(float volume)
     {
-        audioMixer.SetFloat("BGM", volume);
+        audioMixer.SetFloat("BGM", GetDecibel(volume));
     }
     public void OnChangeVolumeSFX(float volume)
     {
-        audioMixer.SetFloat("SFX", volume);
+        audioMixer.SetFloat("SFX", GetDecibel(volume));
     }
 
     public void OnChangeVolumeMaster(float volume)
     {
-        audioMixer.SetFloat("Master", volume);
+        Debug.Log("OnChangeVolumeMaster:" + volume);
+        audioMixer.SetFloat("Master", GetDecibel(volume));
     }
 
     public void PlayBGM(AudioClip clip)

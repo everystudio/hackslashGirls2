@@ -114,6 +114,9 @@ public class ModelManager : Singleton<ModelManager>
         userGameData.last_quest_floor_id = 1;
         userGameData.last_collect_area_id = 1;
         userGameData.game_speed_index = 0;
+        userGameData.master_volume = 1f;
+        userGameData.bgm_volume = 1f;
+        userGameData.sfx_volume = 1f;
 
         /*
         // マスターデータからユーザーデータを作成する
