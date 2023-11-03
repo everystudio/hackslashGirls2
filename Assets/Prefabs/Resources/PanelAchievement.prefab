@@ -230,6 +230,7 @@ MonoBehaviour:
   bannerPrefab: {fileID: 4304450959434838586, guid: b039d5aef562a0049a6a1fba984c665f, type: 3}
   bannerParent: {fileID: 3640235985982672074}
   closeButton: {fileID: 3640235986880335815}
+  allCollectButton: {fileID: 1424157936840864019}
 --- !u!1 &3640235985331828631
 GameObject:
   m_ObjectHideFlags: 0
