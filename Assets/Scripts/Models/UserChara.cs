@@ -33,6 +33,7 @@ public class UserChara : CsvModelParam
     public int level;
     public int rank;
     public int star;
+    public int exp;
 
     public int hp;
 

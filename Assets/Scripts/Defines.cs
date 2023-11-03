@@ -17,6 +17,10 @@ public static class Defines
     public const int GemItemID = 10002;
     public const int TicketItemID = 10003;
 
+    public const string LastPlayTimeKey = "LastPlayTime";
+    public const string GemTimeKey = "GemTimeKey";
+    public const string TicketTimeKey = "TicketTimeKey";
+
     public static int CalculateRequiredLevelupCoin(int level)
     {
         float level_rate = (float)level / 50;

@@ -41,7 +41,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void OnChangeVolumeMaster(float volume)
     {
-        Debug.Log("OnChangeVolumeMaster:" + volume);
+        //Debug.Log("OnChangeVolumeMaster:" + volume);
         audioMixer.SetFloat("Master", GetDecibel(volume));
     }
 

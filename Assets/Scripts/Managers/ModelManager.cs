@@ -651,4 +651,90 @@ public class ModelManager : Singleton<ModelManager>
         userStar.num -= num;
         return true;
     }
+
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            // スマホだとこっちが呼ばれそう
+            string strDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            PlayerPrefs.SetString(Defines.LastPlayTimeKey, strDateTime);
+            Debug.Log(Defines.LastPlayTimeKey + strDateTime);
+        }
+        else
+        {
+            // PauseTimeから復帰するまでの時間(秒数)
+            if (PlayerPrefs.HasKey(Defines.LastPlayTimeKey))
+            {
+                string strDateTime = PlayerPrefs.GetString(Defines.LastPlayTimeKey);
+                DateTime pauseTime = DateTime.Parse(strDateTime);
+                DateTime nowTime = DateTime.Now;
+                TimeSpan span = nowTime - pauseTime;
+                Debug.Log("span" + span.TotalSeconds);
+
+                int minutes = (int)span.TotalMinutes;
+                int hours = (int)span.TotalHours;
+
+                List<string> bonusMessageList = new List<string>();
+#if UNITY_EDITOR
+                bonusMessageList.Add("テスト用にメッセージが表示されます");
+#endif
+                if (0 < minutes)
+                {
+                    bonusMessageList.Add("パーティーメンバーが経験値を獲得しました");
+                    // パーティーに編成しているキャラのループ
+                    foreach (var chara in userChara.List.FindAll(x => 0 < x.partyIndex))
+                    {
+                        int addExp = minutes * 5;
+                        chara.exp += addExp;
+                    }
+
+                    int addCoin = Mathf.Min(minutes * 10, 9999);
+                    AddCoin(minutes * 10);
+                    bonusMessageList.Add("コインを" + addCoin + "獲得しました");
+                }
+
+                // LastGemTimeを使って、最後に受け取った時間を記録しておく
+                int lastGemTimeMinutes = PlayerPrefs.GetInt(Defines.GemTimeKey, 0);
+                lastGemTimeMinutes += minutes;
+
+                if (0 < lastGemTimeMinutes / 60)
+                {
+                    int addGem = lastGemTimeMinutes / 60 * 1;
+                    AddGem(addGem);
+                    bonusMessageList.Add("ジェムを" + addGem + "個Get!!");
+
+                    lastGemTimeMinutes = lastGemTimeMinutes % 60;
+                }
+                PlayerPrefs.SetInt(Defines.GemTimeKey, lastGemTimeMinutes);
+
+                int lastTicketTimeMinutes = PlayerPrefs.GetInt(Defines.TicketTimeKey, 0);
+                lastTicketTimeMinutes += minutes;
+                int OneDayMinutes = 60 * 24;
+
+                if (0 < lastTicketTimeMinutes / OneDayMinutes)
+                {
+                    int addTicket = lastTicketTimeMinutes / OneDayMinutes * 1;
+                    AddTicket(addTicket);
+                    bonusMessageList.Add("チケットを" + addTicket + "枚Get!!");
+
+                    lastTicketTimeMinutes = lastTicketTimeMinutes % OneDayMinutes;
+                }
+                if (0 < bonusMessageList.Count)
+                {
+                    PanelLoginBonus.Instance.Show(bonusMessageList);
+                }
+            }
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        // エディタで確認する場合はここを利用する
+        string strDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        PlayerPrefs.SetString(Defines.LastPlayTimeKey, strDateTime);
+        Debug.Log(Defines.LastPlayTimeKey + ":" + strDateTime);
+    }
+
 }
