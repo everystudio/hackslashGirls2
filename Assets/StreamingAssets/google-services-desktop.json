@@ -1,0 +1,31 @@
+{
+  "project_info": {
+    "project_number": "426293562346",
+    "project_id": "hackslashgirls2",
+    "storage_bucket": "hackslashgirls2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426293562346:ios:e05721086d883e6510c093",
+        "android_client_info": {
+          "package_name": "app.anogame.hackslashgirls2"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6fRcVKsWvkDQMQu7-ljmRLYwdt3ni_ZQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

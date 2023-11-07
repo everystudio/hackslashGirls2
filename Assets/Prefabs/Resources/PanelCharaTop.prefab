@@ -2817,6 +2817,9 @@ MonoBehaviour:
   starUpButton: {fileID: 6589445752453827916}
   cancelButton: {fileID: 8866619781062272288}
   starUpButtonText: {fileID: 6231449240222238637}
+  OnStarUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2331153865770767839
 GameObject:
   m_ObjectHideFlags: 0

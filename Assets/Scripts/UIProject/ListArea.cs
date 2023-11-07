@@ -27,17 +27,22 @@ public class ListArea : StateMachineBase<ListArea>
             Destroy(child.gameObject);
         }
 
-        var areas = ModelManager.Instance.MasterArea.List;
-        foreach (var area in areas)
+        var userAreaList = ModelManager.Instance.UserArea.List.FindAll(x => 0 < x.floor_count);
+
+        foreach (UserArea userArea in userAreaList)
         {
+            var masterArea = ModelManager.Instance.GetMasterArea(userArea.area_id);
+
             var areaBanner = Instantiate(areaBannerPrefab, contentRoot).GetComponent<BannerArea>();
 
-            areaBanner.Set(area);
+            areaBanner.Set(masterArea);
             areaBanner.AreaDetailButton.onClick.AddListener(() =>
             {
-                BuildAreaDetail(area.area_id);
+                BuildAreaDetail(masterArea.area_id);
             });
+
         }
+
     }
     private void OnDestroy()
     {

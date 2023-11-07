@@ -150,3 +150,11 @@ server/instance/
 
 # vscode設定
 .vscode/
+
+# firebaseで大きなファイルは除外。別途共有してください
+Assets/Firebase/Plugins/x86_64/*.bundle
+Assets/Firebase/Plugins/x86_64/*.bundle.meta
+Assets/Firebase/Plugins/x86_64/*.so
+Assets/Firebase/Plugins/x86_64/*.so.meta
+Assets/Firebase/Plugins/x86_64/*.dll
+Assets/Firebase/Plugins/x86_64/*.dll.meta

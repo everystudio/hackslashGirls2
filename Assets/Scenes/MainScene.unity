@@ -559,7 +559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 20.450012, y: 0}
+  m_AnchoredPosition: {x: 20.450073, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &81193058
@@ -2836,7 +2836,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00012207031}
+  m_AnchoredPosition: {x: 0, y: -0.00024414062}
   m_SizeDelta: {x: 0, y: 0.000118255615}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &605418999
@@ -11677,6 +11677,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a32931bee67304aaf547a1ee4394bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2052184683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2052184685}
+  - component: {fileID: 2052184684}
+  m_Layer: 0
+  m_Name: Downloader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2052184684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052184683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56be9c2e54a48fa42ab2da40c24be632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2052184685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052184683}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1454.7926, y: 1333.3954, z: 461.5606}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2073592515
 GameObject:
   m_ObjectHideFlags: 0
@@ -12709,7 +12753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3640235987100019882, guid: c4fb343e6f1ea0145bddf1f820c12179, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 37.150024
+      value: 37.150146
       objectReference: {fileID: 0}
     - target: {fileID: 3640235987116439179, guid: c4fb343e6f1ea0145bddf1f820c12179, type: 3}
       propertyPath: m_AnchorMax.x
@@ -12721,7 +12765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3640235987278801565, guid: c4fb343e6f1ea0145bddf1f820c12179, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -41.289917
+      value: -41.289795
       objectReference: {fileID: 0}
     - target: {fileID: 4816193245650551307, guid: c4fb343e6f1ea0145bddf1f820c12179, type: 3}
       propertyPath: m_AnchorMax.y

@@ -127,6 +127,7 @@ public class UserChara : CsvModelParam
         }
 
         level += 1;
+        exp = 0;
 
         MasterChara masterChara = ModelManager.Instance.GetMasterChara(chara_id);
 

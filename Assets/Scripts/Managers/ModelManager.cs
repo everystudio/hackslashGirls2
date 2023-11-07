@@ -529,6 +529,8 @@ public class ModelManager : Singleton<ModelManager>
             userArea = new UserArea();
             userArea.area_id = area_id;
 
+            Debug.Log("userAreaがnullだったので作成" + area_id);
+
             ModelManager.Instance.userArea.List.Add(userArea);
         }
         userArea.floor_max = floorDiffMax;

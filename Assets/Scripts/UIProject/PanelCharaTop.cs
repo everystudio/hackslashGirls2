@@ -66,7 +66,8 @@ public class PanelCharaTop : UIPanel
         levelupButton.onClick.AddListener(() =>
         {
             UserChara userChara = ModelManager.Instance.GetUserChara(selectingCharaId);
-            int requireCoint = Defines.CalculateRequiredLevelupCoin(userChara.level + 1);
+
+            int requireCoint = GetRequireCoin(userChara.level + 1, userChara.exp);
             if (ModelManager.Instance.UseCoin(requireCoint))
             {
                 if (userChara.Levelup())
@@ -88,18 +89,24 @@ public class PanelCharaTop : UIPanel
         });
     }
 
+    private int GetRequireCoin(int level, int exp)
+    {
+        int requireCoin = Defines.CalculateRequiredLevelupCoin(level);
+        requireCoin = Mathf.Max(0, requireCoin - exp);
+        return requireCoin;
+    }
+
     private void ShowSelectingChara(int selectingCharaId)
     {
         MasterChara masterChara = ModelManager.Instance.GetMasterChara(selectingCharaId);
         UserChara userChara = ModelManager.Instance.GetUserChara(selectingCharaId);
         characterCore.Set(masterChara, userChara);
-
         userEquipHolder.Set(masterChara, userChara);
 
-        int requireCoint = Defines.CalculateRequiredLevelupCoin(userChara.level + 1);
-        requireCoinText.text = Defines.GetNumericString(requireCoint);
+        int requireCoin = GetRequireCoin(userChara.level + 1, userChara.exp);
 
-        levelupButton.interactable = requireCoint <= ModelManager.Instance.UserGameData.coin;
+        requireCoinText.text = Defines.GetNumericString(requireCoin);
+        levelupButton.interactable = requireCoin <= ModelManager.Instance.UserGameData.coin;
 
         starupButton.gameObject.SetActive(userChara.star < 5);
 
