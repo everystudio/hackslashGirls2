@@ -5,6 +5,11 @@ using anogame;
 
 public class FloorManagerCollect : FloorManager
 {
+    protected override void SaveRequestStart(int floorId)
+    {
+        ModelManager.Instance.UserGameData.last_collect_area_id = floorId;
+    }
+
     protected override void StartNewFloor(int area_id)
     {
         Debug.Log("Collect AreaID:" + area_id);

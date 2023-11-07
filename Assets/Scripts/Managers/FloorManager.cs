@@ -117,6 +117,7 @@ public class FloorManager : StateMachineBase<FloorManager>
             MasterEnemy enemyModel = null;
 
             bool forceBossAppearFlag = false;
+            //Debug.Log(floor);
 
             if ((forceBossAppearFlag || floor == floorModel.floor_end) && i == Defines.MaxEnemyNum - 1)
             {
@@ -186,11 +187,18 @@ public class FloorManager : StateMachineBase<FloorManager>
         return nearestCollectableItem;
     }
 
+    protected virtual void SaveRequestStart(int floorId)
+    {
+        ModelManager.Instance.UserGameData.last_quest_floor_id = floorId;
+        ModelManager.Instance.UserGameData.restart_quest_floor_id = Mathf.Min(floorId, 1);
+    }
+
     public void RequestStart(int floorId)
     {
         fadeScreenImage.Black();
         currentFloor = floorId;
         Debug.Log($"RequestStart:{floorId}");
+        SaveRequestStart(floorId);
         ChangeState(new FloorManager.FloorStart(this, floorId));
     }
 
@@ -207,7 +215,7 @@ public class FloorManager : StateMachineBase<FloorManager>
             //machine.walkerManager.StandbyParty();
             if (machine.isQuest)
             {
-                machine.currentFloor = ModelManager.Instance.UserGameData.last_quest_floor_id;
+                machine.currentFloor = Mathf.Max(1, ModelManager.Instance.UserGameData.last_quest_floor_id);
             }
             else
             {
@@ -227,6 +235,7 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
         public override void OnEnterState()
         {
+            machine.currentFloor = currentFloor;
             machine.StartNewFloor(currentFloor);
             machine.fadeScreenImage.FadeIn(() =>
             {
@@ -286,7 +295,18 @@ public class FloorManager : StateMachineBase<FloorManager>
                             OnUpdateMaxFloor.Invoke(machine.currentFloor);
                         }
                         machine.currentFloor++;
+                        ModelManager.Instance.UserGameData.last_quest_floor_id = machine.currentFloor;
                     }
+
+                    foreach (CharacterBase walker in machine.walkerManager.Walkers)
+                    {
+                        if (walker.IsAlive())
+                        {
+                            walker.HealRate(0.1f);
+                        }
+                    }
+
+
                     ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
                 }
                 else
@@ -307,11 +327,13 @@ public class FloorManager : StateMachineBase<FloorManager>
             foreach (var walker in machine.walkerManager.Walkers)
             {
                 walker.Revive();
-                Debug.Log(walker.userChara.chara_id);
-                Debug.Log(walker.userChara.hp);
             }
 
-            ChangeState(new FloorManager.FloorStart(machine, 1));
+            ModelManager.Instance.UserGameData.restart_quest_floor_id = Mathf.Min(1, ModelManager.Instance.UserGameData.restart_quest_floor_id);
+
+
+            ModelManager.Instance.UserGameData.last_quest_floor_id = ModelManager.Instance.UserGameData.restart_quest_floor_id;
+            ChangeState(new FloorManager.FloorStart(machine, ModelManager.Instance.UserGameData.last_quest_floor_id));
         }
 
 

@@ -12,7 +12,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
     public UnityEvent OnArrived = new UnityEvent();
     public UnityEvent OnDied = new UnityEvent();
 
-    private Animator animator;
+    private Animator myAnimator;
 
     [SerializeField] private MasterChara characterAsset;
     [SerializeField] private OverrideSprite overrideSprite;
@@ -29,7 +29,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        myAnimator = GetComponent<Animator>();
     }
 
     public bool IsAlive()
@@ -48,6 +48,16 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         if (userChara.hp <= 0f)
         {
             ChangeState(new CharacterBase.Die(this));
+        }
+        UserChara.OnAnyChanged.Invoke(userChara);
+    }
+
+    public void HealRate(float rate)
+    {
+        userChara.hp += (int)(userChara.hp_max * rate);
+        if (userChara.hp > userChara.hp_max)
+        {
+            userChara.hp = userChara.hp_max;
         }
         UserChara.OnAnyChanged.Invoke(userChara);
     }
@@ -103,7 +113,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         public override void OnEnterState()
         {
             isArrived = false;
-            machine.animator.SetFloat("speed", 1f);
+            machine.myAnimator.SetFloat("speed", 1f);
         }
         public override void OnUpdateState()
         {
@@ -145,7 +155,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
 
         public override void OnExitState()
         {
-            machine.animator.SetFloat("speed", 0f);
+            machine.myAnimator.SetFloat("speed", 0f);
         }
     }
 
@@ -162,7 +172,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         public override void OnEnterState()
         {
             // 向きをあわせるために
-            machine.animator.SetFloat("speed", 1f);
+            machine.myAnimator.SetFloat("speed", 1f);
 
             nearestEnemy.OnDie.AddListener(TargetEnemyDie);
         }
@@ -221,7 +231,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
             {
                 ChangeState(new CharacterBase.Walking(machine));
             });
-            machine.animator.SetTrigger("attack");
+            machine.myAnimator.SetTrigger("attack");
         }
         public override void OnExitState()
         {
@@ -260,7 +270,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         public override void OnEnterState()
         {
             // キャラクターのアニメーションを変更する
-            machine.animator.SetTrigger("win");
+            machine.myAnimator.SetTrigger("win");
             nearestCollectableItem.Collect();
         }
 
@@ -275,7 +285,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         }
         public override void OnExitState()
         {
-            machine.animator.Play("Idle");
+            machine.myAnimator.Play("Idle");
         }
     }
 
@@ -288,7 +298,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         {
             machine.OnDied.Invoke();
             machine.OnArrived.Invoke();
-            machine.animator.SetTrigger("die");
+            machine.myAnimator.SetTrigger("die");
         }
     }
 

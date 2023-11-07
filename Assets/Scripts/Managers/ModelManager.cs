@@ -5,6 +5,19 @@ using UnityEngine.Events;
 using anogame;
 using System;
 
+[System.Serializable]
+public class SaveData
+{
+    public UserGameData savedUserGameData;
+
+    public List<UserChara> savedUserChara;
+    public List<UserItem> savedUserItem;
+    public List<UserEnemy> savedUserEnemy;
+    public List<UserAchievement> savedUserAchievement;
+    public List<UserArea> savedUserArea;
+    public List<UserStar> savedUserStar;
+}
+
 public class ModelManager : Singleton<ModelManager>
 {
     public TextAsset dummyUserChara;
@@ -65,6 +78,66 @@ public class ModelManager : Singleton<ModelManager>
     private CsvModel<UserStar> userStar = new CsvModel<UserStar>();
     public CsvModel<UserStar> UserStar { get { return userStar; } }
 
+    private SaveData saveData = new SaveData();
+
+    private void Save()
+    {
+        saveData.savedUserGameData = userGameData;
+
+        saveData.savedUserChara = userChara.All;
+        saveData.savedUserItem = userItem.All;
+        saveData.savedUserEnemy = userEnemy.All;
+        saveData.savedUserAchievement = userAchievement.All;
+        saveData.savedUserArea = userArea.All;
+        saveData.savedUserStar = userStar.All;
+
+        ES3.Save<SaveData>("saveData", saveData);
+
+    }
+    private void Load()
+    {
+        if (!ES3.KeyExists("saveData"))
+        {
+            return;
+        }
+        saveData = ES3.Load<SaveData>("saveData");
+
+        userGameData = saveData.savedUserGameData;
+        Debug.Log(userGameData.last_quest_floor_id);
+        Debug.Log(userGameData.max_floor_id);
+        userGameData.restart_quest_floor_id = Mathf.Max(1, userGameData.restart_quest_floor_id); ;
+
+        userChara.List.Clear();
+        foreach (var userChara in saveData.savedUserChara)
+        {
+            this.userChara.List.Add(userChara);
+        }
+
+        userItem.List.Clear();
+        foreach (var userItem in saveData.savedUserItem)
+        {
+            this.userItem.List.Add(userItem);
+        }
+
+        userEnemy.List.Clear();
+        foreach (var userEnemy in saveData.savedUserEnemy)
+        {
+            this.userEnemy.List.Add(userEnemy);
+        }
+
+        userAchievement.List.Clear();
+        foreach (var userAchievement in saveData.savedUserAchievement)
+        {
+            this.userAchievement.List.Add(userAchievement);
+        }
+
+        userArea.List.Clear();
+        foreach (var userArea in saveData.savedUserArea)
+        {
+            this.userArea.List.Add(userArea);
+        }
+    }
+
     public override void Initialize()
     {
         Debug.Log("ModelManager Initialize");
@@ -78,6 +151,10 @@ public class ModelManager : Singleton<ModelManager>
         masterFloor.Load(masterFloorAsset);
 
         masterAchievement.Load(masterAchievementAsset);
+
+        // データを復元する
+        Load();
+
         foreach (MasterAchievement achievement in masterAchievement.List)
         {
             if (achievement.open_id == 0)
@@ -108,15 +185,19 @@ public class ModelManager : Singleton<ModelManager>
         // userItemをitem_idでソートする
         userItem.List.Sort((a, b) => a.item_id - b.item_id);
 
-        userGameData.coin = 0;
-        userGameData.gem = 0;
-        userGameData.ticket = 3;
-        userGameData.last_quest_floor_id = 1;
-        userGameData.last_collect_area_id = 1;
-        userGameData.game_speed_index = 0;
-        userGameData.master_volume = 1f;
-        userGameData.bgm_volume = 1f;
-        userGameData.sfx_volume = 1f;
+        if (userGameData.max_floor_id == 0)
+        {
+            userGameData.coin = 0;
+            userGameData.gem = 0;
+            userGameData.ticket = 3;
+            userGameData.last_quest_floor_id = 1;
+            userGameData.restart_quest_floor_id = 1;
+            userGameData.last_collect_area_id = 1;
+            userGameData.game_speed_index = 0;
+            userGameData.master_volume = 1f;
+            userGameData.bgm_volume = 1f;
+            userGameData.sfx_volume = 1f;
+        }
 
         /*
         // マスターデータからユーザーデータを作成する
@@ -663,6 +744,8 @@ public class ModelManager : Singleton<ModelManager>
             string strDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             PlayerPrefs.SetString(Defines.LastPlayTimeKey, strDateTime);
             Debug.Log(Defines.LastPlayTimeKey + strDateTime);
+
+            Save();
         }
         else
         {
@@ -737,6 +820,8 @@ public class ModelManager : Singleton<ModelManager>
         string strDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         PlayerPrefs.SetString(Defines.LastPlayTimeKey, strDateTime);
         Debug.Log(Defines.LastPlayTimeKey + ":" + strDateTime);
+
+        Save();
     }
 
 }
