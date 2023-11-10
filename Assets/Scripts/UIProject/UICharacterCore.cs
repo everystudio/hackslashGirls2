@@ -35,6 +35,8 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Slider spritGauge;
     [SerializeField] private Slider heartGauge;
 
+    [SerializeField] private GameObject downRoot;
+
     [SerializeField] private StarView starView;
 
     private bool isBlocking = false;
@@ -183,6 +185,11 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         if (starView != null)
         {
             starView.Set(userChara.star);
+        }
+
+        if (downRoot != null)
+        {
+            downRoot.SetActive(!(0 < userChara.hp));
         }
 
     }

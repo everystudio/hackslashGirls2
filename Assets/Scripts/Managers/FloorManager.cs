@@ -34,6 +34,8 @@ public class FloorManager : StateMachineBase<FloorManager>
     [SerializeField] private BossInfo bossInfo;
 
     public AdsInterstitial adsInterstitial;
+    private int interstitialCount = 0;
+    private const int InterstitialInterval = 5;
 
     private void Start()
     {
@@ -347,7 +349,8 @@ public class FloorManager : StateMachineBase<FloorManager>
         public override void OnEnterState()
         {
             // 生き返るタイミングで広告を表示
-            if (machine.adsInterstitial.CanShowAd())
+            machine.interstitialCount -= 1;
+            if (machine.interstitialCount < 0 && machine.adsInterstitial.CanShowAd())
             {
                 machine.adsInterstitial.OnContentClosed.AddListener(() =>
                 {
@@ -355,10 +358,10 @@ public class FloorManager : StateMachineBase<FloorManager>
                     // ゲームスピードを戻す処理が必要かも
                     machine.StartCoroutine(machine.ResumeGameSpeedContinu());
                     machine.adsInterstitial.OnContentClosed.RemoveAllListeners();
-
                 });
                 AudioManager.Instance.Mute(true);
                 machine.adsInterstitial.ShowInterstitialAd();
+                machine.interstitialCount = InterstitialInterval;
             }
 
             foreach (var walker in machine.walkerManager.Walkers)
