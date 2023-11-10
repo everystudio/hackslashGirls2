@@ -239,6 +239,26 @@ public class FloorManager : StateMachineBase<FloorManager>
         {
             machine.currentFloor = currentFloor;
             machine.StartNewFloor(currentFloor);
+
+            // ここ、本当は不要になります
+            bool isAlive = false;
+            foreach (var walker in machine.walkerManager.Walkers)
+            {
+                if (walker.IsAlive())
+                {
+                    isAlive = true;
+                    break;
+                }
+            }
+            if (isAlive == false)
+            {
+                foreach (var walker in machine.walkerManager.Walkers)
+                {
+                    walker.Revive();
+                }
+            }
+
+
             machine.fadeScreenImage.FadeIn(() =>
             {
                 ChangeState(new FloorManager.Walking(machine));
@@ -332,7 +352,10 @@ public class FloorManager : StateMachineBase<FloorManager>
                 machine.adsInterstitial.OnContentClosed.AddListener(() =>
                 {
                     AudioManager.Instance.Mute(false);
+                    // ゲームスピードを戻す処理が必要かも
+                    machine.StartCoroutine(machine.ResumeGameSpeedContinu());
                     machine.adsInterstitial.OnContentClosed.RemoveAllListeners();
+
                 });
                 AudioManager.Instance.Mute(true);
                 machine.adsInterstitial.ShowInterstitialAd();
@@ -349,5 +372,23 @@ public class FloorManager : StateMachineBase<FloorManager>
             ChangeState(new FloorManager.FloorStart(machine, ModelManager.Instance.UserGameData.last_quest_floor_id));
 
         }
+    }
+
+
+    IEnumerator ResumeGameSpeedContinu()
+    {
+        int count = 0;
+        while (count < 60)
+        {
+            yield return null;
+            GameManager.Instance.GameSpeedResume();
+            count += 1;
+        }
+
+        if (Time.timeScale < GameManager.Instance.GameSpeed)
+        {
+            StartCoroutine(ResumeGameSpeedContinu());
+        }
+
     }
 }

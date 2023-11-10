@@ -27,16 +27,18 @@ public class GameManager : SingletonStateMachineBase<GameManager>
         get { return Defines.GetCurrentGameSpeed(ModelManager.Instance.UserGameData.game_speed_index); }
         set
         {
+            savedGameSpeed = value;
             Time.timeScale = value;
         }
     }
-    private void GamePause()
+    private void GameSpeedPause()
     {
         savedGameSpeed = GameSpeed;
         Time.timeScale = 0f;
     }
-    private void GameResume()
+    public void GameSpeedResume()
     {
+        //Debug.LogError(savedGameSpeed);
         Time.timeScale = savedGameSpeed;
     }
 
