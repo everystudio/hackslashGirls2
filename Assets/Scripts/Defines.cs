@@ -21,6 +21,21 @@ public static class Defines
     public const string GemTimeKey = "GemTimeKey";
     public const string TicketTimeKey = "TicketTimeKey";
 
+#if UNITY_EDITOR || UNITY_IOS
+    public const string AD_APP_ID = "ca-app-pub-5869235725006697~5509514419";
+    public const string AD_BOTTOM_BANNER_ID = "ca-app-pub-5869235725006697/8581318749";
+    public const string AD_INITIAL_ID = "ca-app-pub-5869235725006697/7731271504";
+    public const string AD_BATTLE_END_INTERSTITIAL_ID = "ca-app-pub-5869235725006697/8633289637";
+    public const string AD_REWARD_ID = "ca-app-pub-5869235725006697/9560267653";
+#elif UNITY_ANDROID
+    public const string AD_APP_ID = "ca-app-pub-5869235725006697~8776064366";
+    public const string AD_INITIAL_ID = "ca-app-pub-5869235725006697/4242471728";
+    public const string AD_BOTTOM_BANNER_ID = "ca-app-pub-5869235725006697/6868635069";
+    public const string AD_BATTLE_END_INTERSTITIAL_ID = "ca-app-pub-5869235725006697/6760823854";
+    public const string AD_REWARD_ID = "ca-app-pub-5869235725006697/8122006985";
+
+#endif    
+
     public static int CalculateRequiredLevelupCoin(int level)
     {
         float level_rate = (float)level / 50;

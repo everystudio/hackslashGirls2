@@ -33,6 +33,8 @@ public class FloorManager : StateMachineBase<FloorManager>
 
     [SerializeField] private BossInfo bossInfo;
 
+    public AdsInterstitial adsInterstitial;
+
     private void Start()
     {
         if (bossInfo != null)
@@ -324,6 +326,18 @@ public class FloorManager : StateMachineBase<FloorManager>
         }
         public override void OnEnterState()
         {
+            // 生き返るタイミングで広告を表示
+            if (machine.adsInterstitial.CanShowAd())
+            {
+                machine.adsInterstitial.OnContentClosed.AddListener(() =>
+                {
+                    AudioManager.Instance.Mute(false);
+                    machine.adsInterstitial.OnContentClosed.RemoveAllListeners();
+                });
+                AudioManager.Instance.Mute(true);
+                machine.adsInterstitial.ShowInterstitialAd();
+            }
+
             foreach (var walker in machine.walkerManager.Walkers)
             {
                 walker.Revive();
@@ -331,12 +345,9 @@ public class FloorManager : StateMachineBase<FloorManager>
 
             ModelManager.Instance.UserGameData.restart_quest_floor_id = Mathf.Min(1, ModelManager.Instance.UserGameData.restart_quest_floor_id);
 
-
             ModelManager.Instance.UserGameData.last_quest_floor_id = ModelManager.Instance.UserGameData.restart_quest_floor_id;
             ChangeState(new FloorManager.FloorStart(machine, ModelManager.Instance.UserGameData.last_quest_floor_id));
+
         }
-
-
-
     }
 }

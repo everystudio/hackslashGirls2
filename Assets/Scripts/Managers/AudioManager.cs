@@ -93,4 +93,9 @@ public class AudioManager : Singleton<AudioManager>
         PlaySFX(gachaClip);
     }
 
+    public void Mute(bool v)
+    {
+        bgmSource.mute = v;
+        sfxSource.mute = v;
+    }
 }
