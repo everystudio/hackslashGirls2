@@ -62,6 +62,10 @@ public class ModelManager : Singleton<ModelManager>
     private CsvModel<UserAchievement> userAchievement = new CsvModel<UserAchievement>();
     public CsvModel<UserAchievement> UserAchievement { get { return userAchievement; } }
 
+    [SerializeField] private TextAsset masterGachaAsset;
+    private CsvModel<MasterGacha> masterGacha = new CsvModel<MasterGacha>();
+    public CsvModel<MasterGacha> MasterGacha { get { return masterGacha; } }
+
     public UnityEvent<UserChara> OnUserCharaChanged = new UnityEvent<UserChara>();
     public UnityEvent<UserChara> OnPartyCharaChanged = new UnityEvent<UserChara>();
 
@@ -151,6 +155,7 @@ public class ModelManager : Singleton<ModelManager>
         masterFloor.Load(masterFloorAsset);
 
         masterAchievement.Load(masterAchievementAsset);
+        masterGacha.Load(masterGachaAsset);
 
         // データを復元する
         Load();
@@ -360,6 +365,10 @@ public class ModelManager : Singleton<ModelManager>
 
         UserChara addChara = new UserChara(masterChara);
         userChara.List.Add(addChara);
+
+        // userCharaをchara_idでソートする
+        userChara.List.Sort((a, b) => a.chara_id - b.chara_id);
+
         return addChara;
     }
 
@@ -733,6 +742,21 @@ public class ModelManager : Singleton<ModelManager>
         }
         userStar.num -= num;
         return true;
+    }
+
+    public int GetGachaResult(int gacha_id)
+    {
+        List<MasterGacha> masterGachas = masterGacha.List.FindAll(gacha => gacha.gacha_id == gacha_id);
+
+        int[] probArray = new int[masterGachas.Count];
+        for (int i = 0; i < masterGachas.Count; i++)
+        {
+            probArray[i] = masterGachas[i].prob;
+        }
+        int resultIndex = UtilRand.GetIndex(probArray);
+
+        return masterGachas[resultIndex].chara_id;
+
     }
 
 

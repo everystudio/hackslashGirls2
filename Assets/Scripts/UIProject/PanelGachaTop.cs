@@ -50,7 +50,8 @@ public class PanelGachaTop : MonoBehaviour
             List<int> gachaResultList = new List<int>();
             for (int i = 0; i < count; i++)
             {
-                gachaResultList.Add(Random.Range(1, 5));
+                // ガチャの種類増えたら対応する
+                gachaResultList.Add(ModelManager.Instance.GetGachaResult(1));
             }
             ModelManager.Instance.UseTicket(count);
 
