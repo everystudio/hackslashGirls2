@@ -65,7 +65,18 @@ public class CharacterBase : StateMachineBase<CharacterBase>
     public void SetChara(UserChara userChara)
     {
         this.userChara = userChara;
+        if (userChara == null)
+        {
+            Debug.LogError(userChara);
+            return;
+        }
         characterAsset = ModelManager.Instance.GetMasterChara(userChara.chara_id);
+        if (characterAsset == null)
+        {
+            Debug.LogError(userChara.chara_id);
+            return;
+        }
+        //Debug.Log(characterAsset.chara_id);
         overrideSprite.OverrideTexture = TextureManager.Instance.GetMiniCharaTexture(characterAsset.chara_id);
     }
 

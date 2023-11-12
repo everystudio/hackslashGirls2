@@ -12,7 +12,7 @@ public class FloorManagerCollect : FloorManager
 
     protected override void StartNewFloor(int area_id)
     {
-        Debug.Log("Collect AreaID:" + area_id);
+        //Debug.Log("Collect AreaID:" + area_id);
         List<MasterFloor> masterFloors = ModelManager.Instance.MasterFloor.List.FindAll(x => x.area_id == area_id);
         int minFloorId = 999999;
         int maxFloorId = 0;
@@ -22,8 +22,8 @@ public class FloorManagerCollect : FloorManager
             maxFloorId = Mathf.Max(maxFloorId, floor.floor_end);
         }
 
-        Debug.Log("minFloorId:" + minFloorId);
-        Debug.Log("maxFloorId:" + maxFloorId);
+        //Debug.Log("minFloorId:" + minFloorId);
+        //Debug.Log("maxFloorId:" + maxFloorId);
         maxFloorId = Mathf.Min(maxFloorId, ModelManager.Instance.UserGameData.max_floor_id);
         maxFloorId = Mathf.Max(minFloorId + 1, maxFloorId);
 
@@ -52,7 +52,7 @@ public class FloorManagerCollect : FloorManager
     {
         // collectableItemsをクリア
 
-        Debug.Log(floor);
+        //Debug.Log(floor);
         foreach (var collectableItem in collectableItems)
         {
             Destroy(collectableItem.gameObject);
@@ -63,7 +63,7 @@ public class FloorManagerCollect : FloorManager
         List<MasterItem> masterItems = ModelManager.Instance.MasterItem.List.FindAll(
             item => item.area_id == area_id && item.floor_start <= floor);
 
-        Debug.Log(masterItems.Count);
+        //Debug.Log(masterItems.Count);
         int[] probArray = new int[masterItems.Count];
         for (int i = 0; i < masterItems.Count; i++)
         {

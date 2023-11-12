@@ -33,11 +33,11 @@ public class FadeScreenImage : MonoBehaviour
 
     public void FadeOut(Action OnFinished)
     {
-        Debug.Log("start fadeout");
+        //Debug.Log("start fadeout");
         image.raycastTarget = true;
         tweener = image.DOFade(1f, fadeOutTime).SetEase(Ease.Linear).SetDelay(fadeOutWaitTime).OnComplete(() =>
         {
-            Debug.Log("end fadeout");
+            //Debug.Log("end fadeout");
             OnFinished.Invoke();
             OnFadeOutCompleted?.Invoke();
             tweener = null;

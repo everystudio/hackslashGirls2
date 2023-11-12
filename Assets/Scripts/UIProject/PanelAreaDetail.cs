@@ -35,7 +35,7 @@ public class PanelAreaDetail : UIPanel
 
     public void Init(bool isQuest, MasterArea masterArea)
     {
-        Debug.Log("PanelAreaDetail Init");
+        //Debug.Log("PanelAreaDetail Init");
         rootFloorSelect.SetActive(isQuest);
         rootAreaSelect.SetActive(!isQuest);
 
@@ -55,7 +55,7 @@ public class PanelAreaDetail : UIPanel
 
         int floorDiff = maxFloorId - minFloorId;
         int floorProgress = ModelManager.Instance.UserGameData.max_floor_id - minFloorId;
-        Debug.Log(floorDiff);
+        //Debug.Log(floorDiff);
         areaProgressText.text = "進捗：" + $"{floorProgress}/{floorDiff}";
 
         // itemIconParentの子要素を全削除

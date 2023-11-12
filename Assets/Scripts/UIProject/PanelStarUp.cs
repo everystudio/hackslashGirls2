@@ -32,7 +32,7 @@ public class PanelStarUp : MonoBehaviour
 
         int nextStarNum = Defines.GetStarUp(user.star + 1);
         bool canStarUp = nextStarNum <= currentStarNum;
-        if (5 <= nextUserChara.star)
+        if (5 <= user.star)
         {
             canStarUp = false;
         }
@@ -61,10 +61,11 @@ public class PanelStarUp : MonoBehaviour
             gameObject.SetActive(false);
         });
 
-        //starUpButton.interactable = canStarUp;
+        starUpButton.interactable = canStarUp;
         starUpButton.onClick.RemoveAllListeners();
         starUpButton.onClick.AddListener(() =>
         {
+            ModelManager.Instance.UseStar(user.chara_id, nextStarNum);
             user.star = nextUserChara.star;
             OnStarUp.Invoke();
 

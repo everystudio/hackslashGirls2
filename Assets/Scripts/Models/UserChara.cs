@@ -12,7 +12,7 @@ public class UserChara : CsvModelParam
         chara_id = masterChara.chara_id;
         level = 0;
 
-        rank = 0;
+        rank = 1;
         star = Mathf.Max(1, masterChara.initial_star);
         /*
         chara_hp_max = 10;

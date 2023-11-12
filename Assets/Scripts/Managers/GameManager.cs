@@ -149,6 +149,42 @@ public class GameManager : SingletonStateMachineBase<GameManager>
             {
                 machine.ChangeState(new GameManager.Collect(machine));
             });
+
+
+
+
+        }
+        public override void OnUpdateState()
+        {
+            base.OnUpdateState();
+
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                Debug.Log("F2");
+                foreach (MasterChara masterChara in ModelManager.Instance.MasterChara.List)
+                {
+                    ModelManager.Instance.AddChara(masterChara.chara_id);
+                }
+                foreach (MasterItem masterItem in ModelManager.Instance.MasterItem.List)
+                {
+                    ModelManager.Instance.CollectItem(masterItem.item_id, 100);
+                }
+                ModelManager.Instance.AddGem(100000);
+                ModelManager.Instance.AddTicket(100000);
+            }
+            if (Input.GetKey(KeyCode.F1))
+            {
+                ModelManager.Instance.AddCoin(100000);
+
+            }
+            if (Input.GetKeyDown(KeyCode.F3))
+            {
+                // 全員のスターを追加する
+                foreach (var userChara in ModelManager.Instance.UserChara.List)
+                {
+                    ModelManager.Instance.AddStar(userChara.chara_id, 1000);
+                }
+            }
         }
         public override void OnExitState()
         {

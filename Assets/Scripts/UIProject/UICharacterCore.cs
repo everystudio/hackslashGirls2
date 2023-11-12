@@ -196,7 +196,7 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
 
     public void Set(UserChara userChara)
     {
-        //Debug.Log(userChara);
+        //Debug.Log(userChara.chara_id);
         MasterChara masterChara = ModelManager.Instance.GetMasterChara(userChara.chara_id);
         Set(masterChara, userChara);
     }

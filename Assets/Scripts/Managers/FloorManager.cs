@@ -139,7 +139,8 @@ public class FloorManager : StateMachineBase<FloorManager>
             if (1 < rarity)
             {
                 // 0.1%の確率でレア敵
-                if (UnityEngine.Random.Range(0, 2) < 1)
+                //if (UnityEngine.Random.Range(0, 2) < 1)
+                if (UnityEngine.Random.Range(0, 1000) < 1)
                 {
                     rarity = enemyModel.rarity;
                 }
@@ -154,6 +155,10 @@ public class FloorManager : StateMachineBase<FloorManager>
             {
                 bossInfo.gameObject.SetActive(true);
                 bossInfo.Initialize(enemyBase);
+            }
+            else
+            {
+                bossInfo.gameObject.SetActive(false);
             }
 
         }
@@ -194,14 +199,14 @@ public class FloorManager : StateMachineBase<FloorManager>
     protected virtual void SaveRequestStart(int floorId)
     {
         ModelManager.Instance.UserGameData.last_quest_floor_id = floorId;
-        ModelManager.Instance.UserGameData.restart_quest_floor_id = Mathf.Min(floorId, 1);
+        ModelManager.Instance.UserGameData.restart_quest_floor_id = Mathf.Max(floorId, 1);
     }
 
     public void RequestStart(int floorId)
     {
         fadeScreenImage.Black();
         currentFloor = floorId;
-        Debug.Log($"RequestStart:{floorId}");
+        //Debug.Log($"RequestStart:{floorId}");
         SaveRequestStart(floorId);
         ChangeState(new FloorManager.FloorStart(this, floorId));
     }
@@ -369,7 +374,9 @@ public class FloorManager : StateMachineBase<FloorManager>
                 walker.Revive();
             }
 
-            ModelManager.Instance.UserGameData.restart_quest_floor_id = Mathf.Min(1, ModelManager.Instance.UserGameData.restart_quest_floor_id);
+            Debug.Log($"Restart:{ModelManager.Instance.UserGameData.restart_quest_floor_id}");
+
+            ModelManager.Instance.UserGameData.restart_quest_floor_id = Mathf.Max(1, ModelManager.Instance.UserGameData.restart_quest_floor_id);
 
             ModelManager.Instance.UserGameData.last_quest_floor_id = ModelManager.Instance.UserGameData.restart_quest_floor_id;
             ChangeState(new FloorManager.FloorStart(machine, ModelManager.Instance.UserGameData.last_quest_floor_id));

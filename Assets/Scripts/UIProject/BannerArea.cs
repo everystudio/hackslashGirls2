@@ -24,7 +24,7 @@ public class BannerArea : MonoBehaviour
 
     public void Set(MasterArea masterArea)
     {
-        Debug.Log(masterArea.thumb);
+        //Debug.Log(masterArea.thumb);
         bannerImage.sprite = TextureManager.Instance.GetBackgroundSprite(masterArea.thumb);
 
         this.masterArea = masterArea;

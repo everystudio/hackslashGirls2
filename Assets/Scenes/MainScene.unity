@@ -781,7 +781,7 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_ReverseArrangement: 1
 --- !u!114 &151254286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6986,6 +6986,9 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 9211bf04270bcd846a9b1a2e976c7654, type: 3}
   - {fileID: 2800000, guid: d3c65336efad7224aaa46b901e331266, type: 3}
   - {fileID: 2800000, guid: 676b93573898a6b4bb43f77108d87a44, type: 3}
+  - {fileID: 2800000, guid: 3359005db9f376140bb3ccfee39a86fb, type: 3}
+  - {fileID: 2800000, guid: 6c64beac3eb5f93468321f378eee3fda, type: 3}
+  - {fileID: 2800000, guid: 6a47a801c752d1d459339bb1653c766c, type: 3}
   backgroundSpriteList:
   - {fileID: 21300000, guid: 823e90aa5ea01c04d9b6444b04828485, type: 3}
   - {fileID: 21300000, guid: fee1cce7bcffdb3458e1cb39fb98ea7c, type: 3}
@@ -12106,7 +12109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2052184684
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -70,10 +70,13 @@ public class ListArea : StateMachineBase<ListArea>
             });
             panelAreaDetail.OnFloorStart.AddListener((floorId, isQuest) =>
             {
+                ModelManager.Instance.UserGameData.restart_quest_floor_id = floorId;
+                //Debug.LogError("OnFloorStart:" + ModelManager.Instance.UserGameData.restart_quest_floor_id);
                 OnFloorStart.Invoke(floorId, isQuest);
             });
             panelAreaDetail.OnAreaSelect.AddListener((area_id) =>
             {
+                ModelManager.Instance.UserGameData.last_collect_area_id = area_id;
                 OnAreaStartCollect.Invoke(area_id);
             });
         }

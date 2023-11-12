@@ -140,12 +140,18 @@ public class ModelManager : Singleton<ModelManager>
         {
             this.userArea.List.Add(userArea);
         }
+        userStar.List.Clear();
+        foreach (var userStar in saveData.savedUserStar)
+        {
+            this.userStar.List.Add(userStar);
+        }
     }
 
     public override void Initialize()
     {
         Debug.Log("ModelManager Initialize");
-        userChara.Load(dummyUserChara);
+
+
         masterItem.Load(masterItemAsset);
 
         masterChara.Load(masterCharaAsset);
@@ -156,6 +162,17 @@ public class ModelManager : Singleton<ModelManager>
 
         masterAchievement.Load(masterAchievementAsset);
         masterGacha.Load(masterGachaAsset);
+
+        var initialChara = new CsvModel<UserChara>();
+        initialChara.Load(dummyUserChara);
+        foreach (var userChara in initialChara.List)
+        {
+            var chara = AddChara(userChara.chara_id);
+            //Debug.Log(userChara.chara_id);
+            //Debug.Log(chara);
+            chara.questPartyId = userChara.questPartyId;
+        }
+
 
         // データを復元する
         Load();
@@ -353,6 +370,7 @@ public class ModelManager : Singleton<ModelManager>
         UserChara checkChara = GetUserChara(chara_id);
         if (checkChara != null)
         {
+            Debug.Log("checkChara !=null");
             return null;
         }
 
@@ -360,6 +378,7 @@ public class ModelManager : Singleton<ModelManager>
         MasterChara masterChara = GetMasterChara(chara_id);
         if (masterChara == null)
         {
+            Debug.Log("masterChara !=null");
             return null;
         }
 
@@ -466,7 +485,7 @@ public class ModelManager : Singleton<ModelManager>
         CollectItem(item_id, 1);
     }
 
-    private void CollectItem(int item_id, int amount = 1)
+    public void CollectItem(int item_id, int amount = 1)
     {
         if (IsResourcesItem(item_id))
         {
@@ -556,17 +575,21 @@ public class ModelManager : Singleton<ModelManager>
         OnUnlockAchievement.Invoke(unlockAchievement);
 
         MasterAchievement masterAchievement = this.masterAchievement.List.Find(achievement => achievement.open_id == achievementId);
-        UserAchievement nextUserAchievement = GetUserAchievement(masterAchievement.achievement_id);
-        if (masterAchievement != null && nextUserAchievement == null)
+        if (masterAchievement != null)
         {
-            nextUserAchievement = new UserAchievement();
-            nextUserAchievement.achievement_id = masterAchievement.achievement_id;
-            nextUserAchievement.is_completed = false;
-            nextUserAchievement.is_received = false;
-            this.userAchievement.List.Add(nextUserAchievement);
+            Debug.Log(masterAchievement.achievement_id + " " + masterAchievement.title + " " + masterAchievement.open_id);
+            UserAchievement nextUserAchievement = GetUserAchievement(masterAchievement.achievement_id);
+            if (masterAchievement != null && nextUserAchievement == null)
+            {
+                nextUserAchievement = new UserAchievement();
+                nextUserAchievement.achievement_id = masterAchievement.achievement_id;
+                nextUserAchievement.is_completed = false;
+                nextUserAchievement.is_received = false;
+                this.userAchievement.List.Add(nextUserAchievement);
 
-            // id順に並べ直す
-            this.userAchievement.List.Sort((a, b) => a.achievement_id - b.achievement_id);
+                // id順に並べ直す
+                this.userAchievement.List.Sort((a, b) => a.achievement_id - b.achievement_id);
+            }
         }
 
         // 各エリアの達成率を更新する
