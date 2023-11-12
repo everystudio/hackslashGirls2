@@ -45,21 +45,18 @@ public static class Defines
 
     public static string GetNumericString(int num)
     {
-        if (num < 1000)
+        if (num < 1000000)
         {
             return num.ToString();
         }
-        else if (num < 1000000)
+        else if (num < 1000000000)
         {
             return string.Format("{0}K", num / 1000);
         }
-        else if (num < 1000000000)
-        {
-            return string.Format("{0}M", num / 1000000);
-        }
+
         else
         {
-            return string.Format("{0}B", num / 1000000000);
+            return string.Format("{0}M", num / 1000000);
         }
     }
 

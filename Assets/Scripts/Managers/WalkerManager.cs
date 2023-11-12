@@ -37,6 +37,10 @@ public class WalkerManager : StateMachineBase<WalkerManager>
         {
             partyList = ModelManager.Instance.userChara.List.FindAll(x => x.collectPartyId > 0);
         }
+
+        // partyIdが小さい順に並び替え
+        partyList.Sort((a, b) => a.questPartyId - b.questPartyId);
+
         foreach (var userChara in partyList)
         {
             var walker = Instantiate(walkerPrefab, spawnPoint).GetComponent<CharacterBase>();
