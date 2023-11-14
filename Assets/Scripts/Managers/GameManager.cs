@@ -49,7 +49,7 @@ public class GameManager : SingletonStateMachineBase<GameManager>
         SpeedControlButton.OnClicedHandler.AddListener(() =>
         {
             // Defines.GetNextGameSpeedを利用して、次のインデックスとスピードを取得する
-            Debug.Log(ModelManager.Instance.UserGameData.game_speed_index);
+            //Debug.Log(ModelManager.Instance.UserGameData.game_speed_index);
             var temp = Defines.GetNextGameSpeed(ModelManager.Instance.UserGameData.game_speed_index);
             GameSpeed = temp.Item1;
             ModelManager.Instance.SetGameSpeedIndex(temp.Item2);

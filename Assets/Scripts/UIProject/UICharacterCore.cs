@@ -20,6 +20,7 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image selectingImage;
 
     [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TextMeshProUGUI hpSingleText;
     [SerializeField] private TextMeshProUGUI strengthText;
     [SerializeField] private TextMeshProUGUI defenseText;
     [SerializeField] private TextMeshProUGUI speedText;
@@ -34,6 +35,34 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Slider luckGauge;
     [SerializeField] private Slider spritGauge;
     [SerializeField] private Slider heartGauge;
+
+    [SerializeField] private Image strengthImage100;
+    [SerializeField] private Image strengthImage200;
+    [SerializeField] private Image strengthImage300;
+
+    [SerializeField] private Image defenseImage100;
+    [SerializeField] private Image defenseImage200;
+    [SerializeField] private Image defenseImage300;
+
+    [SerializeField] private Image speedImage100;
+    [SerializeField] private Image speedImage200;
+    [SerializeField] private Image speedImage300;
+
+    [SerializeField] private Image luckImage100;
+    [SerializeField] private Image luckImage200;
+    [SerializeField] private Image luckImage300;
+
+    [SerializeField] private Image spritImage100;
+    [SerializeField] private Image spritImage200;
+    [SerializeField] private Image spritImage300;
+
+    [SerializeField] private Image heartImage100;
+    [SerializeField] private Image heartImage200;
+    [SerializeField] private Image heartImage300;
+
+
+
+
 
     [SerializeField] private GameObject downRoot;
 
@@ -132,31 +161,84 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         {
             strengthGauge.value = (float)userChara.strength / (float)UserChara.MAX_STATUS_PARAM;
         }
+
+        if (strengthImage100 != null)
+        {
+            strengthImage100.fillAmount = (float)userChara.strength / (float)UserChara.MAX_STATUS_PARAM;
+            strengthImage200.fillAmount = (float)(userChara.strength - 100) / (float)UserChara.MAX_STATUS_PARAM;
+            strengthImage300.fillAmount = (float)(userChara.strength - 200) / (float)UserChara.MAX_STATUS_PARAM;
+        }
+
+        if (defenseImage100 != null)
+        {
+            defenseImage100.fillAmount = (float)userChara.defense / (float)UserChara.MAX_STATUS_PARAM;
+            defenseImage200.fillAmount = (float)(userChara.defense - 100) / (float)UserChara.MAX_STATUS_PARAM;
+            defenseImage300.fillAmount = (float)(userChara.defense - 200) / (float)UserChara.MAX_STATUS_PARAM;
+        }
+
+        if (speedImage100 != null)
+        {
+            speedImage100.fillAmount = (float)userChara.speed / (float)UserChara.MAX_STATUS_PARAM;
+            speedImage200.fillAmount = (float)(userChara.speed - 100) / (float)UserChara.MAX_STATUS_PARAM;
+            speedImage300.fillAmount = (float)(userChara.speed - 200) / (float)UserChara.MAX_STATUS_PARAM;
+        }
+
+        if (luckImage100 != null)
+        {
+            luckImage100.fillAmount = (float)userChara.luck / (float)UserChara.MAX_STATUS_PARAM;
+            luckImage200.fillAmount = (float)(userChara.luck - 100) / (float)UserChara.MAX_STATUS_PARAM;
+            luckImage300.fillAmount = (float)(userChara.luck - 200) / (float)UserChara.MAX_STATUS_PARAM;
+        }
+
+        if (spritImage100 != null)
+        {
+            spritImage100.fillAmount = (float)userChara.spirit / (float)UserChara.MAX_STATUS_PARAM;
+            spritImage200.fillAmount = (float)(userChara.spirit - 100) / (float)UserChara.MAX_STATUS_PARAM;
+            spritImage300.fillAmount = (float)(userChara.spirit - 200) / (float)UserChara.MAX_STATUS_PARAM;
+        }
+
+        if (heartImage100 != null)
+        {
+            heartImage100.fillAmount = (float)userChara.heart / (float)UserChara.MAX_STATUS_PARAM;
+            heartImage200.fillAmount = (float)(userChara.heart - 100) / (float)UserChara.MAX_STATUS_PARAM;
+            heartImage300.fillAmount = (float)(userChara.heart - 200) / (float)UserChara.MAX_STATUS_PARAM;
+        }
+
         if (defenseGauge != null)
         {
             defenseGauge.value = (float)userChara.defense / (float)UserChara.MAX_STATUS_PARAM;
+            defenseGauge.value = 0f;
         }
         if (speedGauge != null)
         {
             speedGauge.value = (float)userChara.speed / (float)UserChara.MAX_STATUS_PARAM;
+            speedGauge.value = 0f;
         }
         if (luckGauge != null)
         {
             luckGauge.value = (float)userChara.luck / (float)UserChara.MAX_STATUS_PARAM;
+            luckGauge.value = 0f;
         }
         if (spritGauge != null)
         {
             spritGauge.value = (float)userChara.spirit / (float)UserChara.MAX_STATUS_PARAM;
+            spritGauge.value = 0f;
         }
         if (heartGauge != null)
         {
             heartGauge.value = (float)userChara.heart / (float)UserChara.MAX_STATUS_PARAM;
+            heartGauge.value = 0f;
         }
 
         if (hpText != null)
         {
             hpText.text = userChara.hp.ToString() + "/" + userChara.hp_max.ToString();
         }
+        if (hpSingleText != null)
+        {
+            hpSingleText.text = userChara.hp.ToString();
+        }
+
         if (strengthText != null)
         {
             strengthText.text = "力：" + userChara.strength.ToString();

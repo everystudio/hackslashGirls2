@@ -234,6 +234,12 @@ public class FloorManager : StateMachineBase<FloorManager>
         currentFloor = floorId;
         //Debug.Log($"RequestStart:{floorId}");
         SaveRequestStart(floorId);
+
+        foreach (var chara in ModelManager.Instance.userChara.List)
+        {
+            chara.Revive();
+        }
+
         ChangeState(new FloorManager.FloorStart(this, floorId));
     }
 

@@ -74,6 +74,10 @@ public class UserChara : CsvModelParam
     {
         return equiping_item_id_1 == item_id || equiping_item_id_2 == item_id || equiping_item_id_3 == item_id;
     }
+    public void Revive()
+    {
+        hp = hp_max;
+    }
     public bool AddEquip(MasterItem masterItem)
     {
         if (equiping_item_id_1 == 0)
@@ -101,6 +105,7 @@ public class UserChara : CsvModelParam
         assist_speed += masterItem.speed;
         assist_luck += masterItem.luck;
         assist_spirit += masterItem.spirit;
+        assist_heart += masterItem.heart;
 
         return true;
     }

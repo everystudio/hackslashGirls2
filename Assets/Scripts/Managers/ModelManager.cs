@@ -145,6 +145,36 @@ public class ModelManager : Singleton<ModelManager>
         {
             this.userStar.List.Add(userStar);
         }
+
+        // デバッグ用の対応
+        List<UserChara> collectPartyMemberList = userChara.List.FindAll(chara => 0 < chara.collectPartyId);
+        if (collectPartyMemberList.Count < 4)
+        {
+            for (int i = 0; i < collectPartyMemberList.Count; i++)
+            {
+                collectPartyMemberList[i].collectPartyId = i + 1;
+            }
+            int nokori = 4 - collectPartyMemberList.Count;
+
+
+            foreach (var chara in userChara.List)
+            {
+                if (chara.partyIndex == 0)
+                {
+                    chara.collectPartyId = 4 - nokori;
+                    nokori--;
+                    if (nokori <= 0)
+                    {
+                        break;
+                    }
+                }
+
+
+            }
+        }
+
+
+
     }
 
     public override void Initialize()
@@ -371,7 +401,7 @@ public class ModelManager : Singleton<ModelManager>
         if (checkChara != null)
         {
             Debug.Log("checkChara !=null");
-            return null;
+            return checkChara;
         }
 
         // マスターデータからキャラを取得する

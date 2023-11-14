@@ -24,7 +24,7 @@ public class FlyingText : MonoBehaviour
         obj.transform.position = targetPosition + new Vector3(0, 0, -1f) + randomOffsetXY;
 
         obj.Initialize(msg);
-        Destroy(obj, 5f);
+        Destroy(obj.gameObject, 5f);
         return obj;
     }
 }
