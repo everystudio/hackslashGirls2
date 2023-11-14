@@ -147,7 +147,8 @@ public class EnemyBase : StateMachineBase<EnemyBase>
             if (elapsedTime >= attackInterval)
             {
                 //var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, machine.attackRange);
-                var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, Mathf.Infinity);
+                //var targetCharacter = machine.floorManager.GetNearWalker(machine.transform.position, Mathf.Infinity);
+                var targetCharacter = machine.floorManager.GetTargetRandomWalker();
 
                 if (targetCharacter != null)
                 {

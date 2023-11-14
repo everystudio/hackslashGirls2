@@ -54,7 +54,9 @@ public class CharacterBase : StateMachineBase<CharacterBase>
 
     public void HealRate(float rate)
     {
-        userChara.hp += (int)(userChara.hp_max * rate);
+        int heal = Mathf.Max(1, (int)(userChara.hp_max * rate));
+        //Debug.Log("heal=" + heal);
+        userChara.hp += heal;
         if (userChara.hp > userChara.hp_max)
         {
             userChara.hp = userChara.hp_max;

@@ -67,6 +67,32 @@ public class FloorManager : StateMachineBase<FloorManager>
         return nearestWalker;
     }
 
+    public CharacterBase GetTargetRandomWalker()
+    {
+        List<CharacterBase> targetList = new List<CharacterBase>();
+
+        List<int> probList = new List<int>();
+        int baseProb = 1000;
+
+        foreach (var walker in walkerManager.Walkers)
+        {
+            if (walker.IsAlive() == false)
+            {
+                continue;
+            }
+            targetList.Add(walker);
+            probList.Add(baseProb);
+            baseProb /= 2;
+        }
+        if (targetList.Count == 0)
+        {
+            return null;
+        }
+        int[] probArray = probList.ToArray();
+        int index = UtilRand.GetIndex(probArray);
+        return targetList[index];
+    }
+
     protected virtual void StartNewFloor(int currentFloor)
     {
         MasterFloor currentFloorModel = ModelManager.Instance.MasterFloor.List.Find(x =>
@@ -329,6 +355,7 @@ public class FloorManager : StateMachineBase<FloorManager>
 
                     foreach (CharacterBase walker in machine.walkerManager.Walkers)
                     {
+                        //Debug.Log("HealRate");
                         if (walker.IsAlive())
                         {
                             walker.HealRate(0.1f);
