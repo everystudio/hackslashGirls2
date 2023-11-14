@@ -30,11 +30,13 @@ public class FloorManager : StateMachineBase<FloorManager>
 
     // 最高到達フロアの更新をしたイベント
     public static UnityEvent<int> OnUpdateMaxFloor = new UnityEvent<int>();
+    public static UnityEvent OnFirstClear = new UnityEvent();
 
     [SerializeField] private BossInfo bossInfo;
 
     public AdsInterstitial adsInterstitial;
     private int interstitialCount = 0;
+    private bool clear_ensyutu;
     private const int InterstitialInterval = 5;
 
     private void Start()
@@ -355,6 +357,15 @@ public class FloorManager : StateMachineBase<FloorManager>
                             OnUpdateMaxFloor.Invoke(machine.currentFloor);
                         }
                         machine.currentFloor++;
+
+                        if (500 < machine.currentFloor)
+                        {
+                            machine.currentFloor = 1;
+                            if (ModelManager.Instance.UserGameData.is_cleard == false)
+                            {
+                                FloorManager.OnFirstClear.Invoke();
+                            }
+                        }
                         ModelManager.Instance.UserGameData.last_quest_floor_id = machine.currentFloor;
                     }
 

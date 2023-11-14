@@ -108,6 +108,8 @@ public class ModelManager : Singleton<ModelManager>
 
         userGameData = saveData.savedUserGameData;
         Debug.Log(userGameData.last_quest_floor_id);
+        userGameData.last_quest_floor_id = Mathf.Clamp(userGameData.last_quest_floor_id, 1, 500);
+
         Debug.Log(userGameData.max_floor_id);
         userGameData.restart_quest_floor_id = Mathf.Max(1, userGameData.restart_quest_floor_id); ;
 

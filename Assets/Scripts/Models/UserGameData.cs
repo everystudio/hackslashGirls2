@@ -5,6 +5,7 @@ using anogame;
 
 public class UserGameData : CsvModelParam
 {
+    public bool is_cleard;
     public int max_floor_id;
     public int coin;
     public int gem;

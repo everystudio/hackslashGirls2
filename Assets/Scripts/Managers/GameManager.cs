@@ -21,6 +21,8 @@ public class GameManager : SingletonStateMachineBase<GameManager>
 
     [SerializeField] private List<GameObject> collectRootList;
 
+    [SerializeField] private GameObject panelCongratulations;
+
     private int savedGameSpeed = 1;
     public int GameSpeed
     {
@@ -45,6 +47,17 @@ public class GameManager : SingletonStateMachineBase<GameManager>
     public override void Initialize()
     {
         GameSpeed = Defines.GetCurrentGameSpeed(ModelManager.Instance.UserGameData.game_speed_index);
+
+        if (ModelManager.Instance.UserGameData.is_cleard == false)
+        {
+            FloorManager.OnFirstClear.AddListener(() =>
+            {
+                ModelManager.Instance.UserGameData.is_cleard = true;
+                panelCongratulations.SetActive(true);
+
+            });
+
+        }
 
         SpeedControlButton.OnClicedHandler.AddListener(() =>
         {
