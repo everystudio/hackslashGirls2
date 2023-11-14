@@ -177,6 +177,19 @@ public class EnemyBase : StateMachineBase<EnemyBase>
             {
                 //Debug.Log(targetCharacter);
                 AudioManager.Instance.PlayRandomAttackEnemySFX();
+
+                int speed = targetCharacter.userChara.speed;
+                speed += targetCharacter.userChara.luck / 2;
+                for (int i = 0; i < speed / 20; i++)
+                {
+                    // 1%の確率で回避
+                    if (Random.Range(0, 100) < 1)
+                    {
+                        FlyingText.Create(targetCharacter.transform, "回避！", targetCharacter.transform.position + new Vector3(0, 0.5f, 0f), 0f);
+                        return;
+                    }
+                }
+                FlyingText.Create(targetCharacter.transform, $"<color=red>{machine.masterEnemy.attack.ToString()}</color>", targetCharacter.transform.position + new Vector3(0, 0.25f, 0f), 0.2f);
                 targetCharacter.TakeDamage(machine.masterEnemy.attack);
             });
             machine.OnAttackEndEvent.AddListener(() =>

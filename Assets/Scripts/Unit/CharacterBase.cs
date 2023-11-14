@@ -225,6 +225,7 @@ public class CharacterBase : StateMachineBase<CharacterBase>
                 if (nearestEnemy != null)
                 {
                     AudioManager.Instance.PlayRandomAttackPlayerSFX();
+                    /*
 
                     var obj = Instantiate(Resources.Load("FlyingText"), machine.transform.parent) as GameObject;
 
@@ -236,8 +237,40 @@ public class CharacterBase : StateMachineBase<CharacterBase>
                     var flyingText = obj.GetComponent<FlyingText>();
                     flyingText.Initialize(machine.userChara.strength);
                     Destroy(obj, 5f);
+                    */
 
-                    nearestEnemy.TakeDamage(machine.userChara.strength);
+
+                    int spirit = machine.userChara.spirit;
+                    spirit += machine.userChara.luck / 2;
+                    bool isCritical = false;
+                    for (int i = 0; i < spirit / 20; i++)
+                    {
+                        // 1%の確率で回避
+                        if (UnityEngine.Random.Range(0, 100) < 1)
+                        {
+                            isCritical = true;
+                            break;
+                        }
+                    }
+
+                    int damage = machine.userChara.strength;
+                    string msg = damage.ToString();
+                    Vector3 offset = new Vector3(0, 0f, 0f);
+                    if (isCritical)
+                    {
+                        damage *= 2;
+                        msg = $"クリティカル!\n<color=red>{damage.ToString()}</color>";
+                        offset = new Vector3(0, 0.5f, 0f);
+                    }
+
+
+
+                    FlyingText.Create(
+                        machine.transform.parent,
+                        msg,
+                        nearestEnemy.transform.position + offset);
+
+                    nearestEnemy.TakeDamage(damage);
                 }
             });
             machine.OnAttackEnd.AddListener(() =>

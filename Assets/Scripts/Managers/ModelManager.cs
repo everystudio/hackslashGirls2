@@ -724,9 +724,18 @@ public class ModelManager : Singleton<ModelManager>
             {
                 UnlockAchievement(masterAchievement.achievement_id);
             }
-
-
         }
+    }
+
+    public int GetTotalPartyHeart()
+    {
+        int totalHeart = 0;
+        foreach (var userChara in userChara.List.FindAll(chara => 0 < chara.partyIndex))
+        {
+            totalHeart += userChara.heart;
+        }
+        return totalHeart;
+
     }
 
     public UserEnemy GetUserEnemy(int enemy_id, int rarity)

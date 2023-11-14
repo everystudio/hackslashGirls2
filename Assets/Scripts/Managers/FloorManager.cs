@@ -337,7 +337,6 @@ public class FloorManager : StateMachineBase<FloorManager>
                     if (walker.IsAlive())
                     {
                         isAlive = true;
-                        break;
                     }
                 }
 
@@ -353,15 +352,18 @@ public class FloorManager : StateMachineBase<FloorManager>
                         ModelManager.Instance.UserGameData.last_quest_floor_id = machine.currentFloor;
                     }
 
+                    int heartPoint = ModelManager.Instance.GetTotalPartyHeart();
+
+                    // heartPointが0の時0.0,300の時に0.4になるようにfloat型を取得する
+                    float heartHealRate = Mathf.Min(1f, (float)heartPoint / 300f) * 0.4f;
                     foreach (CharacterBase walker in machine.walkerManager.Walkers)
                     {
                         //Debug.Log("HealRate");
                         if (walker.IsAlive())
                         {
-                            walker.HealRate(0.1f);
+                            walker.HealRate(0.1f + heartHealRate);
                         }
                     }
-
 
                     ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
                 }
