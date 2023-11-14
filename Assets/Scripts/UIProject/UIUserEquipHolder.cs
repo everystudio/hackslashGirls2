@@ -18,7 +18,7 @@ public class UIUserEquipHolder : MonoBehaviour
 
     public void Set(MasterChara masterChara, UserChara userChara)
     {
-        Debug.Log(masterChara.chara_name + " 現在のランク:" + userChara.rank);
+        //Debug.Log(masterChara.chara_name + " 現在のランク:" + userChara.rank);
         this.masterChara = masterChara;
         this.userChara = userChara;
 

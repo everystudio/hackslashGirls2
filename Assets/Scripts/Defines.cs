@@ -131,9 +131,13 @@ public static class Defines
         }
         return (spped_array[nextSpeedIndex], nextSpeedIndex);
 
-
     }
 
 
+    public static int HOUCHI_EXP_PER_MINUTE = 50;
+    public static int HOUCHI_COIN_PER_MINUTE = 100;
+
+    public static int HOUCHI_GEM_PER_HOUR = 20;
+    public static int HOUCHI_TICKET_PER_DAY = 30;
 
 }

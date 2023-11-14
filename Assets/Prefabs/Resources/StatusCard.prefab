@@ -7144,7 +7144,7 @@ GameObject:
   - component: {fileID: 9073597995730743947}
   - component: {fileID: 8740470861883115040}
   m_Layer: 5
-  m_Name: gauge200
+  m_Name: strengthGauge200
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7203,7 +7203,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.575
+  m_FillAmount: 0.692
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

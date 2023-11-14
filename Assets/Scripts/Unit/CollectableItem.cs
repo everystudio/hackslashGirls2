@@ -7,11 +7,11 @@ using UnityEngine.Events;
 public class CollectableItem : MonoBehaviour
 {
     MasterItem masterItem;
-    public static UnityEvent<int> OnCollect = new UnityEvent<int>();
-
+    public static UnityEvent<int, int> OnCollect = new UnityEvent<int, int>();
 
     // 誰かに回収されているかどうかのフラグ
     public bool is_collected = false;
+    public int amount = 1;
 
     private Animator animator;
 
@@ -27,7 +27,7 @@ public class CollectableItem : MonoBehaviour
         is_collected = true;
         //gameObject.SetActive(false);
         animator.SetTrigger("Collect");
-        OnCollect.Invoke(masterItem.item_id);
+        OnCollect.Invoke(masterItem.item_id, amount);
     }
 
     public void OnCollectAnimationEnd()
@@ -35,9 +35,10 @@ public class CollectableItem : MonoBehaviour
         // ここでOnCollectイベントを呼んでたけど、エフェクト音のなるタイミングがおそくなってしまったので、処理ごと前倒しした
     }
 
-    public void Initialize(MasterItem masterItem)
+    public void Initialize(MasterItem masterItem, int amount)
     {
         this.masterItem = masterItem;
+        this.amount = amount;
         spriteRenderer.sprite = TextureManager.Instance.GetIconItemSprite(masterItem.item_id);
     }
 }

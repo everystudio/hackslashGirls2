@@ -39,6 +39,11 @@ public class PanelCharaTop : UIPanel
             }
         });
 
+        ModelManager.Instance.OnChangeUserGameData.AddListener((gameData) =>
+        {
+            RefreshLevelupButton(selectingCharaId);
+        });
+
         ShowSelectingChara(selectingCharaId);
 
         // charaListParentの子要素を全て削除
@@ -87,6 +92,11 @@ public class PanelCharaTop : UIPanel
         {
             ShowSelectingChara(selectingCharaId);
         });
+
+        ModelManager.Instance.OnUserItemChanged.AddListener(() =>
+        {
+            ShowSelectingChara(selectingCharaId);
+        });
     }
 
     private int GetRequireCoin(int level, int exp)
@@ -100,16 +110,24 @@ public class PanelCharaTop : UIPanel
     {
         MasterChara masterChara = ModelManager.Instance.GetMasterChara(selectingCharaId);
         UserChara userChara = ModelManager.Instance.GetUserChara(selectingCharaId);
+
         characterCore.Set(masterChara, userChara);
         userEquipHolder.Set(masterChara, userChara);
 
+
+        starupButton.gameObject.SetActive(userChara.star < 5);
+    }
+
+    private void RefreshLevelupButton(int selectingCharaId)
+    {
+        UserChara userChara = ModelManager.Instance.GetUserChara(selectingCharaId);
         int requireCoin = GetRequireCoin(userChara.level + 1, userChara.exp);
 
         requireCoinText.text = Defines.GetNumericString(requireCoin);
         levelupButton.interactable = requireCoin <= ModelManager.Instance.UserGameData.coin;
 
-        starupButton.gameObject.SetActive(userChara.star < 5);
-
-
     }
+
+
+
 }

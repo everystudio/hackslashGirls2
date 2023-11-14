@@ -31,6 +31,7 @@ public class ModelManager : Singleton<ModelManager>
     public TextAsset dummyUserItem;
     private CsvModel<UserItem> userItem = new CsvModel<UserItem>();
     public CsvModel<UserItem> UserItem { get { return userItem; } }
+    public UnityEvent OnUserItemChanged = new UnityEvent();
 
     [SerializeField] private TextAsset masterCharaAsset;
     private CsvModel<MasterChara> masterChara = new CsvModel<MasterChara>();
@@ -286,7 +287,7 @@ public class ModelManager : Singleton<ModelManager>
             UpdateAchievementRate(masterArea.area_id);
         }
 
-        CollectableItem.OnCollect.AddListener(CollectItemOne);
+        CollectableItem.OnCollect.AddListener(CollectItem);
     }
 
     public MasterChara GetMasterChara(int charaId)
@@ -512,11 +513,6 @@ public class ModelManager : Singleton<ModelManager>
         return masterItem.area_id == 0;
     }
 
-    private void CollectItemOne(int item_id)
-    {
-        CollectItem(item_id, 1);
-    }
-
     public void CollectItem(int item_id, int amount = 1)
     {
         if (IsResourcesItem(item_id))
@@ -528,7 +524,6 @@ public class ModelManager : Singleton<ModelManager>
         UserItem userItem = GetUserItem(item_id);
         if (userItem == null)
         {
-
             MasterItem masterItem = GetMasterItem(item_id);
 
             userItem = new UserItem();
@@ -553,6 +548,8 @@ public class ModelManager : Singleton<ModelManager>
         }
         AudioManager.Instance.PlayItemGetSFX();
         userItem.item_num += amount;
+
+        OnUserItemChanged.Invoke();
     }
 
     public UserAchievement GetUserAchievement(int achievementId)
@@ -859,12 +856,12 @@ public class ModelManager : Singleton<ModelManager>
                     // パーティーに編成しているキャラのループ
                     foreach (var chara in userChara.List.FindAll(x => 0 < x.partyIndex))
                     {
-                        int addExp = minutes * 5;
+                        int addExp = minutes * Defines.HOUCHI_EXP_PER_MINUTE;
                         chara.exp += addExp;
                     }
 
-                    int addCoin = Mathf.Min(minutes * 10, 9999);
-                    AddCoin(minutes * 10);
+                    int addCoin = Mathf.Min(minutes * Defines.HOUCHI_COIN_PER_MINUTE, 999999999);
+                    AddCoin(addCoin);
                     bonusMessageList.Add("コインを" + addCoin + "獲得しました");
                 }
 
@@ -874,7 +871,7 @@ public class ModelManager : Singleton<ModelManager>
 
                 if (0 < lastGemTimeMinutes / 60)
                 {
-                    int addGem = lastGemTimeMinutes / 60 * 1;
+                    int addGem = lastGemTimeMinutes / 60 * Defines.HOUCHI_GEM_PER_HOUR;
                     AddGem(addGem);
                     bonusMessageList.Add("ジェムを" + addGem + "個Get!!");
 
@@ -888,7 +885,7 @@ public class ModelManager : Singleton<ModelManager>
 
                 if (0 < lastTicketTimeMinutes / OneDayMinutes)
                 {
-                    int addTicket = lastTicketTimeMinutes / OneDayMinutes * 1;
+                    int addTicket = lastTicketTimeMinutes / OneDayMinutes * Defines.HOUCHI_TICKET_PER_DAY;
                     AddTicket(addTicket);
                     bonusMessageList.Add("チケットを" + addTicket + "枚Get!!");
 

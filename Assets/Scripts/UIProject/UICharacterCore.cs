@@ -167,43 +167,43 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         if (strengthImage100 != null)
         {
             strengthImage100.fillAmount = (float)userChara.strength / (float)param_interval;
-            strengthImage200.fillAmount = (float)(userChara.strength - param_interval * 2) / (float)param_interval;
-            strengthImage300.fillAmount = (float)(userChara.strength - param_interval * 3) / (float)param_interval;
+            strengthImage200.fillAmount = (float)(userChara.strength - param_interval * 1) / (float)param_interval;
+            strengthImage300.fillAmount = (float)(userChara.strength - param_interval * 2) / (float)param_interval;
         }
 
         if (defenseImage100 != null)
         {
             defenseImage100.fillAmount = (float)userChara.defense / (float)param_interval;
-            defenseImage200.fillAmount = (float)(userChara.defense - param_interval * 2) / (float)param_interval;
-            defenseImage300.fillAmount = (float)(userChara.defense - param_interval * 3) / (float)param_interval;
+            defenseImage200.fillAmount = (float)(userChara.defense - param_interval * 1) / (float)param_interval;
+            defenseImage300.fillAmount = (float)(userChara.defense - param_interval * 2) / (float)param_interval;
         }
 
         if (speedImage100 != null)
         {
             speedImage100.fillAmount = (float)userChara.speed / (float)param_interval;
-            speedImage200.fillAmount = (float)(userChara.speed - param_interval * 2) / (float)param_interval;
-            speedImage300.fillAmount = (float)(userChara.speed - param_interval * 3) / (float)param_interval;
+            speedImage200.fillAmount = (float)(userChara.speed - param_interval * 1) / (float)param_interval;
+            speedImage300.fillAmount = (float)(userChara.speed - param_interval * 2) / (float)param_interval;
         }
 
         if (luckImage100 != null)
         {
             luckImage100.fillAmount = (float)userChara.luck / (float)param_interval;
-            luckImage200.fillAmount = (float)(userChara.luck - param_interval * 2) / (float)param_interval;
-            luckImage300.fillAmount = (float)(userChara.luck - param_interval * 3) / (float)param_interval;
+            luckImage200.fillAmount = (float)(userChara.luck - param_interval * 1) / (float)param_interval;
+            luckImage300.fillAmount = (float)(userChara.luck - param_interval * 2) / (float)param_interval;
         }
 
         if (spritImage100 != null)
         {
             spritImage100.fillAmount = (float)userChara.spirit / (float)param_interval;
-            spritImage200.fillAmount = (float)(userChara.spirit - param_interval * 2) / (float)param_interval;
-            spritImage300.fillAmount = (float)(userChara.spirit - param_interval * 3) / (float)param_interval;
+            spritImage200.fillAmount = (float)(userChara.spirit - param_interval * 1) / (float)param_interval;
+            spritImage300.fillAmount = (float)(userChara.spirit - param_interval * 2) / (float)param_interval;
         }
 
         if (heartImage100 != null)
         {
             heartImage100.fillAmount = (float)userChara.heart / (float)param_interval;
-            heartImage200.fillAmount = (float)(userChara.heart - param_interval * 2) / (float)param_interval;
-            heartImage300.fillAmount = (float)(userChara.heart - param_interval * 3) / (float)param_interval;
+            heartImage200.fillAmount = (float)(userChara.heart - param_interval * 1) / (float)param_interval;
+            heartImage300.fillAmount = (float)(userChara.heart - param_interval * 2) / (float)param_interval;
         }
 
         if (defenseGauge != null)
