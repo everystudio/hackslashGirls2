@@ -160,6 +160,7 @@ public class UICharacterCore : MonoBehaviour, IPointerClickHandler
         if (strengthGauge != null)
         {
             strengthGauge.value = (float)userChara.strength / (float)UserChara.MAX_STATUS_PARAM;
+            strengthGauge.value = 0f;
         }
 
         int param_interval = 300;

@@ -243,8 +243,8 @@ public class ModelManager : Singleton<ModelManager>
         if (userGameData.max_floor_id == 0)
         {
             userGameData.coin = 0;
-            userGameData.gem = 0;
-            userGameData.ticket = 3;
+            userGameData.gem = 100;
+            userGameData.ticket = 30;
             userGameData.last_quest_floor_id = 1;
             userGameData.restart_quest_floor_id = 1;
             userGameData.last_collect_area_id = 1;

@@ -84,6 +84,7 @@ public class TitleMain : SingletonStateMachineBase<TitleMain>
 
         public override void OnEnterState()
         {
+            Application.targetFrameRate = 60;
             base.OnEnterState();
             SceneManager.LoadScene("MainScene");
         }
