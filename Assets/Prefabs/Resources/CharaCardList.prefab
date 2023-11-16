@@ -112,6 +112,7 @@ MonoBehaviour:
   rankText: {fileID: 0}
   selectingImage: {fileID: 0}
   hpText: {fileID: 0}
+  hpSingleText: {fileID: 0}
   strengthText: {fileID: 0}
   defenseText: {fileID: 0}
   speedText: {fileID: 0}
@@ -125,6 +126,25 @@ MonoBehaviour:
   luckGauge: {fileID: 0}
   spritGauge: {fileID: 0}
   heartGauge: {fileID: 0}
+  strengthImage100: {fileID: 0}
+  strengthImage200: {fileID: 0}
+  strengthImage300: {fileID: 0}
+  defenseImage100: {fileID: 0}
+  defenseImage200: {fileID: 0}
+  defenseImage300: {fileID: 0}
+  speedImage100: {fileID: 0}
+  speedImage200: {fileID: 0}
+  speedImage300: {fileID: 0}
+  luckImage100: {fileID: 0}
+  luckImage200: {fileID: 0}
+  luckImage300: {fileID: 0}
+  spritImage100: {fileID: 0}
+  spritImage200: {fileID: 0}
+  spritImage300: {fileID: 0}
+  heartImage100: {fileID: 0}
+  heartImage200: {fileID: 0}
+  heartImage300: {fileID: 0}
+  downRoot: {fileID: 0}
   starView: {fileID: 776450985924424282}
   OnClick:
     m_PersistentCalls:
@@ -222,10 +242,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.65
+  m_fontSize: 55.2
   m_fontSizeBase: 54.65
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
