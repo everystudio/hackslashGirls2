@@ -63,7 +63,7 @@ public class TitleMain : SingletonStateMachineBase<TitleMain>
         public override void OnEnterState()
         {
             base.OnEnterState();
-            machine.infoText.text = "PAP SCREEN";
+            machine.infoText.text = "TAP SCREEN";
         }
 
         public override void OnUpdateState()
