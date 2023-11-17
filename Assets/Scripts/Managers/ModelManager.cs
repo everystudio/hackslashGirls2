@@ -200,7 +200,7 @@ public class ModelManager : Singleton<ModelManager>
         initialChara.Load(dummyUserChara);
         foreach (var userChara in initialChara.List)
         {
-            var chara = AddChara(userChara.chara_id);
+            var chara = AddChara(userChara.chara_id, out bool isNew);
             //Debug.Log(userChara.chara_id);
             //Debug.Log(chara);
             chara.questPartyId = userChara.questPartyId;
@@ -397,13 +397,14 @@ public class ModelManager : Singleton<ModelManager>
 
     }
 
-    public UserChara AddChara(int chara_id)
+    public UserChara AddChara(int chara_id, out bool isNew)
     {
         // すでに持っているキャラかどうかを確認する
         UserChara checkChara = GetUserChara(chara_id);
         if (checkChara != null)
         {
             Debug.Log("checkChara !=null");
+            isNew = false;
             return checkChara;
         }
 
@@ -412,6 +413,7 @@ public class ModelManager : Singleton<ModelManager>
         if (masterChara == null)
         {
             Debug.Log("masterChara !=null");
+            isNew = false;
             return null;
         }
 
@@ -421,6 +423,7 @@ public class ModelManager : Singleton<ModelManager>
         // userCharaをchara_idでソートする
         userChara.List.Sort((a, b) => a.chara_id - b.chara_id);
 
+        isNew = true;
         return addChara;
     }
 

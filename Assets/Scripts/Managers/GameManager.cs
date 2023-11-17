@@ -87,7 +87,7 @@ public class GameManager : SingletonStateMachineBase<GameManager>
             {
                 for (int i = 0; i < 4 + 2; i++)
                 {
-                    UserChara addChara = ModelManager.Instance.AddChara(i + 5);
+                    UserChara addChara = ModelManager.Instance.AddChara(i + 5, out bool isNew);
                     if (i < 4)
                     {
                         // 入れ替え用に2人メンバーを追加
@@ -176,7 +176,7 @@ public class GameManager : SingletonStateMachineBase<GameManager>
                 Debug.Log("F2");
                 foreach (MasterChara masterChara in ModelManager.Instance.MasterChara.List)
                 {
-                    ModelManager.Instance.AddChara(masterChara.chara_id);
+                    ModelManager.Instance.AddChara(masterChara.chara_id, out bool isNew);
                 }
                 foreach (MasterItem masterItem in ModelManager.Instance.MasterItem.List)
                 {

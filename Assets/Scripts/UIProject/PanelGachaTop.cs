@@ -57,9 +57,9 @@ public class PanelGachaTop : MonoBehaviour
 
             foreach (var get_chara_id in gachaResultList)
             {
-                var getUserChara = ModelManager.Instance.AddChara(get_chara_id);
+                var getUserChara = ModelManager.Instance.AddChara(get_chara_id, out bool isNew);
                 // すでに持っていた場合は追加失敗でnullが返ってくる
-                if (getUserChara == null)
+                if (isNew)
                 {
                     ModelManager.Instance.AddStar(get_chara_id, 1);
                 }

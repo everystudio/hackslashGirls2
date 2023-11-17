@@ -45,6 +45,9 @@ public class CharacterBase : StateMachineBase<CharacterBase>
         }
 
         userChara.hp -= damage;
+        // マイナスにならないようにしてください
+        userChara.hp = Mathf.Max(0, userChara.hp);
+
         if (userChara.hp <= 0f)
         {
             ChangeState(new CharacterBase.Die(this));
