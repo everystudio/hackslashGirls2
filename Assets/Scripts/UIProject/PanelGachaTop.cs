@@ -59,7 +59,7 @@ public class PanelGachaTop : MonoBehaviour
             {
                 var getUserChara = ModelManager.Instance.AddChara(get_chara_id, out bool isNew);
                 // すでに持っていた場合は追加失敗でnullが返ってくる
-                if (isNew)
+                if (!isNew)
                 {
                     ModelManager.Instance.AddStar(get_chara_id, 1);
                 }
