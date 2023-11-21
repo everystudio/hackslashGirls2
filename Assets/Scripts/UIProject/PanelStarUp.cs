@@ -8,7 +8,7 @@ using TMPro;
 public class PanelStarUp : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI starUpText;
-    [SerializeField] private TextMeshProUGUI shojiStarText;
+    [SerializeField] private TextMeshProUGUI starPieceNameText;
 
     [SerializeField] private UICharacterCore preCharaCore;
     [SerializeField] private UICharacterCore afterCharaCore;
@@ -26,6 +26,8 @@ public class PanelStarUp : MonoBehaviour
         var nextUserChara = new UserChara(master);
         nextUserChara.star = Mathf.Min(user.star + 1, 5);
         afterCharaCore.Set(master, nextUserChara);
+
+        starPieceNameText.text = $"所持：{master.chara_name}スターピース";
 
         var userStar = ModelManager.Instance.GetUserStar(user.chara_id);
         int currentStarNum = userStar == null ? 0 : userStar.num;
