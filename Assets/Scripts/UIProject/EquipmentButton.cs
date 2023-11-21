@@ -27,7 +27,7 @@ public class EquipmentButton : MonoBehaviour
         }
         else
         {
-            plusImage.gameObject.SetActive(userItem != null && masterEquip.require_count < userItem.item_num);
+            plusImage.gameObject.SetActive(userItem != null && masterEquip.require_count <= userItem.item_num);
             requireCountText.gameObject.SetActive(true);
 
             int hasNum = userItem == null ? 0 : userItem.item_num;
