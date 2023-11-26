@@ -26,6 +26,11 @@ public class CollectableItem : MonoBehaviour
     {
         is_collected = true;
         //gameObject.SetActive(false);
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+
+        }
         animator.SetTrigger("Collect");
         OnCollect.Invoke(masterItem.item_id, amount);
     }

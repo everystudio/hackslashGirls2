@@ -140,4 +140,10 @@ public static class Defines
     public static int HOUCHI_GEM_PER_HOUR = 20;
     public static int HOUCHI_TICKET_PER_DAY = 30;
 
+    public static readonly int DEFENCE_DIVIDE = 50;
+    public static readonly int CRITICAL_DIVIDE = 50;
+    public static readonly int DODGE_DIVIDE = 50;
+    public static readonly float HEART_DIVIDE = 1500;
+    public static readonly float HEART_HEAL_RATE = 0.1f;
+
 }

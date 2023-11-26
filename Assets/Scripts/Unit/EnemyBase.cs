@@ -15,7 +15,7 @@ public class EnemyBase : StateMachineBase<EnemyBase>
     }
 
     public UnityEvent<UserEnemy> OnDie = new UnityEvent<UserEnemy>();
-    public static UnityEvent<UserEnemy> OnAnyDie = new UnityEvent<UserEnemy>();
+    public static UnityEvent<UserEnemy, MasterEnemy, Vector3> OnAnyDie = new UnityEvent<UserEnemy, MasterEnemy, Vector3>();
 
     private float attackRange = 3f;
     private FloorManager floorManager;
@@ -180,7 +180,7 @@ public class EnemyBase : StateMachineBase<EnemyBase>
 
                 int speed = targetCharacter.userChara.speed;
                 speed += targetCharacter.userChara.luck / 2;
-                for (int i = 0; i < speed / 20; i++)
+                for (int i = 0; i < speed / Defines.DODGE_DIVIDE; i++)
                 {
                     // 1%の確率で回避
                     if (Random.Range(0, 100) < 1)
@@ -216,7 +216,7 @@ public class EnemyBase : StateMachineBase<EnemyBase>
         {
             base.OnEnterState();
             machine.OnDie?.Invoke(machine.userEnemy);
-            OnAnyDie?.Invoke(machine.userEnemy);
+            OnAnyDie?.Invoke(machine.userEnemy, machine.masterEnemy, machine.transform.localPosition);
             machine.animator.SetTrigger("dead");
         }
     }

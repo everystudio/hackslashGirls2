@@ -108,10 +108,10 @@ public class ModelManager : Singleton<ModelManager>
         saveData = ES3.Load<SaveData>("saveData");
 
         userGameData = saveData.savedUserGameData;
-        Debug.Log(userGameData.last_quest_floor_id);
+        //Debug.Log(userGameData.last_quest_floor_id);
         userGameData.last_quest_floor_id = Mathf.Clamp(userGameData.last_quest_floor_id, 1, 500);
 
-        Debug.Log(userGameData.max_floor_id);
+        //Debug.Log(userGameData.max_floor_id);
         userGameData.restart_quest_floor_id = Mathf.Max(1, userGameData.restart_quest_floor_id); ;
 
         userChara.List.Clear();
@@ -182,7 +182,7 @@ public class ModelManager : Singleton<ModelManager>
 
     public override void Initialize()
     {
-        Debug.Log("ModelManager Initialize");
+        //Debug.Log("ModelManager Initialize");
 
 
         masterItem.Load(masterItemAsset);
@@ -737,7 +737,7 @@ public class ModelManager : Singleton<ModelManager>
         }
     }
 
-    private void OnEnemyDie(UserEnemy argEnemy)
+    private void OnEnemyDie(UserEnemy argEnemy, MasterEnemy masterEnemy, Vector3 position)
     {
         UserEnemy diedEnemy = userEnemy.List.Find(enemy => enemy.enemy_id == argEnemy.enemy_id && argEnemy.rarity == enemy.rarity);
 
@@ -767,7 +767,16 @@ public class ModelManager : Singleton<ModelManager>
             totalHeart += userChara.heart;
         }
         return totalHeart;
+    }
 
+    public int GetTotalCollectPartyLuck()
+    {
+        int totalLuck = 0;
+        foreach (var userChara in userChara.List.FindAll(chara => 0 < chara.collectPartyId))
+        {
+            totalLuck += userChara.luck;
+        }
+        return totalLuck;
     }
 
     public UserEnemy GetUserEnemy(int enemy_id, int rarity)
@@ -844,7 +853,7 @@ public class ModelManager : Singleton<ModelManager>
                 DateTime pauseTime = DateTime.Parse(strDateTime);
                 DateTime nowTime = DateTime.Now;
                 TimeSpan span = nowTime - pauseTime;
-                Debug.Log("span" + span.TotalSeconds);
+                //Debug.Log("span" + span.TotalSeconds);
 
                 int minutes = (int)span.TotalMinutes;
                 int hours = (int)span.TotalHours;
@@ -910,6 +919,26 @@ public class ModelManager : Singleton<ModelManager>
         Debug.Log(Defines.LastPlayTimeKey + ":" + strDateTime);
 
         Save();
+    }
+
+
+    public void ArriveCheck(int floor_id)
+    {
+        MasterFloor masterFloor = this.masterFloor.List.Find(v => v.floor_start <= floor_id && floor_id <= v.floor_end);
+
+        if (masterFloor == null)
+        {
+            return;
+        }
+        //Debug.Log(floor_id + " " + masterFloor.area_id + " " + masterFloor.floor_start + " " + masterFloor.floor_end);
+
+        // エリアデータがあるかどうかを調べる
+        UserArea userArea = this.userArea.List.Find(v => v.area_id == masterFloor.area_id);
+        //Debug.Log(userArea);
+        if (userArea == null)
+        {
+            UpdateAchievementRate(masterFloor.area_id);
+        }
     }
 
 }

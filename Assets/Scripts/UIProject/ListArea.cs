@@ -27,7 +27,7 @@ public class ListArea : StateMachineBase<ListArea>
             Destroy(child.gameObject);
         }
 
-        var userAreaList = ModelManager.Instance.UserArea.List.FindAll(x => 0 < x.floor_count);
+        var userAreaList = ModelManager.Instance.UserArea.List.FindAll(x => 0 <= x.floor_count);
 
         foreach (UserArea userArea in userAreaList)
         {

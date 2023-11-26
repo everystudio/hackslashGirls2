@@ -101,6 +101,7 @@ public class PanelAreaDetail : UIPanel
         }
 
         // フロアのスタートボタンを10個生成
+        bool isFirst = true;
         foreach (var floor in masterFloors)
         {
             FloorStartButton floorStartButton = Instantiate(floorStartButtonPrefab, floorStartButtonParent).GetComponent<FloorStartButton>();
@@ -112,6 +113,11 @@ public class PanelAreaDetail : UIPanel
             });
             // ここはよくデバッグで解除する
             floorStartButton.Button.interactable = floor.floor_start <= ModelManager.Instance.UserGameData.max_floor_id;
+            if (isFirst)
+            {
+                floorStartButton.Button.interactable = true;
+                isFirst = false;
+            }
         }
 
         areaSelectButton.onClick.AddListener(() =>

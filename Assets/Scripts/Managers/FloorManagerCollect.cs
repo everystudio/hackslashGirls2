@@ -69,11 +69,24 @@ public class FloorManagerCollect : FloorManager
             probArray[i] = masterItems[i].prob;
         }
 
-        for (int i = 0; i < 3; i++)
+        int totalCollectPartyLuck = ModelManager.Instance.GetTotalCollectPartyLuck();
+        float luckRate = Mathf.Min(1.0f, 0.001f * totalCollectPartyLuck);
+
+        for (int i = 0; i < 4; i++)
         {
+
+            float dropRate = Mathf.Lerp(30, 70, luckRate);
+
+            if (UnityEngine.Random.Range(0, 100) < dropRate)
+            {
+                continue;
+            }
+
+            float itemDropRate = Mathf.Lerp(90, 70, luckRate);
+
             CollectableItem collectableItem = Instantiate(collectableItemPrefab, transform).GetComponent<CollectableItem>();
             // 80%の確率でコインを獲得する
-            if (UnityEngine.Random.Range(0, 10) < 8)
+            if (UnityEngine.Random.Range(0, 100) < 80)
             {
                 int amount = area_id * 100;
                 collectableItem.Initialize(ModelManager.Instance.GetMasterItem(Defines.CoinItemID), amount);

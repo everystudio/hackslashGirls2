@@ -46,6 +46,40 @@ public class FloorManager : StateMachineBase<FloorManager>
             bossInfo.gameObject.SetActive(false);
         }
         ChangeState(new FloorManager.Standby(this));
+
+        if (isQuest)
+        {
+            EnemyBase.OnAnyDie.AddListener((userEnemy, masterEnemy, position) =>
+            {
+                //ドロップするのは33%
+                if (UnityEngine.Random.Range(0, 3) < 1)
+                {
+                    return;
+                }
+
+                CollectableItem collectableItem = Instantiate(collectableItemPrefab, transform).GetComponent<CollectableItem>();
+
+                int[] dropProbArray = new int[] { 1000, 10, 1 };
+                int[] dropItemIDArray = new int[] { Defines.CoinItemID, Defines.GemItemID, Defines.TicketItemID };
+                int[] dropAmountArray = new int[] { 100 * masterEnemy.area_id, 1, 1 };
+
+                int index = UtilRand.GetIndex(dropProbArray);
+
+                int item_id = dropItemIDArray[index];
+                int amount = dropAmountArray[index];
+
+                collectableItem.Initialize(ModelManager.Instance.GetMasterItem(item_id), amount);
+                collectableItem.transform.localPosition = position;
+
+                collectableItem.Collect();
+
+                // collectableItemのすべてのレイヤーを親のレイヤーと同じものにする
+                foreach (Transform child in collectableItem.transform)
+                {
+                    child.gameObject.layer = gameObject.layer;
+                }
+            });
+        }
     }
 
     public CharacterBase GetNearWalker(Vector3 position, float range)
@@ -168,7 +202,7 @@ public class FloorManager : StateMachineBase<FloorManager>
             {
                 // 0.1%の確率でレア敵
                 //if (UnityEngine.Random.Range(0, 2) < 1)
-                if (UnityEngine.Random.Range(0, 1000) < 1)
+                if (UnityEngine.Random.Range(0, 1000) < 5)
                 {
                     rarity = enemyModel.rarity;
                 }
@@ -358,6 +392,9 @@ public class FloorManager : StateMachineBase<FloorManager>
                         }
                         machine.currentFloor++;
 
+                        // 始めて到達したエリアかどうかを調べる
+                        ModelManager.Instance.ArriveCheck(machine.currentFloor);
+
                         if (500 < machine.currentFloor)
                         {
                             machine.currentFloor = 1;
@@ -366,21 +403,25 @@ public class FloorManager : StateMachineBase<FloorManager>
                                 FloorManager.OnFirstClear.Invoke();
                             }
                         }
+
+                        int heartPoint = ModelManager.Instance.GetTotalPartyHeart();
+
+                        // heartPointが0の時0.0,300の時に0.2になるようにfloat型を取得する
+                        float heartHealRate = Mathf.Min(1f, (float)heartPoint / Defines.HEART_DIVIDE) * Defines.HEART_HEAL_RATE;
+                        //Debug.Log(heartHealRate);
+                        foreach (CharacterBase walker in machine.walkerManager.Walkers)
+                        {
+                            //Debug.Log("HealRate");
+                            if (walker.IsAlive())
+                            {
+                                walker.HealRate(0.1f + heartHealRate);
+                            }
+                        }
+
+
                         ModelManager.Instance.UserGameData.last_quest_floor_id = machine.currentFloor;
                     }
 
-                    int heartPoint = ModelManager.Instance.GetTotalPartyHeart();
-
-                    // heartPointが0の時0.0,300の時に0.4になるようにfloat型を取得する
-                    float heartHealRate = Mathf.Min(1f, (float)heartPoint / 300f) * 0.4f;
-                    foreach (CharacterBase walker in machine.walkerManager.Walkers)
-                    {
-                        //Debug.Log("HealRate");
-                        if (walker.IsAlive())
-                        {
-                            walker.HealRate(0.1f + heartHealRate);
-                        }
-                    }
 
                     ChangeState(new FloorManager.FloorStart(machine, machine.currentFloor));
                 }
@@ -420,7 +461,7 @@ public class FloorManager : StateMachineBase<FloorManager>
                 walker.Revive();
             }
 
-            Debug.Log($"Restart:{ModelManager.Instance.UserGameData.restart_quest_floor_id}");
+            //Debug.Log($"Restart:{ModelManager.Instance.UserGameData.restart_quest_floor_id}");
 
             ModelManager.Instance.UserGameData.restart_quest_floor_id = Mathf.Max(1, ModelManager.Instance.UserGameData.restart_quest_floor_id);
 

@@ -44,6 +44,11 @@ public class CharacterBase : StateMachineBase<CharacterBase>
             return;
         }
 
+        int div = Defines.DEFENCE_DIVIDE + UnityEngine.Random.Range(-2, 2);
+
+        // defense20に対して1ダメージ減算させる
+        damage = Mathf.Max(1, damage - userChara.defense / div);
+
         userChara.hp -= damage;
         // マイナスにならないようにしてください
         userChara.hp = Mathf.Max(0, userChara.hp);
@@ -246,9 +251,9 @@ public class CharacterBase : StateMachineBase<CharacterBase>
                     int spirit = machine.userChara.spirit;
                     spirit += machine.userChara.luck / 2;
                     bool isCritical = false;
-                    for (int i = 0; i < spirit / 20; i++)
+                    for (int i = 0; i < spirit / Defines.CRITICAL_DIVIDE; i++)
                     {
-                        // 1%の確率で回避
+                        // 1%の確率でクリティカル
                         if (UnityEngine.Random.Range(0, 100) < 1)
                         {
                             isCritical = true;
