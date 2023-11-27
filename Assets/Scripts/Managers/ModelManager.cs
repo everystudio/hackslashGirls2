@@ -20,6 +20,7 @@ public class SaveData
 
 public class ModelManager : Singleton<ModelManager>
 {
+    private bool isInitializedLocal = false;
     public TextAsset dummyUserChara;
     public CsvModel<UserChara> userChara = new CsvModel<UserChara>();
     public CsvModel<UserChara> UserChara { get { return userChara; } }
@@ -83,10 +84,21 @@ public class ModelManager : Singleton<ModelManager>
     private CsvModel<UserStar> userStar = new CsvModel<UserStar>();
     public CsvModel<UserStar> UserStar { get { return userStar; } }
 
+    [SerializeField] private TextAsset masterHelpAsset;
+    private CsvModel<MasterHelp> masterHelp = new CsvModel<MasterHelp>();
+    public CsvModel<MasterHelp> MasterHelp { get { return masterHelp; } }
+
+
     private SaveData saveData = new SaveData();
 
     private void Save()
     {
+        if (!isInitializedLocal)
+        {
+            return;
+        }
+
+
         saveData.savedUserGameData = userGameData;
 
         saveData.savedUserChara = userChara.All;
@@ -195,6 +207,7 @@ public class ModelManager : Singleton<ModelManager>
 
         masterAchievement.Load(masterAchievementAsset);
         masterGacha.Load(masterGachaAsset);
+        masterHelp.Load(masterHelpAsset);
 
         var initialChara = new CsvModel<UserChara>();
         initialChara.Load(dummyUserChara);
@@ -288,6 +301,8 @@ public class ModelManager : Singleton<ModelManager>
         }
 
         CollectableItem.OnCollect.AddListener(CollectItem);
+
+        isInitializedLocal = true;
     }
 
     public MasterChara GetMasterChara(int charaId)

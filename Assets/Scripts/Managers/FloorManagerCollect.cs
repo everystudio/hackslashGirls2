@@ -86,7 +86,7 @@ public class FloorManagerCollect : FloorManager
 
             CollectableItem collectableItem = Instantiate(collectableItemPrefab, transform).GetComponent<CollectableItem>();
             // 80%の確率でコインを獲得する
-            if (UnityEngine.Random.Range(0, 100) < 80)
+            if (UnityEngine.Random.Range(0, 100) < itemDropRate)
             {
                 int amount = area_id * 100;
                 collectableItem.Initialize(ModelManager.Instance.GetMasterItem(Defines.CoinItemID), amount);
