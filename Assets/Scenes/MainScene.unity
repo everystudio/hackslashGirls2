@@ -4338,7 +4338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 250.00003}
+  m_AnchoredPosition: {x: 0, y: 250.00006}
   m_SizeDelta: {x: -200, y: 153.86}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &845337485
@@ -14354,6 +14354,7 @@ MonoBehaviour:
   OnChangeUserGameData:
     m_PersistentCalls:
       m_Calls: []
+  masterHelpAsset: {fileID: 4900000, guid: 22026b7c489af2b40bed2a6f915c86fe, type: 3}
 --- !u!1001 &2746511539598743094
 PrefabInstance:
   m_ObjectHideFlags: 0

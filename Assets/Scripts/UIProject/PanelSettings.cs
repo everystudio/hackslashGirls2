@@ -16,6 +16,10 @@ public class PanelSettings : UIPanel
     [SerializeField] private EventFloat onBGMVolumeChange;
     [SerializeField] private EventFloat onSFXVolumeChange;
 
+    [SerializeField] private Transform contentRoot;
+    [SerializeField] private HelpButton helpButtonPrefab;
+    [SerializeField] private HelpDetail helpDetail;
+
     protected override void initialize()
     {
         base.initialize();
@@ -27,6 +31,17 @@ public class PanelSettings : UIPanel
         masterVolumeSlider.onValueChanged.AddListener(OnChangeVolumeMaster);
         bgmVolumeSlider.onValueChanged.AddListener(OnChangeVolumeBGM);
         sfxVolumeSlider.onValueChanged.AddListener(OnChangeVolumeSFX);
+        helpDetail.gameObject.SetActive(false);
+
+        foreach (var masterHelp in ModelManager.Instance.MasterHelp.List)
+        {
+            var helpButton = Instantiate(helpButtonPrefab, contentRoot);
+            helpButton.Initialize(masterHelp, (masterHelp) =>
+            {
+                helpDetail.gameObject.SetActive(true);
+                helpDetail.Initialize(masterHelp);
+            });
+        }
 
     }
 

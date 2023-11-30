@@ -170,7 +170,7 @@ public class GameManager : SingletonStateMachineBase<GameManager>
         public override void OnUpdateState()
         {
             base.OnUpdateState();
-
+#if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.F2))
             {
                 Debug.Log("F2");
@@ -198,6 +198,7 @@ public class GameManager : SingletonStateMachineBase<GameManager>
                     ModelManager.Instance.AddStar(userChara.chara_id, 1000);
                 }
             }
+#endif
         }
         public override void OnExitState()
         {

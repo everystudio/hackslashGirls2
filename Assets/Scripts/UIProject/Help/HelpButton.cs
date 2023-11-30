@@ -9,9 +9,15 @@ public class HelpButton : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private TextMeshProUGUI text;
 
-    public void Initialize(string text, UnityEngine.Events.UnityAction onClick)
+    private MasterHelp masterHelp;
+
+    public void Initialize(MasterHelp masterHelp, UnityEngine.Events.UnityAction<MasterHelp> onClick)
     {
-        this.text.text = text;
-        button.onClick.AddListener(onClick);
+        this.masterHelp = masterHelp;
+        this.text.text = masterHelp.title;
+        button.onClick.AddListener(() =>
+        {
+            onClick(this.masterHelp);
+        });
     }
 }
