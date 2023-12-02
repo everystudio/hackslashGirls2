@@ -14,6 +14,12 @@ public class PanelGachaTop : MonoBehaviour
     [SerializeField] private PanelGachaKakunin panelKakunin;
     [SerializeField] private PanelGachaResult panelGachaResult;
 
+    [SerializeField] private Button openProvideButton;
+    [SerializeField] private Button closeProvideButton;
+    [SerializeField] private GameObject providePanel;
+    [SerializeField] private Transform contentRoot;
+    [SerializeField] private GachaProbBanner gachaProbBannerPrefab;
+
     private void Start()
     {
         panelKakunin.gameObject.SetActive(false);
@@ -30,6 +36,33 @@ public class PanelGachaTop : MonoBehaviour
             index += 1;
         }
         */
+
+        openProvideButton.onClick.AddListener(() =>
+        {
+            providePanel.SetActive(true);
+        });
+        closeProvideButton.onClick.AddListener(() =>
+        {
+            providePanel.SetActive(false);
+        });
+        providePanel.SetActive(false);
+
+        int gacha_id = 1;
+
+        int totalProb = 0;
+        foreach (var masterGacha in ModelManager.Instance.MasterGacha.List.FindAll(p => p.gacha_id == gacha_id))
+        {
+            totalProb += masterGacha.prob;
+        }
+
+        foreach (var masterGacha in ModelManager.Instance.MasterGacha.List)
+        {
+            var gachaProbBanner = Instantiate(gachaProbBannerPrefab, contentRoot);
+
+            MasterChara masterChara = ModelManager.Instance.GetMasterChara(masterGacha.chara_id);
+            float prob = (float)masterGacha.prob / totalProb * 100f;
+            gachaProbBanner.Set($"{masterChara.chara_name}(☆{masterChara.initial_star})", prob);
+        }
 
 
         Redraw();

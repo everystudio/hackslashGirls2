@@ -38,7 +38,6 @@ public class PanelSettings : UIPanel
             var helpButton = Instantiate(helpButtonPrefab, contentRoot);
             helpButton.Initialize(masterHelp, (masterHelp) =>
             {
-                helpDetail.gameObject.SetActive(true);
                 helpDetail.Initialize(masterHelp);
             });
         }
